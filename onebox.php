@@ -119,6 +119,7 @@ class Onebox {
 		?>
     <div class="wrap">
     	<?php screen_icon(); ?>
+    	<?php if(self::isCurlInstalled()) { ?>
         <h2><?php _e( 'Onebox Options', 'onebox' ) ?></h2>
         <form action="options.php" method="POST">
             <?php settings_fields( 'onebox' ); ?>
@@ -130,6 +131,11 @@ class Onebox {
         <?php
         $atts = array('url' =>self::$sampleLink);
         echo self::renderOneboxShortcode($atts); ?>
+        <?php } else { ?>
+	    <h2>Error</h2>
+	    <p>The cURL extension for PHP is required and not installed.</p>
+	    <p>See <a href="http://www.php.net/manual/en/curl.installation.php">this page</a> for more information</p>
+        <?php } ?>
         <hr/>
         <p><?php _e( 'Onebox Plugin for Wordpress by', 'onebox' ) ?> <a href="http://www.surrealroad.com">Surreal Road</a>. <?php echo self::surrealTagline(); ?>.</p>
         <p><?php _e( 'Plugin version', 'onebox' ) ?> <?php echo self::$version; ?></p>
@@ -178,6 +184,16 @@ class Onebox {
 	function surrealTagline() {
 		$lines = file(plugins_url("/surreal.strings", __FILE__ ) , FILE_IGNORE_NEW_LINES);
 		return "Hyperlink " . $lines[array_rand($lines)];
+	}
+
+	// ### Checks for presence of the cURL extension. http://cleverwp.com/function-curl-php-extension-loaded/
+	function isCurlInstalled() {
+	    if  (in_array  ('curl', get_loaded_extensions())) {
+	        return true;
+	    }
+	    else{
+	        return false;
+	    }
 	}
 
 }

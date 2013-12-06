@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors',1);
 
-require_once 'lib/OpenGraph.php';
+require_once("lib/OpenGraph.php");
 require_once("lib/Encoding.php");
 
 $url = urldecode($_GET["url"]);
