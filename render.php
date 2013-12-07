@@ -91,17 +91,17 @@ function onebox_generate($data, $full=true) {
 		return '<p><a href="'.$data['url'].'" target="_blank" rel="nofollow">'.$data['title'].'</a></p>';
 	} else {
 		$result = '<div class="onebox-result">';
-		$result .='<div class="source"><div class="info">';
+		$result .='<div class="onebox-source"><div class="onebox-info">';
 		$result .='<a href="'.$data['url'].'" target="_blank" rel="nofollow">';
-		if($data['favicon']) $result .='<img class="favicon" src="'.$data['favicon'].'">';
-		$result .= $data['sitename'].'</a>';
+		if($data['favicon']) $result .='<img class="onebox-favicon" src="'.$data['favicon'].'">';
+		$result .= '<span>'.$data['sitename'].'</span></a>';
 		$result .='</div></div>';
 		$result .='<div class="onebox-result-body">';
-		if(isset($data['image'])) $result .='<a href="'.$data['url'].'" target="_blank" rel="nofollow"><img src="'.$data['image'].'" class="thumbnail"></a>';
+		if(isset($data['image'])) $result .='<a href="'.$data['url'].'" target="_blank" rel="nofollow"><img src="'.$data['image'].'" class="onebox-thumbnail"></a>';
 		$result .='<h4><a href="'.$data['url'].'" target="_blank" rel="nofollow">'.$data['title'].'</a></h4>';
-		$result .='<p class="description">'.\ForceUTF8\Encoding::toUTF8($data['description']).'</p>';
+		$result .='<p class="onebox-description">'.\ForceUTF8\Encoding::toUTF8($data['description']).'</p>';
 		$result .='</div>';
-		$result .='<div class="clearfix"></div>';
+		$result .='<div class="onebox-clearfix"></div>';
 		$result .='</div>';
 		return $result;
 	}
@@ -171,8 +171,8 @@ function get_opengraph_data($url) {
 	$data['description']=$graph->description;
 	$data['image']=$graph->image;
 	if(isset($data['image'])) {
-		$data['imagewidth']=$graph->image->width;
-		$data['imageheight']=$graph->image->height;
+		@$data['imagewidth']=$graph->image->width;
+		@$data['imageheight']=$graph->image->height;
 	}
 	$data['sitename']=$graph->site_name;
 	return $data;
@@ -207,7 +207,11 @@ function get_favicon($doc) {
 	$xml = simplexml_import_dom($doc);
 	if($xml) {
 		$arr = $xml->xpath('//link[@rel="shortcut icon"]');
-		$icon = $arr[0]['href'];
+		if(isset($arr[0]['href'])) $icon = $arr[0]['href'];
+		else {
+			$arr = $xml->xpath('//link[@rel="icon"]');
+			if(isset($arr[0]['href'])) $icon = $arr[0]['href'];
+		}
 	}
 	return $icon;
 }

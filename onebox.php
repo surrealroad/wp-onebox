@@ -57,7 +57,6 @@ class Onebox {
 	}
 
 	public function admin_init() {
-	    wp_register_style( 'oneboxStylesheet', plugins_url( '/style/onebox.css' , __FILE__ ) );
 	    add_settings_section('onebox-general', __( 'General Settings', 'onebox' ), array($this, 'initGeneralSettings'), 'onebox');
     }
 
@@ -85,35 +84,23 @@ class Onebox {
 	// Enqueue Static CSS
 
 	function enqueueStyles() {
-
-		wp_enqueue_script(
-			'onebox',
-			plugins_url( '/style/onebox.css' , __FILE__ )
-		);
-	}
-
-	// Enqueue Static CSS in admin area
-
-	function enqueueAdminStyles() {
-       /*
-        * It will be called only on your plugin admin page, enqueue our stylesheet here
-        */
+       wp_register_style( 'oneboxStylesheet', plugins_url( '/style/onebox.css' , __FILE__ ) );
        wp_enqueue_style( 'oneboxStylesheet' );
    }
 
 
 	// add [onebox] shortcode
 
-	function renderOneboxShortcode($atts) {
+	static function renderOneboxShortcode($atts) {
 	   extract(shortcode_atts(array('url' => ""), $atts));
-	   return '<div class="onebox-container" data-onebox-type="normal"><a href="'.$url.'">Link</a></div>' ;
+	   return '<div class="onebox-container" data-onebox-type="normal"><a href="'.$url.'">'.__( 'Link', 'onebox').'</a></div>' ;
 	}
 
 	// add admin options page
 
 	function pluginSettings() {
 	    $page = add_options_page( 'Onebox', 'Onebox', 'manage_options', 'onebox', array ( $this, 'optionsPage' ));
-	    add_action( 'admin_print_styles-' . $page, array ( $this, 'enqueueAdminStyles' ) );
+	    add_action( 'admin_print_styles-' . $page, array ( $this, 'enqueueStyles' ) );
 	}
 	function optionsPage() {
 		?>
@@ -128,13 +115,11 @@ class Onebox {
         </form>
         <h2><?php _e( 'Onebox Example', 'onebox' ) ?></h2>
         <pre>[onebox url="<?php echo self::$sampleLink; ?>"]</pre>
-        <?php
-        $atts = array('url' =>self::$sampleLink);
-        echo self::renderOneboxShortcode($atts); ?>
+        <?php echo do_shortcode('[onebox url="'.self::$sampleLink.'"]'); ?>
         <?php } else { ?>
-	    <h2>Error</h2>
-	    <p>The cURL extension for PHP is required and not installed.</p>
-	    <p>See <a href="http://www.php.net/manual/en/curl.installation.php">this page</a> for more information</p>
+	    <h2><?php _e( 'Error', 'onebox'); ?></h2>
+	    <p><?php _e( 'The cURL extension for PHP is required and not installed.', 'onebox'); ?></p>
+	    <p><?php _e( 'See <a href="http://www.php.net/manual/en/curl.installation.php">this page</a> for more information', 'onebox'); ?></p>
         <?php } ?>
         <hr/>
         <p><?php _e( 'Onebox Plugin for Wordpress by', 'onebox' ) ?> <a href="http://www.surrealroad.com">Surreal Road</a>. <?php echo self::surrealTagline(); ?>.</p>
@@ -198,8 +183,9 @@ class Onebox {
 
 }
 
-$onebox = new Onebox();
 
 // shortcodes (must be declared outside of class)
 add_shortcode('onebox', array('Onebox', 'renderOneboxShortcode'));
+
+$onebox = new Onebox();
 
