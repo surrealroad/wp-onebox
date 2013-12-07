@@ -20,7 +20,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
-class Onebox {
+class OneboxPlugin {
 
 	//Version
 	static $version ='0';
@@ -185,7 +185,7 @@ class Onebox {
 
 
 // shortcodes (must be declared outside of class)
-add_shortcode('onebox', array('Onebox', 'renderOneboxShortcode'));
+add_shortcode('onebox', array('OneboxPlugin', 'renderOneboxShortcode'));
 
-$onebox = new Onebox();
+$oneboxPlugin = new OneboxPlugin();
 
