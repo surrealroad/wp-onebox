@@ -12,7 +12,7 @@ require_once("lib/Encoding.php");
 
 // set up list of parsers to include
 $parsers = array(
-	//"itunes",
+	"itunes",
 	"opengraph",
 	"twittercard",
 	"meta",
@@ -24,11 +24,14 @@ class Onebox {
 	// variables
 	public $properties = array(
 		"url",
+		"displayurl",
+		"countrycode",
 		"sitename",
 		"title",
 		"image",
 		"favicon",
 		"description",
+		"additional",
 	);
 
 	public $data = array();
@@ -43,10 +46,10 @@ class Onebox {
 		}
 
 		$this->data['url'] = $url;
+		$this->data['countrycode'] = self::user_cc();
 	}
 
 	public function outputjson() {
-		//$data = onebox_data($url);
 		$output = array('url'=>$this->data['url'], 'data'=>$this->data, 'onebox'=>self::onebox_generate($this->data, true));
 		return json_encode($output);
 	}
@@ -81,14 +84,10 @@ class Onebox {
 	// get user country code
 
 	private function user_cc() {
-		/*
-		include_once ("library/geo/geoip.inc");
-		$gi = geoip_open("library/geo/GeoIP.dat",GEOIP_STANDARD);
-		return geoip_country_code_by_addr($gi, $_SERVER['REMOTE_ADDR']); // http://stackoverflow.com/questions/55768/how-do-i-find-a-users-ip-address-with-php
-		*/
-		//return "CA";
-		// http://www.electrictoolbox.com/php-geoip-notice-ip-address-not-found/
-		return @geoip_country_code_by_name($_SERVER['HTTP_X_FORWARDED_FOR']/*$_SERVER['REMOTE_ADDR']*/);
+		if(function_exists("geoip_country_code_by_name")) {
+			// http://www.electrictoolbox.com/php-geoip-notice-ip-address-not-found/
+			return @geoip_country_code_by_name($_SERVER['HTTP_X_FORWARDED_FOR']/*$_SERVER['REMOTE_ADDR']*/);
+		}
 	}
 
 	// http://snipplr.com/view.php?codeview&id=36437
@@ -153,16 +152,20 @@ class Onebox {
 		if(!$full) {
 			return '<p><a href="'.$data['url'].'" target="_blank" rel="nofollow">'.$data['title'].'</a></p>';
 		} else {
+			if($data['displayurl']) $url = $data['displayurl'];
+			else $url = $data['url'];
+
 			$result = '<div class="'.self::writeClasses().'">';
 			$result .='<div class="onebox-source"><div class="onebox-info">';
-			$result .='<a href="'.$data['url'].'" target="_blank" rel="nofollow">';
+			$result .='<a href="'.$url.'" target="_blank" rel="nofollow">';
 			if($data['favicon']) $result .='<img class="onebox-favicon" src="'.self::sanitize_favicon($data['favicon'], $data['url']).'">';
 			$result .= '<span>'.$data['sitename'].'</span></a>';
 			$result .='</div></div>';
 			$result .='<div class="onebox-result-body">';
-			if(isset($data['image'])) $result .='<a href="'.$data['url'].'" target="_blank" rel="nofollow"><img src="'.$data['image'].'" class="onebox-thumbnail"></a>';
-			$result .='<h4><a href="'.$data['url'].'" target="_blank" rel="nofollow">'.$data['title'].'</a></h4>';
+			if($data['image']) $result .='<a href="'.$url.'" target="_blank" rel="nofollow"><img src="'.$data['image'].'" class="onebox-thumbnail"></a>';
+			$result .='<h4><a href="'.$url.'" target="_blank" rel="nofollow">'.$data['title'].'</a></h4>';
 			$result .='<p class="onebox-description">'.\ForceUTF8\Encoding::toUTF8($data['description']).'</p>';
+			if($data['additional']) $result .= '<p class="onebox-additional">'.\ForceUTF8\Encoding::toUTF8($data['additional']).'</p>';
 			$result .='</div>';
 			$result .='<div class="onebox-clearfix"></div>';
 			$result .='</div>';

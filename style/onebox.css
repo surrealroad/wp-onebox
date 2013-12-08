@@ -70,6 +70,17 @@
 	box-shadow: none;
 }
 
+span.onebox-stars, span.onebox-stars span {
+    display: block;
+    background: url(stars.png) 0 -16px repeat-x;
+    width: 80px;
+    height: 16px;
+}
+
+span.onebox-stars span {
+    background-position: 0 0;
+}
+
 /* http://nicolasgallagher.com/micro-clearfix-hack/ */
 .onebox-clearfix:before, .onebox-clearfix:after {
     content: " "; /* 1 */

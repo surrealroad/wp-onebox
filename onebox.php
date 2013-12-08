@@ -106,20 +106,29 @@ class OneboxPlugin {
 		?>
     <div class="wrap">
     	<?php screen_icon(); ?>
+    	<h2><?php _e( 'Onebox Options', 'onebox' ) ?></h2>
     	<?php if(self::isCurlInstalled()) { ?>
-        <h2><?php _e( 'Onebox Options', 'onebox' ) ?></h2>
-        <form action="options.php" method="POST">
-            <?php settings_fields( 'onebox' ); ?>
-            <?php do_settings_sections('onebox'); ?>
-            <?php submit_button(); ?>
-        </form>
-        <h2><?php _e( 'Onebox Example', 'onebox' ) ?></h2>
-        <pre>[onebox url="<?php echo self::$sampleLink; ?>"]</pre>
-        <?php echo do_shortcode('[onebox url="'.self::$sampleLink.'"]'); ?>
+	        <?php if(!self::isGeoIPInstalled()) { ?>
+	    		<div id="message" class="error">
+	    		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://www.php.net/manual/en/book.geoip.php">GeoIP PHP Extension</a> is not installed.', 'onebox'); ?> <?php _e( 'Some functionality will be disabled.', 'onebox'); ?></p>
+	    		</div>
+	    	<?php } elseif(!self::isGeoIPWorking()) { ?>
+	    		<div id="message" class="error">
+	    		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://www.php.net/manual/en/book.geoip.php">GeoIP PHP Extension</a> database (GeoIPCity.dat) is not installed.', 'onebox'); ?> <?php _e( 'Some functionality will be disabled.', 'onebox'); ?></p>
+	    		</div>
+	    	<?php } ?>
+	        <form action="options.php" method="POST">
+	            <?php settings_fields( 'onebox' ); ?>
+	            <?php do_settings_sections('onebox'); ?>
+	            <?php submit_button(); ?>
+	        </form>
+	        <h2><?php _e( 'Onebox Example', 'onebox' ) ?></h2>
+	        <pre>[onebox url="<?php echo self::$sampleLink; ?>"]</pre>
+	        <?php echo do_shortcode('[onebox url="'.self::$sampleLink.'"]'); ?>
         <?php } else { ?>
-	    <h2><?php _e( 'Error', 'onebox'); ?></h2>
-	    <p><?php _e( 'The cURL extension for PHP is required and not installed.', 'onebox'); ?></p>
-	    <p><?php _e( 'See <a href="http://www.php.net/manual/en/curl.installation.php">this page</a> for more information', 'onebox'); ?></p>
+        	<div id="message" class="error">
+        	<p><strong><?php _e( 'Error:', 'onebox'); ?></strong> <?php _e( 'The cURL extension for PHP is required and not installed.', 'onebox'); ?></p>
+		    <p><?php _e( 'See <a href="http://www.php.net/manual/en/curl.installation.php">this page</a> for more information', 'onebox'); ?></p>
         <?php } ?>
         <hr/>
         <p><?php _e( 'Onebox Plugin for Wordpress by', 'onebox' ) ?> <a href="http://www.surrealroad.com">Surreal Road</a>. <?php echo self::surrealTagline(); ?>.</p>
@@ -179,6 +188,15 @@ class OneboxPlugin {
 	    else{
 	        return false;
 	    }
+	}
+
+	function isGeoIPInstalled() {
+		return function_exists("geoip_country_code_by_name");
+	}
+
+	function isGeoIPWorking() {
+		if(@geoip_record_by_name('php.net')) return true;
+		return false;
 	}
 
 }
