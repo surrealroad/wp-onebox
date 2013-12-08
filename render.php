@@ -7,19 +7,43 @@ error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors',1);
 
-require_once("lib/OpenGraph.php");
 require_once("lib/Encoding.php");
 
-$parsers = array("itunes");
+
+// set up list of parsers to include
+$parsers = array(
+	//"itunes",
+	"opengraph",
+	"twittercard",
+	"meta",
+	"favicon",
+);
 
 class Onebox {
 
 	// variables
-	public $data = array(
-		'url' =>"",
-		'title' => "",
-		'favicon' => "",
+	public $properties = array(
+		"url",
+		"sitename",
+		"title",
+		"image",
+		"favicon",
+		"description",
 	);
+
+	public $data = array();
+
+	private $classes = array("onebox-result");
+	private $doc = NULL;
+
+	public function __construct($url) {
+
+		foreach($this->properties as $property) {
+			$this->data[$property] = "";
+		}
+
+		$this->data['url'] = $url;
+	}
 
 	public function outputjson() {
 		//$data = onebox_data($url);
@@ -27,10 +51,36 @@ class Onebox {
 		return json_encode($output);
 	}
 
+	public function addClass($class) {
+		$this->classes[] = $class;
+	}
+
+	private function writeClasses() {
+		return implode(" ", $this->classes);
+	}
+
+	public function getDoc() {
+		if(!isset($this->doc) && isset($this->data['url'])) {
+			$this->doc = new DomDocument();
+			libxml_use_internal_errors(true);
+			$this->doc->loadHTMLFile($this->data['url']);
+			libxml_use_internal_errors(false);
+		}
+		return $this->doc;
+	}
+
+	public function availableProperties() {
+		$found = array();
+		foreach($this->properties as $property) {
+			if($this->data[$property]) $found[] = $property;
+		}
+		return $found;
+	}
+
 
 	// get user country code
 
-	function user_cc() {
+	private function user_cc() {
 		/*
 		include_once ("library/geo/geoip.inc");
 		$gi = geoip_open("library/geo/GeoIP.dat",GEOIP_STANDARD);
@@ -90,22 +140,23 @@ class Onebox {
 	    return $currency_before . number_format( $amount, 2 ) . $currency_after;
 	}
 
-	/*
-	// generate onebox
-	function onebox($url, $full=true) {
+	private function sanitize_favicon($favicon, $url) {
+		// Prepend "http://" to any link missing the HTTP protocol text.
+		if ($favicon && preg_match('|^https*://|', $favicon) === 0) {
+			if (substr($favicon, 0, 1) !== '/') $favicon = "/".$favicon;
+			$favicon = parse_url($url, PHP_URL_SCHEME)."://".parse_url($url, PHP_URL_HOST) . $favicon;
+		}
+		return $favicon;
+	}
 
-		$data = onebox_data($url);
-		return onebox_generate($data, $full);
-	}*/
-
-	function onebox_generate($data, $full=true) {
+	private function onebox_generate($data, $full=true) {
 		if(!$full) {
 			return '<p><a href="'.$data['url'].'" target="_blank" rel="nofollow">'.$data['title'].'</a></p>';
 		} else {
-			$result = '<div class="onebox-result">';
+			$result = '<div class="'.self::writeClasses().'">';
 			$result .='<div class="onebox-source"><div class="onebox-info">';
 			$result .='<a href="'.$data['url'].'" target="_blank" rel="nofollow">';
-			if($data['favicon']) $result .='<img class="onebox-favicon" src="'.$data['favicon'].'">';
+			if($data['favicon']) $result .='<img class="onebox-favicon" src="'.self::sanitize_favicon($data['favicon'], $data['url']).'">';
 			$result .= '<span>'.$data['sitename'].'</span></a>';
 			$result .='</div></div>';
 			$result .='<div class="onebox-result-body">';
@@ -129,127 +180,17 @@ class Onebox {
 	}
 }
 
-$onebox = new Onebox();
+$onebox = new Onebox(urldecode($_GET["url"]));
 
-$onebox->data['url'] = urldecode($_GET["url"]);
-
-
-// generate onebox data from url
-
-function onebox_data($onebox) {
-
-	$url = $onebox->data['url'];
-
-	$doc = new DomDocument();
-	libxml_use_internal_errors(true);
-	$doc->loadHTMLFile($url);
-	libxml_use_internal_errors(false);
-
-	//$file = file_get_contents($url);
-	//$doc = HTML5_Parser::parse($file);
-	// try to get open graph data
-	$odata =  get_opengraph_data($url);
-	$onebox->update($odata);
-	//var_dump($data);
-	if(!$onebox->data['url'] || !$onebox->data['title'] || !$onebox->data['description'] || !$onebox->data['image']) {
-		// try to get twitter data
-		$tdata = get_twittercard_data($doc);
-		$onebox->update($tdata);
-	}
-	if(!$onebox->data['title'] || !$onebox->data['description']) {
-		// try to get html data
-		$hdata = get_html_meta_data($doc);
-		$onebox->update($hdata);
-	}
-	if(!$onebox->data['url']) $onebox->data['url']=$url;
-	elseif(substr($onebox->data['url'],0,18)=='http://www.gog.com') $onebox->data['url']=$url; // don't override gog tags
-	elseif(substr($onebox->data['url'],0,5)=='http%') $onebox->data['url']=$url; // fix for weird gog issue
-	if(!$onebox->data['sitename']) $onebox->data['sitename']= str_ireplace('www.', '', parse_url($url, PHP_URL_HOST));
-	$favicon=get_favicon($doc);
-	// Prepend "http://" to any link missing the HTTP protocol text.
-	if ($favicon && preg_match('|^https*://|', $favicon) === 0)
-	{
-		if (substr($favicon, 0, 1) !== '/') $favicon = "/".$favicon;
-		$favicon = parse_url($url, PHP_URL_SCHEME)."://".parse_url($url, PHP_URL_HOST) . $favicon;
-	}
-	$onebox->data['favicon'] = $favicon;
+// run parsers
+foreach($parsers as $parser) {
+	include("parsers/".$parser.".php");
 }
 
-function get_opengraph_data($url) {
-
-	//try to get open graph data
-	// http://stackoverflow.com/questions/7454644/how-to-get-open-graph-protocol-of-a-webpage-by-php
-	$graph = OpenGraph::fetch($url);
-	//foreach ($graph as $key => $value) echo "$key => $value";
-	$data = array();
-	$data['url']=$graph->url;
-	$data['title']=$graph->title;
-	$data['description']=$graph->description;
-	$data['image']=$graph->image;
-	if(isset($data['image'])) {
-		@$data['imagewidth']=$graph->image->width;
-		@$data['imageheight']=$graph->image->height;
-	}
-	$data['sitename']=$graph->site_name;
-
-	return $data;
-}
-
-function get_twittercard_data($doc) {
-	//try to twitter data
-	// http://stackoverflow.com/questions/7454644/how-to-get-open-graph-protocol-of-a-webpage-by-php
-	$xpath = new DOMXPath($doc);
-	$query = '//*/meta[starts-with(@name, \'twitter:\')]';
-	$metas = $xpath->query($query);
-	$rmetas=array();
-	foreach ($metas as $meta) {
-		$name = $meta->getAttribute('name');
-		$content = $meta->getAttribute('content');
-		// don't overwrite existing properties
-		if(!$rmetas[$name]) $rmetas[$name] = $content;
-	}
-	$data = "";
-	if($rmetas) {
-		$data['url']=$rmetas['twitter:url'];
-		$data['title']=$rmetas['twitter:title'];
-		$data['description']=$rmetas['twitter:description'];
-		$data['image']=$rmetas['twitter:image'];
-	}
-	return $data;
-}
-
-function get_favicon($doc) {
-	// http://stackoverflow.com/questions/5701593/how-to-get-a-websites-favicon-with-php
-	$xpath = new DOMXPath($doc);
-	$xml = simplexml_import_dom($doc);
-	if($xml) {
-		$arr = $xml->xpath('//link[@rel="shortcut icon"]');
-		if(isset($arr[0]['href'])) $icon = $arr[0]['href'];
-		else {
-			$arr = $xml->xpath('//link[@rel="icon"]');
-			if(isset($arr[0]['href'])) $icon = $arr[0]['href'];
-		}
-	}
-	return $icon;
-}
-
-function get_html_meta_data($doc) {
-	// http://stackoverflow.com/questions/3711357/get-title-and-meta-tags-of-external-site
-	$nodes = $doc->getElementsByTagName('title');
-	$data['title']=$nodes->item(0)->nodeValue;
-	$metas = $doc->getElementsByTagName('meta');
-
-	for ($i = 0; $i < $metas->length; $i++)
-	{
-		$meta = $metas->item($i);
-		if($meta->getAttribute('name') == 'description')
-			$data['description'] = $meta->getAttribute('content');
-	}
-	return $data;
-}
-
-onebox_data($onebox);
 echo $onebox->outputjson();
+
+//onebox_data($onebox);
+
 
 
 
