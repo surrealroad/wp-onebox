@@ -25,20 +25,7 @@
 						if(data.data.displayurl) var url = data.data.displayurl;
 						else var url = data.data.url;
 
-						var template = '<div class="{class}">'
-							+ '<div class="onebox-source"><div class="onebox-info">'
-							+ '<a href="{url}" target="_blank" rel="nofollow">'
-							+ '{favicon}'
-							+ '<span>{sitename}</span></a>'
-							+ '</div></div>'
-							+ '<div class="onebox-result-body">'
-							+ '<a href="{url}" target="_blank" rel="nofollow">{image}</a>'
-							+ '<h4><a href="{url}" target="_blank" rel="nofollow">{title}</a></h4>'
-							+ '<p class="onebox-description">{description}</p>'
-							+ '<p class="onebox-additional">{additional}</p>'
-							+ '</div>'
-							+ '<div class="onebox-clearfix"></div>'
-							+ '</div>';
+						var template = OneboxParams.template;
 
 						template = template.replace('{url}', url);
 						template = template.replace('{class}', data.classes);

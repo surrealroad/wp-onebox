@@ -39,10 +39,12 @@ class OneboxPlugin {
 
 	static function install(){
 		update_option("onebox_version",self::$version);
+		add_option("onebox_template_html", '<div class="{class}"><div class="onebox-source"><div class="onebox-info"><a href="{url}" target="_blank" rel="nofollow">{favicon}<span>{sitename}</span></a></div></div><div class="onebox-result-body"><a href="{url}" target="_blank" rel="nofollow">{image}</a><h4><a href="{url}" target="_blank" rel="nofollow">{title}</a></h4><p class="onebox-description">{description}</p><p class="onebox-additional">{additional}</p></div><div class="onebox-clearfix"></div></div>');
 	}
 
 	static function uninstall(){
 		delete_option('onebox_version');
+		delete_option('onebox_template_html');
 	}
 
 
@@ -57,11 +59,12 @@ class OneboxPlugin {
 	}
 
 	public function admin_init() {
-	    add_settings_section('onebox-general', __( 'General Settings', 'onebox' ), array($this, 'initGeneralSettings'), 'onebox');
+	    add_settings_section('onebox-template', __( 'Template Configuration', 'onebox' ), array($this, 'initTemplateSettings'), 'onebox');
+	    add_settings_field('onebox-template-html', __( 'Template HTML', 'onebox' ), array($this, 'templateHTMLInput'), 'onebox', 'onebox-template');
     }
 
     function registerSettings() {
-
+		register_setting('onebox', 'onebox_template_html');
     }
 
 	// Enqueue Javascript
@@ -76,7 +79,8 @@ class OneboxPlugin {
 
 		// build settings to use in script http://ottopress.com/2010/passing-parameters-from-php-to-javascripts-in-plugins/
 		$params = array(
-			"renderURL" => plugins_url( '/render.php' , __FILE__ )
+			"renderURL" => plugins_url( '/render.php' , __FILE__ ),
+			"template" => get_option('onebox_template_html')
 		);
 		wp_localize_script( 'onebox', 'OneboxParams', $params );
 	}
@@ -137,8 +141,12 @@ class OneboxPlugin {
     <?php
 	}
 
-    function initGeneralSettings() {
+    function initTemplateSettings() {
 
+    }
+
+    function templateHTMLInput(){
+    	self::text_area('onebox_template_html', __( 'HTML template to use for Oneboxes', 'onebox' ) );
     }
 
     // utility functions
