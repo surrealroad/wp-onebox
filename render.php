@@ -32,6 +32,9 @@ class Onebox {
 		"favicon",
 		"description",
 		"additional",
+		"footer",
+		"footerbutton",
+		"titlebutton",
 	);
 
 	public $data = array();

@@ -39,7 +39,24 @@ class OneboxPlugin {
 
 	static function install(){
 		update_option("onebox_version",self::$version);
-		add_option("onebox_template_html", '<div class="{class}"><div class="onebox-source"><div class="onebox-info"><a href="{url}" target="_blank" rel="nofollow">{favicon}<span>{sitename}</span></a></div></div><div class="onebox-result-body"><a href="{url}" target="_blank" rel="nofollow">{image}</a><h4><a href="{url}" target="_blank" rel="nofollow">{title}</a></h4><p class="onebox-description">{description}</p><p class="onebox-additional">{additional}</p></div><div class="onebox-clearfix"></div></div>');
+		add_option("onebox_template_html", '<div class=" {class}">
+<div class="onebox-header-wrapper">
+<div class="onebox-header">
+<a href="{url}" target="_blank" rel="nofollow">{favicon}<span class="onebox-sitename">{sitename}</span></a> / <span class="onebox-title"><a href="{url}" target="_blank" rel="nofollow">{title}</a></span>
+<span class="onebox-title-button">{title-button}</span>
+</div>
+</div>
+<div class="onebox-body-wrapper">
+<div class="onebox-body">
+<a href="{url}" target="_blank" rel="nofollow">{image}</a>
+<p class="onebox-description">{description} — <a href="{url}">Read More</a></p><p class="onebox-additional">{additional}</p>
+</div>
+</div>
+<div class="onebox-footer-wrapper">
+<div class="onebox-footer"><span class="onebox-footer-info">{footer}</span><span class="onebox-footer-button">{footer-button}</span></div>
+</div>
+<div class="onebox-clearfix"></div>
+</div>');
 	}
 
 	static function uninstall(){

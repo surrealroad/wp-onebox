@@ -27,14 +27,17 @@
 
 						var template = OneboxParams.template;
 
-						template = template.replace('{url}', url);
-						template = template.replace('{class}', data.classes);
-						template = template.replace('{favicon}', '<img src="' + data.data.favicon + '" class="onebox-favicon"/>');
-						template = template.replace('{sitename}', data.data.sitename);
-						template = template.replace('{image}', '<img src="' + data.data.image + '" class="onebox-thumbnail"/>');
-						template = template.replace('{title}', data.data.title);
-						template = template.replace('{description}', data.data.description);
-						template = template.replace('{additional}', data.data.additional);
+						template = template.replace(/{url}/g, url);
+						template = template.replace(/{class}/g, data.classes);
+						template = template.replace(/{favicon}/g, '<img src="' + data.data.favicon + '" class="onebox-favicon"/>');
+						template = template.replace(/{sitename}/g, data.data.sitename);
+						template = template.replace(/{image}/g, '<img src="' + data.data.image + '" class="onebox-thumbnail"/>');
+						template = template.replace(/{title}/g, data.data.title);
+						template = template.replace(/{description}/g, data.data.description);
+						template = template.replace(/{additional}/g, data.data.additional);
+						template = template.replace(/{footer}/g, data.data.footer);
+						template = template.replace(/{title-button}/g, data.data.titlebutton);
+						template = template.replace(/{footer-button}/g, data.data.footerbutton);
 
 						$this.html(template);
 						// convert ratings

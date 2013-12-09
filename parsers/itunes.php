@@ -43,15 +43,10 @@ function get_itunes_data($url, $cc="") {
 			if(strlen($desc)>300) $desc=substr($desc,0,300)."&hellip;";
 			$additional = array();
 
-
-			if($type=="mac-software") {
-				$url = 'http://itunes.apple.com/app/id'.$ID;
-			}
-
-			if(isset($info['results'][0]['version'])) $additional[]= 'Current version: '.$info['results'][0]['version'];
+			if(isset($info['results'][0]['version'])) $data['footer']= 'Current version: '.$info['results'][0]['version'];
 			if(isset($info['results'][0]['contentAdvisoryRating'])) $additional[]= 'Content advisory rating: '.$info['results'][0]['contentAdvisoryRating'];
-			if(isset($info['results'][0]['averageUserRating'])) $additional[]= '<span class="onebox-stars">'.$info['results'][0]['averageUserRating'].'</span> Based on '.intval($info['results'][0]['userRatingCount']).' ratings';
-			if(isset($info['results'][0]['formattedPrice'])) $additional[]= 'Price: '.$info['results'][0]['formattedPrice'];
+			if(isset($info['results'][0]['averageUserRating'])) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$info['results'][0]['averageUserRating'].'</span> ('.intval($info['results'][0]['userRatingCount']).')</div>';
+			if(isset($info['results'][0]['formattedPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$info['results'][0]['formattedPrice'].'</a>';
 
 			$data['description'] = $desc;
 			if(count($additional)) {
