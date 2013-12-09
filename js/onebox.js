@@ -19,11 +19,40 @@
 					requesturl = OneboxParams.renderURL + '?url=' + encodeURIComponent(url);
 				//console.log(requesturl);
 
-				$.getJSON(requesturl, function (onebox) {
-					//console.log(onebox.onebox); //uncomment this for debug
-					if(onebox.onebox) $this.html(onebox.onebox);
-					// convert ratings
-					$this.find('.onebox-stars').oneboxstars();
+				$.getJSON(requesturl, function (data) {
+					//console.log(data.data); //uncomment this for debug
+					if(data.data) {
+						if(data.data.displayurl) var url = data.data.displayurl;
+						else var url = data.data.url;
+
+						var template = '<div class="{class}">'
+							+ '<div class="onebox-source"><div class="onebox-info">'
+							+ '<a href="{url}" target="_blank" rel="nofollow">'
+							+ '{favicon}'
+							+ '<span>{sitename}</span></a>'
+							+ '</div></div>'
+							+ '<div class="onebox-result-body">'
+							+ '<a href="{url}" target="_blank" rel="nofollow">{image}</a>'
+							+ '<h4><a href="{url}" target="_blank" rel="nofollow">{title}</a></h4>'
+							+ '<p class="onebox-description">{description}</p>'
+							+ '<p class="onebox-additional">{additional}</p>'
+							+ '</div>'
+							+ '<div class="onebox-clearfix"></div>'
+							+ '</div>';
+
+						template = template.replace('{url}', url);
+						template = template.replace('{class}', data.classes);
+						template = template.replace('{favicon}', '<img src="' + data.data.favicon + '" class="onebox-favicon"/>');
+						template = template.replace('{sitename}', data.data.sitename);
+						template = template.replace('{image}', '<img src="' + data.data.image + '" class="onebox-thumbnail"/>');
+						template = template.replace('{title}', data.data.title);
+						template = template.replace('{description}', data.data.description);
+						template = template.replace('{additional}', data.data.additional);
+
+						$this.html(template);
+						// convert ratings
+						$this.find('.onebox-stars').oneboxstars();
+					}
 				});
 			});
 		}

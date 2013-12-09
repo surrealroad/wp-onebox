@@ -50,7 +50,10 @@ class Onebox {
 	}
 
 	public function outputjson() {
-		$output = array('url'=>$this->data['url'], 'data'=>$this->data, 'onebox'=>self::onebox_generate($this->data, true));
+		$this->data['favicon'] = self::sanitize_favicon($this->data['favicon'], $this->data['url']);
+		$this->data['description'] = \ForceUTF8\Encoding::toUTF8($this->data['description']);
+		$this->data['additional'] = \ForceUTF8\Encoding::toUTF8($this->data['additional']);
+		$output = array('data'=>$this->data, 'classes'=>self::writeClasses());
 		return json_encode($output);
 	}
 
@@ -146,31 +149,6 @@ class Onebox {
 			$favicon = parse_url($url, PHP_URL_SCHEME)."://".parse_url($url, PHP_URL_HOST) . $favicon;
 		}
 		return $favicon;
-	}
-
-	private function onebox_generate($data, $full=true) {
-		if(!$full) {
-			return '<p><a href="'.$data['url'].'" target="_blank" rel="nofollow">'.$data['title'].'</a></p>';
-		} else {
-			if($data['displayurl']) $url = $data['displayurl'];
-			else $url = $data['url'];
-
-			$result = '<div class="'.self::writeClasses().'">';
-			$result .='<div class="onebox-source"><div class="onebox-info">';
-			$result .='<a href="'.$url.'" target="_blank" rel="nofollow">';
-			if($data['favicon']) $result .='<img class="onebox-favicon" src="'.self::sanitize_favicon($data['favicon'], $data['url']).'">';
-			$result .= '<span>'.$data['sitename'].'</span></a>';
-			$result .='</div></div>';
-			$result .='<div class="onebox-result-body">';
-			if($data['image']) $result .='<a href="'.$url.'" target="_blank" rel="nofollow"><img src="'.$data['image'].'" class="onebox-thumbnail"></a>';
-			$result .='<h4><a href="'.$url.'" target="_blank" rel="nofollow">'.$data['title'].'</a></h4>';
-			$result .='<p class="onebox-description">'.\ForceUTF8\Encoding::toUTF8($data['description']).'</p>';
-			if($data['additional']) $result .= '<p class="onebox-additional">'.\ForceUTF8\Encoding::toUTF8($data['additional']).'</p>';
-			$result .='</div>';
-			$result .='<div class="onebox-clearfix"></div>';
-			$result .='</div>';
-			return $result;
-		}
 	}
 
 	// update missing data values with new data values
