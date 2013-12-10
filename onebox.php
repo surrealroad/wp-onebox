@@ -47,8 +47,8 @@ class OneboxPlugin {
 </div>
 </div>
 <div class="onebox-body-wrapper">
-<div class="onebox-body">
 <a href="{url}" target="_blank" rel="nofollow">{image}</a>
+<div class="onebox-body">
 <p class="onebox-description">{description} — <a href="{url}">Read More</a></p><p class="onebox-additional">{additional}</p>
 </div>
 </div>
