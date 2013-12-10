@@ -18,6 +18,8 @@ function get_itunes_data($onebox, $cc="") {
 
 	$url = $onebox->data['url'];
 
+	$data=array();
+
 	$data['favicon']='http://www.apple.com/favicon.ico';
 
 	$query = parse_url($url, PHP_URL_QUERY);
@@ -50,7 +52,7 @@ function get_itunes_data($onebox, $cc="") {
 			if(isset($info['results'][0]['contentAdvisoryRating'])) $additional[]= 'Content advisory rating: '.$info['results'][0]['contentAdvisoryRating'];
 
 			$footer = array();
-			if(isset($info['results'][0]['releaseDate'])) $footer[]= 'Released: <strong>'.date('F jS Y', strtotime($info['results'][0]['releaseDate'])).'</strong> ';
+			if(isset($info['results'][0]['releaseDate'])) $footer[]= 'Released: <strong>'.date('F jS Y', strtotime($info['results'][0]['releaseDate'])).'</strong>';
 			if(isset($info['results'][0]['version'])) $footer[]= 'Current version: <strong>'.$info['results'][0]['version'].'</strong>';
 
 			if(isset($info['results'][0]['averageUserRating'])) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$info['results'][0]['averageUserRating'].'</span> ('.intval($info['results'][0]['userRatingCount']).')</div>';

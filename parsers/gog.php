@@ -1,6 +1,6 @@
 <?php
 
-// iTunes Parser for OneBox
+// Gog.com Parser for OneBox
 
 if(isset($onebox)) {
 
@@ -15,6 +15,8 @@ if(isset($onebox)) {
 
 
 function get_gog_data($url) {
+
+	$data=array();
 
 	$query = parse_url($url, PHP_URL_QUERY);
 	if($query) {

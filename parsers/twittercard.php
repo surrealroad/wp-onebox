@@ -27,7 +27,7 @@ function get_twittercard_data($doc) {
 		// don't overwrite existing properties
 		if(!$rmetas[$name]) $rmetas[$name] = $content;
 	}
-	$data = "";
+	$data=array();
 	if($rmetas) {
 		//$data['url']=$rmetas['twitter:url'];
 		$data['title']=$rmetas['twitter:title'];

@@ -12,6 +12,7 @@ require_once("lib/Encoding.php");
 
 // set up list of parsers to include
 $parsers = array(
+	"github",
 	"gog",
 	"itunes",
 	"opengraph",

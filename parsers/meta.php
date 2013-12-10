@@ -16,6 +16,7 @@ if(isset($onebox)) {
 
 function get_html_meta_data($doc) {
 	// http://stackoverflow.com/questions/3711357/get-title-and-meta-tags-of-external-site
+	$data=array();
 	$nodes = $doc->getElementsByTagName('title');
 	$data['title']=$nodes->item(0)->nodeValue;
 	$metas = $doc->getElementsByTagName('meta');
