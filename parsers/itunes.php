@@ -8,13 +8,15 @@ if(isset($onebox)) {
 
 	if($match) {
 		$onebox->addClass("onebox-itunes");
-		$data = get_itunes_data($onebox->data['url'], $onebox->data['countrycode']);
+		$data = get_itunes_data($onebox, $onebox->data['countrycode']);
 		$onebox->update($data);
 	}
 }
 
 
-function get_itunes_data($url, $cc="") {
+function get_itunes_data($onebox, $cc="") {
+
+	$url = $onebox->data['url'];
 
 	$data['favicon']='http://www.apple.com/favicon.ico';
 
@@ -36,17 +38,23 @@ function get_itunes_data($url, $cc="") {
 			elseif(isset($info['results'][0]['collectionType'])) $type = $info['results'][0]['collectionType'];
 
 			if(isset($info['results'][0]['trackCensoredName'])) $data['title']= $info['results'][0]['trackCensoredName'];
-			elseif(isset($info['results'][0]['collectionCensoredName'])) $data['title']= $info['results'][0]['collectionCensoredName'];
+			elseif(isset($info['results'][0]['collectionCensoredName'])) $data['title']= $info['results'][0]['artistName']." &mdash; ".$info['results'][0]['collectionCensoredName'];
 
 			$desc ="";
 			if(isset($info['results'][0]['description'])) $desc=$info['results'][0]['description'];
-			if(strlen($desc)>300) $desc=substr($desc,0,300)."&hellip;";
-			$additional = array();
+			if(strlen($desc)>300) $desc=substr($desc,0,300);
 
-			if(isset($info['results'][0]['version'])) $data['footer']= 'Current version: '.$info['results'][0]['version'];
+			$additional = array();
+			if(isset($info['results'][0]['trackCount']) && $info['results'][0]['trackCount']>1) $additional[]= $info['results'][0]['trackCount']. ' tracks';
+			if(isset($info['results'][0]['primaryGenreName'])) $additional[]= 'Genre: '.$info['results'][0]['primaryGenreName'];
 			if(isset($info['results'][0]['contentAdvisoryRating'])) $additional[]= 'Content advisory rating: '.$info['results'][0]['contentAdvisoryRating'];
+
+			if(isset($info['results'][0]['version'])) $data['footer']= 'Current version: <strong>'.$info['results'][0]['version'].'</strong>';
+			elseif(isset($info['results'][0]['releaseDate'])) $data['footer']= 'Released: <strong>'.date('F jS Y', strtotime($info['results'][0]['releaseDate'])).'</strong>';
+
 			if(isset($info['results'][0]['averageUserRating'])) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$info['results'][0]['averageUserRating'].'</span> ('.intval($info['results'][0]['userRatingCount']).')</div>';
 			if(isset($info['results'][0]['formattedPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$info['results'][0]['formattedPrice'].'</a>';
+			elseif(isset($info['results'][0]['collectionPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$onebox->country_currency($cc, $info['results'][0]['collectionPrice']).'</a>';
 
 			$data['description'] = $desc;
 			if(count($additional)) {

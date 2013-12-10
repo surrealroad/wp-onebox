@@ -98,7 +98,7 @@ class Onebox {
 
 	// http://snipplr.com/view.php?codeview&id=36437
 
-	private function country_currency( $bc, $amount = 0 ) {
+	public function country_currency( $bc, $amount = 0 ) {
 	    $currency_before = '';
 	    $currency_after = '';
 

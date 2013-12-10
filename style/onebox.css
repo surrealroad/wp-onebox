@@ -105,6 +105,11 @@
 	background-color: #415a84;
 }
 
+.onebox-body {
+	display:block;
+	overflow:hidden;
+}
+
 .onebox-footer-wrapper {
 	border-top:1px solid #ddd;
 	background:white;
@@ -170,14 +175,14 @@
 	border-top-color:#999;
 }
 
-.onebox-body img.onebox-thumbnail {
+img.onebox-thumbnail {
 	max-width: 25%;
 	height: auto;
 	max-height: 150px;
-	float: left;
 	margin-right: 10px;
 	border-radius: 3px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+	float: left;
 }
 
 .onebox-description {
@@ -187,7 +192,8 @@
 .dark .onebox-description {
 	color:#fff;
 }
-p.onebox-description {
+
+p.onebox-description, p.onebox-additional {
 	margin-bottom: 0;
 }
 
