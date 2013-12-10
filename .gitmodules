@@ -1,0 +1,3 @@
+[submodule "lib/html5lib"]
+	path = lib/html5lib
+	url = https://surrealroad@github.com/html5lib/html5lib-php.git

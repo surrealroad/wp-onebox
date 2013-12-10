@@ -34,6 +34,7 @@ Additional credits
 - OpenGraph
 - AmazonECS Class
 - Encoding
+- html5lib
 - Default template based on "Facebook Notify Widget" by Pixels Daily and GitHub-jQuery-Repo-Widget
 
 == Installation ==

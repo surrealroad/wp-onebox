@@ -49,8 +49,9 @@ function get_itunes_data($onebox, $cc="") {
 			if(isset($info['results'][0]['primaryGenreName'])) $additional[]= 'Genre: '.$info['results'][0]['primaryGenreName'];
 			if(isset($info['results'][0]['contentAdvisoryRating'])) $additional[]= 'Content advisory rating: '.$info['results'][0]['contentAdvisoryRating'];
 
-			if(isset($info['results'][0]['version'])) $data['footer']= 'Current version: <strong>'.$info['results'][0]['version'].'</strong>';
-			elseif(isset($info['results'][0]['releaseDate'])) $data['footer']= 'Released: <strong>'.date('F jS Y', strtotime($info['results'][0]['releaseDate'])).'</strong>';
+			$footer = array();
+			if(isset($info['results'][0]['releaseDate'])) $footer[]= 'Released: <strong>'.date('F jS Y', strtotime($info['results'][0]['releaseDate'])).'</strong> ';
+			if(isset($info['results'][0]['version'])) $footer[]= 'Current version: <strong>'.$info['results'][0]['version'].'</strong>';
 
 			if(isset($info['results'][0]['averageUserRating'])) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$info['results'][0]['averageUserRating'].'</span> ('.intval($info['results'][0]['userRatingCount']).')</div>';
 			if(isset($info['results'][0]['formattedPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$info['results'][0]['formattedPrice'].'</a>';
@@ -59,6 +60,9 @@ function get_itunes_data($onebox, $cc="") {
 			$data['description'] = $desc;
 			if(count($additional)) {
 				$data['additional'] = implode("<br/>", $additional);
+			}
+			if(count($footer)) {
+				$data['footer'] = implode(" &middot; ", $footer);
 			}
 		}
 	}
