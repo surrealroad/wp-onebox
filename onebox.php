@@ -39,7 +39,7 @@ class OneboxPlugin {
 
 	static function install(){
 		update_option("onebox_version",self::$version);
-		add_option("onebox_template_html", '<div class="{class}">
+		add_option("onebox_template_html", '<div class="onebox-result {class}">
 <div class="onebox-header-wrapper">
 <div class="onebox-header">
 <a href="{url}" target="_blank" rel="nofollow">{favicon}<span class="onebox-sitename">{sitename}</span></a> / <span class="onebox-title"><a href="{url}" target="_blank" rel="nofollow">{title}</a></span>
