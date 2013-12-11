@@ -68,12 +68,15 @@
 
 .onebox-header {
 	font-size: 1.2em;
-	line-height: 20px;
+	line-height: 22px;
+	display: table;
+	width: 100%;
 }
 
 .onebox-title {
 	font-weight: bold;
 	text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+	margin-right: 10px;
 }
 
 .onebox-header img.onebox-favicon {
@@ -86,10 +89,21 @@
 	box-shadow: none;
 }
 
-.onebox-header span.onebox-title-button {
+.onebox-header .onebox-title-button {
 	float: right;
 	font-size: 0.75em;
 	color: #999;
+	line-height: 22px;
+}
+.onebox-header .onebox-title-button a{
+	display:inline-block;
+	height:21px;
+	color:#666;
+	border:1px solid #ddd;
+	border-radius:3px;
+	padding:0 5px;
+	background: white;
+	line-height: 21px;
 }
 
 .onebox-body-wrapper {

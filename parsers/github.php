@@ -42,6 +42,11 @@ function get_github_data($url) {
 		if(count($commits)) $footer[]= count($commits). ' commits';
 		if(isset($commits[0]['commit']['committer']['date'])) $footer[]= 'Latest commit: <strong>'.date('F jS Y', strtotime($commits[0]['commit']['committer']['date'])).'</strong> ';
 
+		$titlebutton = array();
+		if(isset($info['watchers_count'])) $titlebutton[]='<a href="'.$repoURL.'/watchers" title="See watchers">'.$info['watchers_count'].'</a>';
+		if(isset($info['stargazers_count'])) $titlebutton[]='<a href="'.$repoURL.'/stargazers" title="See stargazers">'.$info['stargazers_count'].'</a>';
+		if(isset($info['forks_count'])) $titlebutton[]='<a href="'.$repoURL.'/netowrk/members" title="See forkers">'.$info['forks_count'].'</a>';
+
 		if(isset($info['archive_url'])) $data['footerbutton']= '<a href="'.$repoURL.'/zipball/master" title="Get an archive of this repository">Download as zip</a>';
 
 		if(count($additional)) {
@@ -49,6 +54,9 @@ function get_github_data($url) {
 		}
 		if(count($footer)) {
 			$data['footer'] = implode(" &middot; ", $footer);
+		}
+		if(count($titlebutton)) {
+			$data['titlebutton'] = implode(" ", $titlebutton);
 		}
 	}
 
