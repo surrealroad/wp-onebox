@@ -28,8 +28,15 @@ function get_github_data($url) {
 
 		$options  = array('http' => array('user_agent' => 'Surreal Road Onebox'));
 		$context  = stream_context_create($options);
-		@$info = json_decode(file_get_contents("https://api.github.com/repos/".$repo, false, $context), true);
-		@$commits = json_decode(file_get_contents("https://api.github.com/repos/".$repo."/commits", false, $context), true);
+
+		$infoURL = "https://api.github.com/repos/".$repo;
+		$commitsURL = $infoURL."/commits";
+		if(get_option('onebox_github_apikey')) {
+			$infoURL .= "?access_token=".get_option('onebox_github_apikey');
+			$commitsURL .= "?access_token=".get_option('onebox_github_apikey');
+		}
+		@$info = json_decode(file_get_contents($infoURL, false, $context), true);
+		@$commits = json_decode(file_get_contents($commitsURL, false, $context), true);
 
 		//print_r($commits[0]['commit']);
 
@@ -37,17 +44,18 @@ function get_github_data($url) {
 		if(isset($info['description'])) $data['description']= $info['description'];
 
 		$additional = array();
+		if(isset($commits[0]['commit']['message'])) $additional[]= "Latest commit: ".$commits[0]['commit']['message'];
 
 		$footer = array();
-		if(count($commits)) $footer[]= count($commits). ' commits';
+		if(count($commits)) $footer[]= '<strong>'.count($commits).'</strong> commits';
 		if(isset($commits[0]['commit']['committer']['date'])) $footer[]= 'Latest commit: <strong>'.date('F jS Y', strtotime($commits[0]['commit']['committer']['date'])).'</strong> ';
 
 		$titlebutton = array();
-		if(isset($info['watchers_count'])) $titlebutton[]='<a href="'.$repoURL.'/watchers" title="See watchers">'.$info['watchers_count'].'</a>';
-		if(isset($info['stargazers_count'])) $titlebutton[]='<a href="'.$repoURL.'/stargazers" title="See stargazers">'.$info['stargazers_count'].'</a>';
-		if(isset($info['forks_count'])) $titlebutton[]='<a href="'.$repoURL.'/netowrk/members" title="See forkers">'.$info['forks_count'].'</a>';
+		if(isset($info['watchers_count'])) $titlebutton[]='<a href="'.$repoURL.'/watchers" title="See watchers"><i class="onebox-icon onebox-eye-icon"></i> '.$info['watchers_count'].'</a>';
+		if(isset($info['stargazers_count'])) $titlebutton[]='<a href="'.$repoURL.'/stargazers" title="See stargazers"><i class="onebox-icon onebox-star-icon"></i> '.$info['stargazers_count'].'</a>';
+		if(isset($info['forks_count'])) $titlebutton[]='<a href="'.$repoURL.'/network/members" title="See forkers"><i class="onebox-icon onebox-fork-icon"></i> '.$info['forks_count'].'</a>';
 
-		if(isset($info['archive_url'])) $data['footerbutton']= '<a href="'.$repoURL.'/zipball/master" title="Get an archive of this repository">Download as zip</a>';
+		if(isset($info['archive_url'])) $data['footerbutton']= '<a href="'.$repoURL.'/zipball/'.$info['default_branch'].'" title="Get an archive of this repository">Download as zip</a>';
 
 		if(count($additional)) {
 			$data['additional'] = implode("<br/>", $additional);

@@ -57,11 +57,15 @@ class OneboxPlugin {
 </div>
 <div class="onebox-clearfix"></div>
 </div>');
+		add_option("onebox_enable_css", true);
+		add_option("onebox_github_apikey", '');
 	}
 
 	static function uninstall(){
 		delete_option('onebox_version');
 		delete_option('onebox_template_html');
+		delete_option('onebox_enable_css');
+		delete_option('onebox_github_apikey');
 	}
 
 
@@ -78,10 +82,15 @@ class OneboxPlugin {
 	public function admin_init() {
 	    add_settings_section('onebox-template', __( 'Template Configuration', 'onebox' ), array($this, 'initTemplateSettings'), 'onebox');
 	    add_settings_field('onebox-template-html', __( 'Template HTML', 'onebox' ), array($this, 'templateHTMLInput'), 'onebox', 'onebox-template');
+	    add_settings_field('onebox-enable-css', __( 'Enable Styles', 'onebox' ), array($this, 'templateCSSInput'), 'onebox', 'onebox-template');
+	    add_settings_section('onebox-features', __( 'Special Features', 'onebox' ), array($this, 'initFeatureSettings'), 'onebox');
+	    add_settings_field('onebox-github-api', __( 'GitHub API Token', 'onebox' ), array($this, 'githubAPIInput'), 'onebox', 'onebox-features');
     }
 
     function registerSettings() {
 		register_setting('onebox', 'onebox_template_html');
+		register_setting('onebox', 'onebox_enable_css');
+		register_setting('onebox', 'onebox_github_apikey');
     }
 
 	// Enqueue Javascript
@@ -106,7 +115,7 @@ class OneboxPlugin {
 
 	function enqueueStyles() {
        wp_register_style( 'oneboxStylesheet', plugins_url( '/style/onebox.css' , __FILE__ ) );
-       wp_enqueue_style( 'oneboxStylesheet' );
+       if(get_option('onebox_enable_css')) wp_enqueue_style( 'oneboxStylesheet' );
    }
 
 
@@ -121,7 +130,7 @@ class OneboxPlugin {
 
 	function pluginSettings() {
 	    $page = add_options_page( 'Onebox', 'Onebox', 'manage_options', 'onebox', array ( $this, 'optionsPage' ));
-	    add_action( 'admin_print_styles-' . $page, array ( $this, 'enqueueStyles' ) );
+	    if(get_option('onebox_enable_css')) add_action( 'admin_print_styles-' . $page, array ( $this, 'enqueueStyles' ) );
 	}
 	function optionsPage() {
 		?>
@@ -162,8 +171,20 @@ class OneboxPlugin {
 
     }
 
+    function initFeatureSettings() {
+
+    }
+
     function templateHTMLInput(){
     	self::text_area('onebox_template_html', __( 'HTML template to use for Oneboxes', 'onebox' ) );
+    }
+
+    function templateCSSInput(){
+    	self::checkbox_input('onebox_enable_css', __( 'Enable built-in styles', 'onebox' ) );
+    }
+
+    function githubAPIInput(){
+    	self::text_input('onebox_github_apikey', __( 'GitHub API token (<a href="https://github.com/settings/tokens/new">generate one</a>)', 'onebox' ) );
     }
 
     // utility functions

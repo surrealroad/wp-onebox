@@ -8,7 +8,11 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors',1);
 
 require_once("lib/Encoding.php");
-
+// load wordpress for access to stored options
+define( 'WP_USE_THEMES', false );
+require_once( dirname( dirname( dirname( dirname( __FILE__ )))) . '/wp-load.php' );
+//Allow translations
+load_plugin_textdomain('onebox', false, basename(dirname(__FILE__)).'/languages');
 
 // set up list of parsers to include
 $parsers = array(
