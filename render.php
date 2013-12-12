@@ -44,7 +44,6 @@ class Onebox {
 	);
 
 	public $data = array();
-
 	private $classes = array();
 	private $doc = NULL;
 
@@ -56,6 +55,7 @@ class Onebox {
 
 		$this->data['url'] = $url;
 		$this->data['countrycode'] = self::user_cc();
+		if(get_option('onebox_enable_dark_css')) $this->classes[] = "dark";
 	}
 
 	public function outputjson() {
@@ -63,6 +63,7 @@ class Onebox {
 		$this->data['description'] = \ForceUTF8\Encoding::toUTF8($this->data['description']);
 		$this->data['additional'] = \ForceUTF8\Encoding::toUTF8($this->data['additional']);
 		if(!$this->data['sitename']) $this->data['sitename']= str_ireplace('www.', '', parse_url($url, PHP_URL_HOST));
+		if(!get_option('onebox_affiliate_links')) $this->data['displayurl']="";
 		$output = array('data'=>$this->data, 'classes'=>self::writeClasses());
 		return json_encode($output);
 	}

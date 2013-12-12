@@ -1,7 +1,7 @@
 === Onebox ===
 Tags: links, prettifying, hyperlinks
 Stable tag: 0
-Tested up to: 3.7.1
+Tested up to: 3.8
 
 A Fancy Hyperlink Display Plugin for WordPress
 

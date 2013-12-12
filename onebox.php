@@ -25,6 +25,7 @@ class OneboxPlugin {
 	//Version
 	static $version ='0';
 	static $sampleLink = "https://github.com/surrealroad/wp-onebox";
+	static $enableAffiliate = true;
 
 	//Options and defaults
 
@@ -39,6 +40,7 @@ class OneboxPlugin {
 
 	static function install(){
 		update_option("onebox_version",self::$version);
+		update_option("onebox_affiliate_links", self::$enableAffiliate);
 		add_option("onebox_template_html", '<div class="onebox-result {class}">
 <div class="onebox-header-wrapper">
 <div class="onebox-header">
@@ -58,11 +60,13 @@ class OneboxPlugin {
 <div class="onebox-clearfix"></div>
 </div>');
 		add_option("onebox_enable_css", true);
+		add_option("onebox_enable_dark_css", false);
 		add_option("onebox_github_apikey", '');
 	}
 
 	static function uninstall(){
 		delete_option('onebox_version');
+		delete_option('onebox_affiliate_links');
 		delete_option('onebox_template_html');
 		delete_option('onebox_enable_css');
 		delete_option('onebox_github_apikey');
@@ -83,6 +87,7 @@ class OneboxPlugin {
 	    add_settings_section('onebox-template', __( 'Template Configuration', 'onebox' ), array($this, 'initTemplateSettings'), 'onebox');
 	    add_settings_field('onebox-template-html', __( 'Template HTML', 'onebox' ), array($this, 'templateHTMLInput'), 'onebox', 'onebox-template');
 	    add_settings_field('onebox-enable-css', __( 'Enable Styles', 'onebox' ), array($this, 'templateCSSInput'), 'onebox', 'onebox-template');
+	    add_settings_field('onebox-enable-dark-css', __( 'Use Dark Theme', 'onebox' ), array($this, 'templateDarkCSSInput'), 'onebox', 'onebox-template');
 	    add_settings_section('onebox-features', __( 'Special Features', 'onebox' ), array($this, 'initFeatureSettings'), 'onebox');
 	    add_settings_field('onebox-github-api', __( 'GitHub API Token', 'onebox' ), array($this, 'githubAPIInput'), 'onebox', 'onebox-features');
     }
@@ -90,6 +95,7 @@ class OneboxPlugin {
     function registerSettings() {
 		register_setting('onebox', 'onebox_template_html');
 		register_setting('onebox', 'onebox_enable_css');
+		register_setting('onebox', 'onebox_enable_dark_css');
 		register_setting('onebox', 'onebox_github_apikey');
     }
 
@@ -123,7 +129,7 @@ class OneboxPlugin {
 
 	static function renderOneboxShortcode($atts) {
 	   extract(shortcode_atts(array('url' => ""), $atts));
-	   return '<div class="onebox-container" data-onebox-type="normal"><a href="'.$url.'">'.__( 'Link', 'onebox').'</a></div>' ;
+	   return '<div class="onebox-container"><a href="'.$url.'">'.__( 'Link', 'onebox').'</a></div>' ;
 	}
 
 	// add admin options page
@@ -155,6 +161,7 @@ class OneboxPlugin {
 	        <h2><?php _e( 'Onebox Example', 'onebox' ) ?></h2>
 	        <pre>[onebox url="<?php echo self::$sampleLink; ?>"]</pre>
 	        <?php echo do_shortcode('[onebox url="'.self::$sampleLink.'"]'); ?>
+	        <small><?php _e( 'Hyperlink colours will be based on your theme', 'onebox'); ?></small>
         <?php } else { ?>
         	<div id="message" class="error">
         	<p><strong><?php _e( 'Error:', 'onebox'); ?></strong> <?php _e( 'The cURL extension for PHP is required and not installed.', 'onebox'); ?></p>
@@ -163,6 +170,7 @@ class OneboxPlugin {
         <hr/>
         <p><?php _e( 'Onebox Plugin for Wordpress by', 'onebox' ) ?> <a href="http://www.surrealroad.com">Surreal Road</a>. <?php echo self::surrealTagline(); ?>.</p>
         <p><?php _e( 'Plugin version', 'onebox' ) ?> <?php echo self::$version; ?></p>
+        <small><?php _e( 'This plugin generates affiliate links in some cases in order to support its development (it does this through Javascript, so the original links are stored/indexed by bots). Modify the source, or do not use it if that makes you uncomfortable.', 'onebox' ) ?></small>
     </div>
     <?php
 	}
@@ -181,6 +189,10 @@ class OneboxPlugin {
 
     function templateCSSInput(){
     	self::checkbox_input('onebox_enable_css', __( 'Enable built-in styles', 'onebox' ) );
+    }
+
+    function templateDarkCSSInput(){
+    	self::checkbox_input('onebox_enable_dark_css', __( 'Enable dark theme', 'onebox' ) );
     }
 
     function githubAPIInput(){
