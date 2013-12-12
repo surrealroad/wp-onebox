@@ -44,18 +44,18 @@ function get_github_data($url) {
 		if(isset($info['description'])) $data['description']= $info['description'];
 
 		$additional = array();
-		if(isset($commits[0]['commit']['message'])) $additional[]= "Latest commit: ".$commits[0]['commit']['message'];
+		if(isset($commits[0]['commit']['message'])) $additional[]= __('Latest commit: ', "onebox").$commits[0]['commit']['message'];
 
 		$footer = array();
 		if(count($commits)) $footer[]= '<strong>'.count($commits).'</strong> commits';
-		if(isset($commits[0]['commit']['committer']['date'])) $footer[]= 'Latest commit: <strong>'.date('F jS Y', strtotime($commits[0]['commit']['committer']['date'])).'</strong> ';
+		if(isset($commits[0]['commit']['committer']['date'])) $footer[]= __('Latest commit: ', "onebox").'<strong>'.date('F jS Y', strtotime($commits[0]['commit']['committer']['date'])).'</strong> ';
 
 		$titlebutton = array();
-		if(isset($info['watchers_count'])) $titlebutton[]='<a href="'.$repoURL.'/watchers" title="See watchers"><i class="onebox-icon onebox-eye-icon"></i> '.$info['watchers_count'].'</a>';
-		if(isset($info['stargazers_count'])) $titlebutton[]='<a href="'.$repoURL.'/stargazers" title="See stargazers"><i class="onebox-icon onebox-star-icon"></i> '.$info['stargazers_count'].'</a>';
-		if(isset($info['forks_count'])) $titlebutton[]='<a href="'.$repoURL.'/network/members" title="See forkers"><i class="onebox-icon onebox-fork-icon"></i> '.$info['forks_count'].'</a>';
+		if(isset($info['watchers_count'])) $titlebutton[]='<a href="'.$repoURL.'/watchers" title="'.__('See watchers', "onebox").'"><i class="onebox-icon onebox-eye-icon"></i> '.$info['watchers_count'].'</a>';
+		if(isset($info['stargazers_count'])) $titlebutton[]='<a href="'.$repoURL.'/stargazers" title="'.__('See stargazers', "onebox").'"><i class="onebox-icon onebox-star-icon"></i> '.$info['stargazers_count'].'</a>';
+		if(isset($info['forks_count'])) $titlebutton[]='<a href="'.$repoURL.'/network/members" title="'.__('See forkers', "onebox").'"><i class="onebox-icon onebox-fork-icon"></i> '.$info['forks_count'].'</a>';
 
-		if(isset($info['archive_url'])) $data['footerbutton']= '<a href="'.$repoURL.'/zipball/'.$info['default_branch'].'" title="Get an archive of this repository">Download as zip</a>';
+		if(isset($info['archive_url'])) $data['footerbutton']= '<a href="'.$repoURL.'/zipball/'.$info['default_branch'].'" title="'.__('Get an archive of this repository', "onebox").'">'.__('Download as zip', "onebox").'</a>';
 
 		if(count($additional)) {
 			$data['additional'] = implode("<br/>", $additional);

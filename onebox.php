@@ -170,7 +170,9 @@ class OneboxPlugin {
         <hr/>
         <p><?php _e( 'Onebox Plugin for Wordpress by', 'onebox' ) ?> <a href="http://www.surrealroad.com">Surreal Road</a>. <?php echo self::surrealTagline(); ?>.</p>
         <p><?php _e( 'Plugin version', 'onebox' ) ?> <?php echo self::$version; ?></p>
+        <?php if(get_option('onebox_affiliate_links')) { ?>
         <small><?php _e( 'This plugin generates affiliate links in some cases in order to support its development (it does this through Javascript, so the original links are stored/indexed by bots). Modify the source, or do not use it if that makes you uncomfortable.', 'onebox' ) ?></small>
+        <?php } ?>
     </div>
     <?php
 	}
@@ -196,7 +198,7 @@ class OneboxPlugin {
     }
 
     function githubAPIInput(){
-    	self::text_input('onebox_github_apikey', __( 'GitHub API token (<a href="https://github.com/settings/tokens/new">generate one</a>)', 'onebox' ) );
+    	self::text_input('onebox_github_apikey', __( 'GitHub API token (<a href="https://github.com/settings/tokens/new">generate one</a>)<br/>This is required if you plan to use GitHub links on a busy site.', 'onebox' ) );
     }
 
     // utility functions

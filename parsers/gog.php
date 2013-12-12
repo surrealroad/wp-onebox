@@ -47,7 +47,7 @@ function get_gog_data($url) {
 		$data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$rating.'</span> ('.intval($ratingCount).')</div>';
 
 		$releaseDate = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/ul[contains(concat(' ', normalize-space(@class), ' '), ' details ')]/li")->item(3)->nodeValue;
-		if($releaseDate) $data['footer']= 'Released: <strong>'.$releaseDate.'</strong>';
+		if($releaseDate) $data['footer']= __('Released: ', "onebox").'<strong>'.$releaseDate.'</strong>';
 
 
 		$title = $finder->query('//title')->item(0)->nodeValue;
