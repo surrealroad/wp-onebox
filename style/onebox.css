@@ -270,6 +270,12 @@ i.onebox-icon {
 .onebox-fork-icon {
 	background-image: url("icon-fork.png");
 }
+.onebox-thumbsup-icon {
+	background-image: url("icon-thumbsup.png");
+}
+.onebox-trophy-icon {
+	background-image: url("icon-trophy.png");
+}
 
 /* http://nicolasgallagher.com/micro-clearfix-hack/ */
 .onebox-clearfix:before, .onebox-clearfix:after {
