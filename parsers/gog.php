@@ -38,6 +38,17 @@ function get_gog_data($url) {
 		//$img = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/img");
 		//$data['image']= $img->item(0)->getAttribute("src");
 
+		$additional = array();
+		$genrelist = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/ul[contains(concat(' ', normalize-space(@class), ' '), ' details ')]/li[0]/a");
+		if($genrelist) {
+			$genres = array();
+			foreach($genrelist->nodeValue as $genre) {
+				print_r($genre);
+				$genres[]=$genre;
+			}
+			$additional[]= __('Genre: ', "onebox").implode(", ", $genres);
+		}
+
 		$fullrating = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/ul/li/span[contains(concat(' ', normalize-space(@class), ' '), ' usr_rate ')]/span[contains(concat(' ', normalize-space(@class), ' '), ' usr_s_f ')]");
 		$halfrating = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/ul/li/span[contains(concat(' ', normalize-space(@class), ' '), ' usr_rate ')]/span[contains(concat(' ', normalize-space(@class), ' '), ' usr_s_h ')]");
 		$rating = $fullrating->length + 0.5 * $halfrating->length;
@@ -54,6 +65,10 @@ function get_gog_data($url) {
 		$regs = array();
 		if (preg_match('/(?<=\$)\d+(\.\d+)?\b/', $title, $regs)) {
 	    	$data['footerbutton']= '<a href="'.$data['displayurl'].'">$'.$regs[0].'</a>';
+		}
+
+		if(count($additional)) {
+			$data['additional'] = implode("<br/>", $additional);
 		}
 	}
 	return $data;
