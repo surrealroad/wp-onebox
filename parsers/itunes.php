@@ -47,9 +47,9 @@ function get_itunes_data($onebox, $cc="") {
 			if(strlen($desc)>300) $desc=substr($desc,0,300);
 
 			$additional = array();
-			if(isset($info['results'][0]['trackCount']) && $info['results'][0]['trackCount']>1) $additional[]= $info['results'][0]['trackCount']. ' tracks';
-			if(isset($info['results'][0]['primaryGenreName'])) $additional[]= 'Genre: '.$info['results'][0]['primaryGenreName'];
-			if(isset($info['results'][0]['contentAdvisoryRating'])) $additional[]= 'Content advisory rating: '.$info['results'][0]['contentAdvisoryRating'];
+			if(isset($info['results'][0]['trackCount']) && $info['results'][0]['trackCount']>1) $additional[]= $info['results'][0]['trackCount'].' '.__('tracks', "onebox");
+			if(isset($info['results'][0]['primaryGenreName'])) $additional[]= __('Genre: ', "onebox").$info['results'][0]['primaryGenreName'];
+			if(isset($info['results'][0]['contentAdvisoryRating'])) $additional[]= __('Content advisory rating: ', "onebox").$info['results'][0]['contentAdvisoryRating'];
 
 			$footer = array();
 			if(isset($info['results'][0]['releaseDate'])) $footer[]= __('Released: ', "onebox").'<strong>'.date('F jS Y', strtotime($info['results'][0]['releaseDate'])).'</strong>';
