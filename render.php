@@ -62,7 +62,7 @@ class Onebox {
 		$this->data['favicon'] = self::sanitize_favicon($this->data['favicon'], $this->data['url']);
 		$this->data['description'] = \ForceUTF8\Encoding::toUTF8($this->data['description']);
 		$this->data['additional'] = \ForceUTF8\Encoding::toUTF8($this->data['additional']);
-		if(!$this->data['sitename']) $this->data['sitename']= str_ireplace('www.', '', parse_url($url, PHP_URL_HOST));
+		if(!$this->data['sitename']) $this->data['sitename']= str_ireplace('www.', '', parse_url($this->data['url'], PHP_URL_HOST));
 		if(!get_option('onebox_affiliate_links')) $this->data['displayurl']="";
 		$output = array('data'=>$this->data, 'classes'=>self::writeClasses());
 		return json_encode($output);
