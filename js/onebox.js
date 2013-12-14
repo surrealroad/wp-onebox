@@ -27,6 +27,8 @@
 
 						var template = OneboxParams.template;
 
+						if(OneboxParams.dark) data.classes +=' dark';
+
 						template = template.replace(/{url}/g, url);
 						template = template.replace(/{class}/g, data.classes);
 						template = template.replace(/{favicon}/g, '<img src="' + data.data.favicon + '" class="onebox-favicon"/>');

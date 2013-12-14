@@ -3,9 +3,12 @@
 Generate Onebox HTML
 */
 
+/*
+// debug
 error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors',1);
+*/
 
 require_once("lib/Encoding.php");
 // load wordpress for access to stored options
@@ -47,7 +50,7 @@ class Onebox {
 	public $data = array();
 	private $classes = array();
 	private $doc = NULL;
-	private $cached = false;
+	public $cached = false;
 	public $shouldCacheLocation = false;
 
 	public function __construct($url) {
@@ -58,8 +61,6 @@ class Onebox {
 
 		$this->data['url'] = $url;
 		$this->data['countrycode'] = self::user_cc();
-		if(get_option('onebox_enable_dark_css')) $this->classes[] = "dark";
-		if(extension_loaded('apc') && get_option('onebox_enable_apc_cache')) $this->shouldCacheLocation = true;
 	}
 
 	public function outputjson() {
@@ -206,7 +207,7 @@ class Onebox {
 			$id = md5($this->data['url']);
 		}
 		$ttl = 43200; //12 * 60 * 60;
-		apc_store($id, $output, $ttl);
+		$this->cached = apc_store($id, $output, $ttl);
 	}
 }
 
@@ -218,10 +219,3 @@ foreach($parsers as $parser) {
 }
 
 echo $onebox->outputjson();
-
-//onebox_data($onebox);
-
-
-
-
-

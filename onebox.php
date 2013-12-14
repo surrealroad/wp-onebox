@@ -3,16 +3,20 @@
 Plugin Name: Onebox
 Plugin URI: https://github.com/surrealroad/wp-onebox
 Description: Replaces a boring hyperlink with a lovely Facebook/Twitter-style box with additional information about the destination page
-Version: 0
+Version: 0.5
 Author: Surreal Road Limited
 Author URI: http://www.surrealroad.com
 Text Domain: onebox
 Domain Path: /languages
 License: MIT
 */
+
+/*
+// debug
 error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors',1);
+*/
 
 // Make sure we don't expose any info if called directly
 if ( !function_exists( 'add_action' ) ) {
@@ -117,7 +121,8 @@ class OneboxPlugin {
 		// build settings to use in script http://ottopress.com/2010/passing-parameters-from-php-to-javascripts-in-plugins/
 		$params = array(
 			"renderURL" => plugins_url( '/render.php' , __FILE__ ),
-			"template" => get_option('onebox_template_html')
+			"template" => get_option('onebox_template_html'),
+			"dark" => get_option('onebox_enable_dark_css')
 		);
 		wp_localize_script( 'onebox', 'OneboxParams', $params );
 	}
