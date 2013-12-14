@@ -9,10 +9,22 @@ This plugin lets you use a shortcode `[onebox url="http://example.com"]` in plac
 
 The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 
+Requirements
+--
+Requires the cURL extension for PHP (http://www.php.net/manual/en/book.curl.php)
+
+The following modules are optional, but highly recommended:
+* APC extension for PHP
+* GeoIP extension for PHP
+
 Currently supported sites
 --
 * Any web page with Twitter metadata
 * Any web page with Facebook (OpenGraph) metadata
+* GitHub (github.com)
+* Steam (store.steampowered.com)
+* iTunes (itunes.com)
+* GOG (gog.com)
 
 Note
 --
