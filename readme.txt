@@ -16,6 +16,9 @@ The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 Requirements
 --
 Requires the cURL extension for PHP (http://www.php.net/manual/en/book.curl.php)
+The following modules are optional, but highly recommended:
+* APC extension for PHP
+* GeoIP extension for PHP
 
 Currently supported sites
 --

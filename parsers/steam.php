@@ -8,6 +8,7 @@ if(isset($onebox)) {
 
 	if($match) {
 		$onebox->addClass("onebox-steam");
+		$onebox->shouldCacheLocation = true;
 		$data = get_steam_data($onebox, $onebox->data['countrycode']);
 		$onebox->update($data);
 	}

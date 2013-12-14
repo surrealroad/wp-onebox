@@ -47,6 +47,8 @@ class Onebox {
 	public $data = array();
 	private $classes = array();
 	private $doc = NULL;
+	private $cached = false;
+	public $shouldCacheLocation = false;
 
 	public function __construct($url) {
 
@@ -57,15 +59,23 @@ class Onebox {
 		$this->data['url'] = $url;
 		$this->data['countrycode'] = self::user_cc();
 		if(get_option('onebox_enable_dark_css')) $this->classes[] = "dark";
+		if(extension_loaded('apc') && get_option('onebox_enable_apc_cache')) $this->shouldCacheLocation = true;
 	}
 
 	public function outputjson() {
-		$this->data['favicon'] = self::sanitize_favicon($this->data['favicon'], $this->data['url']);
-		$this->data['description'] = \ForceUTF8\Encoding::toUTF8($this->data['description']);
-		$this->data['additional'] = \ForceUTF8\Encoding::toUTF8($this->data['additional']);
-		if(!$this->data['sitename']) $this->data['sitename']= str_ireplace('www.', '', parse_url($this->data['url'], PHP_URL_HOST));
-		if(!get_option('onebox_affiliate_links')) $this->data['displayurl']="";
-		$output = array('data'=>$this->data, 'classes'=>self::writeClasses());
+		$cache = $this->readCache();
+		if($cache) {
+			$output = $cache;
+		} else {
+			$this->data['favicon'] = self::sanitize_favicon($this->data['favicon'], $this->data['url']);
+			$this->data['description'] = \ForceUTF8\Encoding::toUTF8($this->data['description']);
+			$this->data['additional'] = \ForceUTF8\Encoding::toUTF8($this->data['additional']);
+			if(!$this->data['sitename']) $this->data['sitename']= str_ireplace('www.', '', parse_url($this->data['url'], PHP_URL_HOST));
+			if(!get_option('onebox_affiliate_links')) $this->data['displayurl']="";
+			$output = array('data'=>$this->data, 'classes'=>self::writeClasses());
+			// cache result
+			$this->writeCache($output);
+		}
 		return json_encode($output);
 	}
 
@@ -170,6 +180,33 @@ class Onebox {
 				if(!isset($this->data[$key]) || !$this->data[$key]) $this->data[$key]=$value;
 			}
 		}
+	}
+
+	private function isAPCCacheInstalled() {
+		return extension_loaded('apc');
+	}
+
+	private function readCache() {
+		if(!get_option('onebox_enable_apc_cache') || !$this->isAPCCacheInstalled()) return false;
+
+		if($this->shouldCacheLocation) {
+			$id = md5($this->data['url'] & "|" & $this->data['countrycode']);
+		} else {
+			$id = md5($this->data['url']);
+		}
+		return apc_fetch($id);
+	}
+
+	private function writeCache($output) {
+		if(!get_option('onebox_enable_apc_cache') || !$this->isAPCCacheInstalled()) return false;
+
+		if($this->shouldCacheLocation) {
+			$id = md5($this->data['url'] & "|" & $this->data['countrycode']);
+		} else {
+			$id = md5($this->data['url']);
+		}
+		$ttl = 43200; //12 * 60 * 60;
+		apc_store($id, $output, $ttl);
 	}
 }
 

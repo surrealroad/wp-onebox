@@ -61,6 +61,7 @@ class OneboxPlugin {
 </div>');
 		add_option("onebox_enable_css", true);
 		add_option("onebox_enable_dark_css", false);
+		add_option("onebox_enable_apc_cache", true);
 		add_option("onebox_github_apikey", '');
 	}
 
@@ -69,6 +70,8 @@ class OneboxPlugin {
 		delete_option('onebox_affiliate_links');
 		delete_option('onebox_template_html');
 		delete_option('onebox_enable_css');
+		delete_option('onebox_enable_dark_css');
+		delete_option('onebox_enable_apc_cache');
 		delete_option('onebox_github_apikey');
 	}
 
@@ -89,6 +92,7 @@ class OneboxPlugin {
 	    add_settings_field('onebox-enable-css', __( 'Enable Styles', 'onebox' ), array($this, 'templateCSSInput'), 'onebox', 'onebox-template');
 	    add_settings_field('onebox-enable-dark-css', __( 'Use Dark Theme', 'onebox' ), array($this, 'templateDarkCSSInput'), 'onebox', 'onebox-template');
 	    add_settings_section('onebox-features', __( 'Special Features', 'onebox' ), array($this, 'initFeatureSettings'), 'onebox');
+	    add_settings_field('onebox-apc-cache', __( 'Enable APC Caching', 'onebox' ), array($this, 'apcCacheInput'), 'onebox', 'onebox-features');
 	    add_settings_field('onebox-github-api', __( 'GitHub API Token', 'onebox' ), array($this, 'githubAPIInput'), 'onebox', 'onebox-features');
     }
 
@@ -96,6 +100,7 @@ class OneboxPlugin {
 		register_setting('onebox', 'onebox_template_html');
 		register_setting('onebox', 'onebox_enable_css');
 		register_setting('onebox', 'onebox_enable_dark_css');
+		register_setting('onebox', 'onebox_enable_apc_cache');
 		register_setting('onebox', 'onebox_github_apikey');
     }
 
@@ -153,6 +158,11 @@ class OneboxPlugin {
 	    		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://www.php.net/manual/en/book.geoip.php">GeoIP PHP Extension</a> database (GeoIPCity.dat) is not installed.', 'onebox'); ?> <?php _e( 'Some functionality will be disabled.', 'onebox'); ?></p>
 	    		</div>
 	    	<?php } ?>
+	    	<?php if(!self::isAPCCacheInstalled()) { ?>
+		    	<div id="message" class="error">
+	    		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://php.net/manual/en/book.apc.php">Alternative PHP Cache Extension</a> is not installed.', 'onebox'); ?> <?php _e( 'Caching will be disabled.', 'onebox'); ?></p>
+	    		</div>
+	    	<?php } ?>
 	        <form action="options.php" method="POST">
 	            <?php settings_fields( 'onebox' ); ?>
 	            <?php do_settings_sections('onebox'); ?>
@@ -197,20 +207,29 @@ class OneboxPlugin {
     	self::checkbox_input('onebox_enable_dark_css', __( 'Enable dark theme', 'onebox' ) );
     }
 
-    function githubAPIInput(){
+    function apcCacheInput(){
+    	self::checkbox_input('onebox_enable_apc_cache', __( 'Enable APC caching<br/>This is highly recommended for end-user performance.', 'onebox' ), !self::isAPCCacheInstalled() );
+    }
+
+	function githubAPIInput(){
     	self::text_input('onebox_github_apikey', __( 'GitHub API token (<a href="https://github.com/settings/tokens/new">generate one</a>)<br/>This is required if you plan to use GitHub links on a busy site.', 'onebox' ) );
     }
 
     // utility functions
 
-	function checkbox_input($option, $description) {
+	function checkbox_input($option, $description, $disabled=false) {
 	    if (get_option($option)) {
-	      $value = 'checked="checked"';
+	    	$value = 'checked="checked"';
 	    } else {
-	      $value = '';
+	    	$value = '';
+	    }
+	    if($disabled) {
+		    $disabled = 'disabled="disabled"';
+		} else {
+			$disabled = '';
 	    }
 	    ?>
-	<input id='<?php echo $option?>' name='<?php echo $option?>' type='checkbox' value='1' <?php echo $value?> /> <?php echo $description ?>
+	<input id='<?php echo $option?>' name='<?php echo $option?>' type='checkbox' value='1' <?php echo $value?> <?php echo $disabled?> /> <?php echo $description ?>
 	    <?php
 	}
 	function text_input($option, $description) {
@@ -257,6 +276,10 @@ class OneboxPlugin {
 	function isGeoIPWorking() {
 		if(@geoip_record_by_name('php.net')) return true;
 		return false;
+	}
+
+	function isAPCCacheInstalled() {
+		return extension_loaded('apc');
 	}
 
 }

@@ -8,6 +8,7 @@ if(isset($onebox)) {
 
 	if($match) {
 		$onebox->addClass("onebox-itunes");
+		$onebox->shouldCacheLocation = true;
 		$data = get_itunes_data($onebox, $onebox->data['countrycode']);
 		$onebox->update($data);
 	}
