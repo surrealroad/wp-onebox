@@ -114,6 +114,7 @@ class Onebox {
 			// http://www.electrictoolbox.com/php-geoip-notice-ip-address-not-found/
 			return @geoip_country_code_by_name($_SERVER['HTTP_X_FORWARDED_FOR']/*$_SERVER['REMOTE_ADDR']*/);
 		}
+		return "";
 	}
 
 	// http://snipplr.com/view.php?codeview&id=36437
@@ -187,22 +188,19 @@ class Onebox {
 		return extension_loaded('apc');
 	}
 
-	private function readCache() {
+	public function readCache() {
 		if(!get_option('onebox_enable_apc_cache') || !$this->isAPCCacheInstalled()) return false;
 
-		if($this->shouldCacheLocation) {
-			$id = md5($this->data['url'] & "|" & $this->data['countrycode']);
-		} else {
-			$id = md5($this->data['url']);
-		}
-		return apc_fetch($id);
+		if(apc_fetch(md5($this->data['url']."|".$this->data['countrycode']))) return apc_fetch(md5($this->data['url']."|".$this->data['countrycode']));
+		else return apc_fetch(md5($this->data['url']));
 	}
 
 	private function writeCache($output) {
 		if(!get_option('onebox_enable_apc_cache') || !$this->isAPCCacheInstalled()) return false;
 
 		if($this->shouldCacheLocation) {
-			$id = md5($this->data['url'] & "|" & $this->data['countrycode']);
+			$id = md5($this->data['url']."|".$this->data['countrycode']);
+			echo $id;
 		} else {
 			$id = md5($this->data['url']);
 		}
@@ -213,9 +211,13 @@ class Onebox {
 
 $onebox = new Onebox(urldecode($_GET["url"]));
 
-// run parsers
-foreach($parsers as $parser) {
+if($onebox->readCache()) {
+	echo json_encode($onebox->readCache());
+} else {
+	// run parsers
+	foreach($parsers as $parser) {
 	include("parsers/".$parser.".php");
-}
+	}
 
-echo $onebox->outputjson();
+	echo $onebox->outputjson();
+}
