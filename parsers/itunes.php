@@ -20,7 +20,7 @@ function get_itunes_data($onebox, $cc="") {
 
 	$data=array();
 
-	$data['favicon']='http://www.apple.com/favicon.ico';
+	$data['favicon']='http://www.apple.com/apple-touch-icon.png';
 
 	$query = parse_url($url, PHP_URL_QUERY);
 	if($query) {

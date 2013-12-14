@@ -68,7 +68,7 @@
 
 .onebox-header {
 	font-size: 1.2em;
-	line-height: 22px;
+	line-height: 23px;
 	display: table;
 	width: 100%;
 }
@@ -81,8 +81,8 @@
 
 .onebox-header img.onebox-favicon {
 	margin-right: 8px;
-	max-height:20px;
-	max-width:20px;
+	max-height:23px;
+	max-width:23px;
 	float: left;
 	border: none;
 	background: none;
