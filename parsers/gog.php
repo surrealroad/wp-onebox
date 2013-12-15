@@ -29,7 +29,7 @@ function get_gog_data($url) {
 	$ID = $regex[2];
 
 	if($ID) {
-		require_once("lib/html5lib-php/library/HTML5/Parser.php");
+		require_once("lib/html5lib/library/HTML5/Parser.php");
 
 		$file = file_get_contents($url);
 		$doc = HTML5_Parser::parse($file);

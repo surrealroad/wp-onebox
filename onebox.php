@@ -176,7 +176,7 @@ class OneboxPlugin {
 	        <h2><?php _e( 'Onebox Example', 'onebox' ) ?></h2>
 	        <pre>[onebox url="<?php echo self::$sampleLink; ?>"]</pre>
 	        <?php echo do_shortcode('[onebox url="'.self::$sampleLink.'"]'); ?>
-	        <small><?php _e( 'Hyperlink colours will be based on your theme', 'onebox'); ?></small>
+	        <small><?php _e( 'Actual hyperlink colours and fonts will be based on your theme, and are not represented here', 'onebox'); ?></small>
         <?php } else { ?>
         	<div id="message" class="error">
         	<p><strong><?php _e( 'Error:', 'onebox'); ?></strong> <?php _e( 'The cURL extension for PHP is required and not installed.', 'onebox'); ?></p>
