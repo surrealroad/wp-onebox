@@ -191,14 +191,14 @@ class Onebox {
 	public function readCache() {
 		if(!get_option('onebox_enable_apc_cache') || !$this->isAPCCacheInstalled()) return false;
 
-		if(apc_fetch(md5($this->data['url']."|".$this->data['countrycode']))) return apc_fetch(md5($this->data['url']."|".$this->data['countrycode']));
+		if($this->data['countrycode'] && apc_fetch(md5($this->data['url']."|".$this->data['countrycode']))) return apc_fetch(md5($this->data['url']."|".$this->data['countrycode']));
 		else return apc_fetch(md5($this->data['url']));
 	}
 
 	private function writeCache($output) {
 		if(!get_option('onebox_enable_apc_cache') || !$this->isAPCCacheInstalled()) return false;
 
-		if($this->shouldCacheLocation) {
+		if($this->shouldCacheLocation && $this->data['countrycode']) {
 			$id = md5($this->data['url']."|".$this->data['countrycode']);
 		} else {
 			$id = md5($this->data['url']);
