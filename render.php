@@ -200,7 +200,6 @@ class Onebox {
 
 		if($this->shouldCacheLocation) {
 			$id = md5($this->data['url']."|".$this->data['countrycode']);
-			echo $id;
 		} else {
 			$id = md5($this->data['url']);
 		}
