@@ -59,7 +59,8 @@ Additional credits
 
 = Can I see a preview of how links will be rendered? =
 
-Sure, you can see an example at the bottom of the settings page for the plugin (although hyperlink colours will be based on your theme and not previewed)
+Sure, you can see an example at the bottom of the settings page for the plugin once installed (although hyperlink colours will be based on your theme and not previewed).
+For a live preview, see http://blog.surrealroad.com/archives/2013/introducing-onebox-for-wordpress/
 
 = Will this slow down page loads? =
 

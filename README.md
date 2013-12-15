@@ -14,6 +14,8 @@ The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 ![Plugin admin options screen](screenshot-3.png)
 ![Example Onebox for gog.com](screenshot-4.png)
 
+[Live demo](http://blog.surrealroad.com/archives/2013/introducing-onebox-for-wordpress/)
+
 Requirements
 --
 Requires the cURL extension for PHP (http://www.php.net/manual/en/book.curl.php)
