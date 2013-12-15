@@ -1,15 +1,15 @@
 === Onebox ===
 Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard
-Stable tag: 0
+Stable tag: 0.5
 Tested up to: 3.8
 
-A Fancy Hyperlink Display Plugin for WordPress
+Onebox: A Fancy Hyperlink Display Plugin for WordPress
 
 == Description ==
 
 What does this plugin do?
 --
-This plugin lets you use a shortcode `[onebox url="http://example.com"]` in place of a link that will display a lovely Facebook/Twitter-style box with additional information about the link
+This plugin lets you use a shortcode `[onebox url="http://example.com"]` in place of a link that will display a lovely Facebook/Twitter-style box with additional information about the link.
 
 The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 
@@ -29,7 +29,7 @@ Currently supported sites
 * Steam (store.steampowered.com)
 * iTunes (itunes.com)
 * GOG (gog.com)
-
+many more to follow
 
 Note
 --
@@ -37,14 +37,16 @@ This plugin renders affiliate links for some websites in order to support its de
 
 
 TODO:
+* Comply with WordPress security guidelines
+* Add more parsers
 
 Additional credits
-- Inspired by the Onebox module from Discourse (http://www.discourse.org/)
-- OpenGraph
-- AmazonECS Class
-- Encoding
-- html5lib
-- Default template based on "Facebook Notify Widget" by Pixels Daily and GitHub-jQuery-Repo-Widget
+* Inspired by the "Onebox" module from Discourse (http://www.discourse.org/)
+* [Open Graph Protocol helper for PHP](https://github.com/scottmac/opengraph)
+* [Amazon ECS PHP Library](https://github.com/Exeu/Amazon-ECS-PHP-Library)
+* [forceutf8](https://github.com/neitanod/forceutf8)
+* [html5lib - php flavour](https://github.com/html5lib/html5lib-php)
+* Default template based on "Facebook Notify Widget" by Pixels Daily and [GitHub-jQuery-Repo-Widget](https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget)
 
 == Installation ==
 
@@ -55,14 +57,20 @@ Additional credits
 
 == Frequently Asked Questions ==
 
-= Can I see a preview of how links are rendered? =
+= Can I see a preview of how links will be rendered? =
 
-Sure, you can see an example at the bottom of the settings page for the plugin
+Sure, you can see an example at the bottom of the settings page for the plugin (although hyperlink colours will be based on your theme and not previewed)
 
 = Will this slow down page loads? =
 
-It *shouldn't*. WordPress will initially render the link as a boring hyperlink, which will then get rendered as a onebox via AJAX after the page has loaded.
+It *shouldn't*. WordPress will initially render the link as a boring hyperlink, which will then get rendered as a onebox via AJAX after the page has loaded. Actually turning the links into boxes happens asynchronously, and it's highly recommended that you install the APC extension for PHP to reduce the load on your server, as well as the servers you're linking to.
+
+== Screenshots ==
+1. Example Onebox for itunes.com using default style
+2. Example Onebox for github.com using dark style
+3. Plugin admin options screen
+4. Example Onebox for gog.com
 
 == Changelog ==
 = 0.5 =
-* First WordPress release
+* First public WordPress release
