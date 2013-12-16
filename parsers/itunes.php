@@ -51,6 +51,7 @@ function get_itunes_data($onebox, $cc="") {
 
 			$desc ="";
 			if(isset($info['results'][0]['description'])) $desc= strip_tags($info['results'][0]['description']);
+			elseif(isset($info['results'][0]['longDescription'])) $desc= strip_tags($info['results'][0]['longDescription']);
 			if(strlen($desc)>300) $desc=substr($desc,0,300);
 
 			$additional = array();
