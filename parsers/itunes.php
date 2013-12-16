@@ -34,6 +34,11 @@ function get_itunes_data($onebox, $cc="") {
 	$ID = $regex[1];
 
 	if($ID) {
+		preg_match('#apple.com/([a-zA-Z]{2})/#', $url, $regex);
+		$country = $regex[1];
+		if($country && $cc) preg_replace('#apple.com/([a-zA-Z]{2})/#', 'apple.com/'.$cc.'/', $data['displayurl']);
+		elseif($country) $cc = $country;
+
 		$info = json_decode(file_get_contents("http://itunes.apple.com/lookup?id=".$ID."&country=".$cc), true);
 
 		if(isset($info['results'][0])) {
