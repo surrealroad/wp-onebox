@@ -26,9 +26,16 @@ function get_steam_data($onebox, $cc="") {
 
 	preg_match('#/app/(\w+)/?\??#', $url, $regex);
 	$ID = $regex[1];
+	if(!$ID) {
+		preg_match('#/sub/(\w+)/?\??#', $url, $regex);
+		$ID = $regex[1];
+		$type = "package";
+	} else {
+		$type = "app";
+	}
 
 	if($ID) {
-		$steamInfo = json_decode(file_get_contents("http://store.steampowered.com/api/appdetails/?appids=".$ID."&cc=".$cc), true);
+		$steamInfo = json_decode(file_get_contents("http://store.steampowered.com/api/".$type."details/?".$type."ids=".$ID."&cc=".$cc), true);
 
 		if(isset($steamInfo[$ID]['data']['name'])) $data['title']= $steamInfo[$ID]['data']['name'];
 
@@ -36,6 +43,7 @@ function get_steam_data($onebox, $cc="") {
 
 		$desc ="";
 		if(isset($steamInfo[$ID]['data']['about_the_game'])) $desc=strip_tags($steamInfo[$ID]['data']['about_the_game']);
+		elseif(isset($steamInfo[$ID]['data']['page_content'])) $desc=strip_tags($steamInfo[$ID]['data']['page_content']);
 		if(strlen($desc)>300) $desc=substr($desc,0,300);
 
 		$additional = array();
@@ -49,13 +57,14 @@ function get_steam_data($onebox, $cc="") {
 		if(isset($steamInfo[$ID]['data']['required_age'])) $additional[]= __('Required age: ', "onebox").$steamInfo[$ID]['data']['required_age'];
 
 		$footer = array();
-		if(isset($steamInfo[$ID]['data']['release_date']['date'])) $footer[]= __('Released: ', "onebox").'<strong>'.date('F jS Y', strtotime($steamInfo[$ID]['data']['release_date']['date'])).'</strong>';
+		if(isset($steamInfo[$ID]['data']['release_date']['date']) && $steamInfo[$ID]['data']['release_date']['date']) $footer[]= __('Released: ', "onebox").'<strong>'.date('F jS Y', strtotime($steamInfo[$ID]['data']['release_date']['date'])).'</strong>';
 
 		$titlebutton = array();
 		if(isset($steamInfo[$ID]['data']['recommendations']['total'])) $titlebutton[]='<a href="http://steamcommunity.com/app/'.$ID.'/reviews/" title="'.__('Read reviews', "onebox").'"><i class="onebox-icon onebox-thumbsup-icon"></i> '.intval($steamInfo[$ID]['data']['recommendations']['total']).'</a>';
 		if(isset($steamInfo[$ID]['data']['achievements']['total'])) $titlebutton[]='<a href="http://steamcommunity.com/stats/'.$ID.'/achievements/" title="'.__('View achievements', "onebox").'"><i class="onebox-icon onebox-trophy-icon"></i> '.intval($steamInfo[$ID]['data']['achievements']['total']).'</a>';
 
 		if(isset($steamInfo[$ID]['data']['price_overview']['final'])) $data['footerbutton']= '<a href="'.$url.'">'.$onebox->country_currency($cc, ($steamInfo[$ID]['data']['price_overview']['final']/100)).'</a>';
+		elseif(isset($steamInfo[$ID]['data']['price']['final'])) $data['footerbutton']= '<a href="'.$url.'">'.$onebox->country_currency($cc, ($steamInfo[$ID]['data']['price']['final']/100)).'</a>';
 
 		$data['description'] = $desc;
 		if(count($additional)) {
