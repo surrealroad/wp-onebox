@@ -45,7 +45,7 @@ function get_itunes_data($onebox, $cc="") {
 			if(isset($info['results'][0]['kind'])) $type = $info['results'][0]['kind'];
 			elseif(isset($info['results'][0]['collectionType'])) $type = $info['results'][0]['collectionType'];
 
-			if($kind="ebook" && isset($info['results'][0]['trackCensoredName'])) $data['title']= $info['results'][0]['artistName']." &mdash; ".$info['results'][0]['trackCensoredName'];
+			if($kind=="ebook" && isset($info['results'][0]['trackCensoredName'])) $data['title']= $info['results'][0]['artistName']." &mdash; ".$info['results'][0]['trackCensoredName'];
 			elseif(isset($info['results'][0]['trackCensoredName'])) $data['title']= $info['results'][0]['trackCensoredName'];
 			elseif(isset($info['results'][0]['collectionCensoredName'])) $data['title']= $info['results'][0]['artistName']." &mdash; ".$info['results'][0]['collectionCensoredName'];
 
