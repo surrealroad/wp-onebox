@@ -36,17 +36,26 @@ function get_itunes_data($onebox, $cc="") {
 	if($ID) {
 		preg_match('#apple.com/([a-zA-Z]{2})/#', $url, $regex);
 		$country = $regex[1];
-		if($country && $cc) preg_replace('#apple.com/([a-zA-Z]{2})/#', 'apple.com/'.$cc.'/', $data['displayurl']);
+		if($country && $cc) $data['displayurl'] = preg_replace('#apple.com/([a-zA-Z]{2})/#', 'apple.com/'.$cc.'/', $data['displayurl']);
 		elseif($country) $cc = $country;
 
 		$info = json_decode(file_get_contents("http://itunes.apple.com/lookup?id=".$ID."&country=".$cc), true);
+
+		// test for not available in user's region
+		if(isset($info['resultCount']) && $info['resultCount'] <1 && $cc != $country) {
+			$info = json_decode(file_get_contents("http://itunes.apple.com/lookup?id=".$ID."&country=".$country), true);
+			$available = false;
+		} else {
+			$available = true;
+		}
 
 		if(isset($info['results'][0])) {
 			if(isset($info['results'][0]['kind'])) $type = $info['results'][0]['kind'];
 			elseif(isset($info['results'][0]['collectionType'])) $type = $info['results'][0]['collectionType'];
 
-			if($kind=="ebook" && isset($info['results'][0]['trackCensoredName'])) $data['title']= $info['results'][0]['artistName']." &mdash; ".$info['results'][0]['trackCensoredName'];
+			if($type=="ebook" && isset($info['results'][0]['trackCensoredName'])) $data['title']= $info['results'][0]['artistName']." &mdash; ".$info['results'][0]['trackCensoredName'];
 			elseif(isset($info['results'][0]['trackCensoredName'])) $data['title']= $info['results'][0]['trackCensoredName'];
+			elseif($type=="TV Season" && isset($info['results'][0]['collectionCensoredName'])) $data['title']= $info['results'][0]['collectionCensoredName'];
 			elseif(isset($info['results'][0]['collectionCensoredName'])) $data['title']= $info['results'][0]['artistName']." &mdash; ".$info['results'][0]['collectionCensoredName'];
 
 			$desc ="";
@@ -55,17 +64,22 @@ function get_itunes_data($onebox, $cc="") {
 			if(strlen($desc)>300) $desc=substr($desc,0,300);
 
 			$additional = array();
-			if(isset($info['results'][0]['trackCount']) && $info['results'][0]['trackCount']>1) $additional[]= $info['results'][0]['trackCount'].' '.__('tracks', "onebox");
+			if($type=="TV Season") $trackLabel = __("episodes", "onebox");
+			else $trackLabel = __("tracks", "onebox");
+
+			if($type != "feature-movie" && isset($info['results'][0]['trackCount']) && $info['results'][0]['trackCount']>1) $additional[]= $info['results'][0]['trackCount'].' '.$trackLabel;
 			if(isset($info['results'][0]['primaryGenreName'])) $additional[]= __('Genre: ', "onebox").$info['results'][0]['primaryGenreName'];
 			if(isset($info['results'][0]['contentAdvisoryRating'])) $additional[]= __('Content advisory rating: ', "onebox").$info['results'][0]['contentAdvisoryRating'];
+			if(isset($info['results'][0]['trackTimeMillis'])) $additional[]= __('Running time: ', "onebox").gmdate("H:i:s", ($info['results'][0]['trackTimeMillis']/1000));
 
 			$footer = array();
 			if(isset($info['results'][0]['releaseDate'])) $footer[]= __('Released: ', "onebox").'<strong>'.date('F jS Y', strtotime($info['results'][0]['releaseDate'])).'</strong>';
 			if(isset($info['results'][0]['version'])) $footer[]= __('Current version: ', "onebox").'<strong>'.$info['results'][0]['version'].'</strong>';
 
 			if(isset($info['results'][0]['averageUserRating'])) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$info['results'][0]['averageUserRating'].'</span> ('.intval($info['results'][0]['userRatingCount']).')</div>';
-			if(isset($info['results'][0]['formattedPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$info['results'][0]['formattedPrice'].'</a>';
-			elseif(isset($info['results'][0]['collectionPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$onebox->country_currency($cc, $info['results'][0]['collectionPrice']).'</a>';
+			if($available && isset($info['results'][0]['formattedPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$info['results'][0]['formattedPrice'].'</a>';
+			elseif($available && isset($info['results'][0]['collectionPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$onebox->country_currency($cc, $info['results'][0]['collectionPrice']).'</a>';
+			elseif(!$available) $data['footerbutton']=__('Not available in your region', "onebox");
 
 			$data['description'] = $desc;
 			if(count($additional)) {
