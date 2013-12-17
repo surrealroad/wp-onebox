@@ -35,6 +35,7 @@ Currently supported sites
 * Steam (store.steampowered.com)
 * iTunes (itunes.com)
 * GOG (gog.com)
+* Mac Game Store (macgamestore.com)
 many more to follow
 
 Note
@@ -72,6 +73,10 @@ For a live preview, see http://blog.surrealroad.com/archives/2013/introducing-on
 
 It *shouldn't*. WordPress will initially render the link as a boring hyperlink, which will then get rendered as a onebox via AJAX after the page has loaded. Actually turning the links into boxes happens asynchronously, and it's highly recommended that you install the APC extension for PHP to reduce the load on your server, as well as the servers you're linking to.
 
+= How can I request extra features for whatever.com =
+
+The best way is to [open a ticket at GitHub](https://github.com/surrealroad/wp-onebox/issues/new). Bonus points if the site in question has a well-documented API.
+
 == Screenshots ==
 1. Example Onebox for itunes.com using default style
 2. Example Onebox for github.com using dark style
@@ -79,5 +84,9 @@ It *shouldn't*. WordPress will initially render the link as a boring hyperlink, 
 4. Example Onebox for gog.com
 
 == Changelog ==
+= 0.x =
+* Improvements to iTunes parser
+* Fix for caching with detected localisations
+
 = 0.5 =
 * First public WordPress release

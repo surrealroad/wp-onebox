@@ -38,6 +38,7 @@ Currently supported sites
 * Steam (store.steampowered.com)
 * iTunes (itunes.com)
 * GOG (gog.com)
+* Mac Game Store (macgamestore.com)
 many more to follow
 
 Note
