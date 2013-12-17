@@ -60,7 +60,7 @@ Additional credits
 1. Install the plugin as you would any other WordPress plugin and enable it
 2. Go to Settings > Onebox
 3. Change settings as required
-4. Add a shortcode in the form `[onebox url="https://anything.com"]`
+4. Add a shortcode in the form `[onebox url="http://anything.com"]`
 
 == Frequently Asked Questions ==
 
@@ -84,9 +84,10 @@ The best way is to [open a ticket at GitHub](https://github.com/surrealroad/wp-o
 4. Example Onebox for gog.com
 
 == Changelog ==
-= 0.x =
+= 0.5.1 =
 * Improvements to iTunes parser
 * Fix for caching with detected localisations
+* Added Mac Game Store parser
 
 = 0.5 =
 * First public WordPress release
