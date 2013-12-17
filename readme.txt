@@ -1,5 +1,5 @@
 === Onebox ===
-Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard
+Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed
 Stable tag: 0.5
 Tested up to: 3.8
 
@@ -10,6 +10,12 @@ Onebox: A Fancy Hyperlink Display Plugin for WordPress
 What does this plugin do?
 --
 This plugin lets you use a shortcode `[onebox url="http://example.com"]` in place of a link that will display a lovely Facebook/Twitter-style box with additional information about the link.
+
+WordPress has [built-in support](http://en.support.wordpress.com/twitter/twitter-embeds/) for some links like Google+ or Twitter, where it will generate a nice-looking embed from a link or shortcode, but what about other sites? Onebox aims to let you turn any link into an embedded box, with extra features for some special sites, and with a fully customisable HTML template.
+
+How does the plugin work?
+--
+Many webpages now have metadata in their header with a desciption and image to help sites like Twitter or Facebook generate embeds. Onebox can read this same data to generate similar embeds. In addition, the plugin makes use of a number of "parsers" to scan for specific sites and pull out even more data to use.
 
 The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 
