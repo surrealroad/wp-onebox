@@ -149,6 +149,9 @@ class OneboxPlugin {
 	    if(get_option('onebox_enable_css')) add_action( 'admin_print_styles-' . $page, array ( $this, 'enqueueStyles' ) );
 	}
 	function optionsPage() {
+		if ( !current_user_can( 'manage_options' ) )  {
+			wp_die( __( 'You do not have sufficient permissions to access this page.', "onebox" ) );
+		}
 		?>
     <div class="wrap">
     	<?php screen_icon(); ?>
