@@ -17,7 +17,7 @@
 				var $this = $(this),
 					url = $(this).children().eq(0).attr("href"),
 					requesturl = OneboxParams.renderURL + (OneboxParams.renderURL.indexOf('?') != -1 ? "&onebox_url=" : "?onebox_url=") + encodeURIComponent(url);
-				console.log(requesturl);
+				//console.log(requesturl);
 
 				$.getJSON(requesturl, function (data) {
 					//console.log(data.data); //uncomment this for debug
