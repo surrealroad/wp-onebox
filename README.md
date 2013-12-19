@@ -39,6 +39,8 @@ Currently supported sites
 * iTunes (itunes.com)
 * GOG (gog.com)
 * Mac Game Store (macgamestore.com)
+* Green Man Gaming (greenmangaming.com)
+* Origin (origin.com)
 many more to follow
 
 Note

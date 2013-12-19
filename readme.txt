@@ -1,5 +1,5 @@
 === Onebox ===
-Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming
+Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin
 Stable tag: 0.5.1
 Tested up to: 3.8
 
@@ -36,6 +36,8 @@ Currently supported sites
 * iTunes (itunes.com)
 * GOG (gog.com)
 * Mac Game Store (macgamestore.com)
+* Green Man Gaming (greenmangaming.com)
+* Origin (origin.com)
 many more to follow
 
 Note
@@ -100,13 +102,14 @@ You can use any or all of the following:
 4. Example Onebox for gog.com
 
 == Changelog ==
-= 0.x =
+= 0.6 =
 * Added optional "title" parameter to shortcode
 * Just output plain links in RSS feeds
 * Added ability to choose jQuery selector in settings
 * Security improvements
 * Use minified JS/CSS
 * Don't try to guess WordPress location
+* Added parsers for Origin and Green Man Gaming
 
 = 0.5.1 =
 * Improvements to iTunes parser
