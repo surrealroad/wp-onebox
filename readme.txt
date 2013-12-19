@@ -86,7 +86,11 @@ The best way is to [open a ticket at GitHub](https://github.com/surrealroad/wp-o
 == Changelog ==
 = 0.x =
 * Added optional "title" parameter to shortcode
-
+* Don't output divs when in RSS feeds
+* Added ability to choose jQuery selector in settings
+* Security improvements
+* Use minified JS/CSS
+* Don't try to guess WordPress location
 
 = 0.5.1 =
 * Improvements to iTunes parser

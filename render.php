@@ -11,9 +11,7 @@ ini_set('display_errors',1);
 */
 
 require_once("lib/Encoding.php");
-// load wordpress for access to stored options
-define( 'WP_USE_THEMES', false );
-require_once( dirname( dirname( dirname( dirname( __FILE__ )))) . '/wp-load.php' );
+
 //Allow translations
 load_plugin_textdomain('onebox', false, basename(dirname(__FILE__)).'/languages');
 
@@ -210,7 +208,7 @@ class Onebox {
 	}
 }
 
-$onebox = new Onebox(urldecode($_GET["url"]));
+$onebox = new Onebox(urldecode(get_query_var("onebox_url")));
 
 if($onebox->readCache()) {
 	echo json_encode($onebox->readCache());

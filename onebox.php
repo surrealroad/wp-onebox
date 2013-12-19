@@ -90,6 +90,9 @@ class OneboxPlugin {
 		add_action('wp_enqueue_scripts', array($this, 'enqueueStyles'));
 
 		add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
+
+		add_filter( 'query_vars', array($this, 'onebox_query_vars_filter') );
+		add_action( 'template_redirect', array($this, 'renderOnebox'), 1 );
 	}
 
 	public function admin_init() {
@@ -118,13 +121,13 @@ class OneboxPlugin {
 
 		wp_enqueue_script(
 			'onebox',
-			plugins_url( '/js/onebox.js' , __FILE__ ),
+			plugins_url( '/js/onebox.min.js' , __FILE__ ),
 			array( 'jquery' )
 		);
 
 		// build settings to use in script http://ottopress.com/2010/passing-parameters-from-php-to-javascripts-in-plugins/
 		$params = array(
-			"renderURL" => plugins_url( '/render.php' , __FILE__ ),
+			"renderURL" => site_url('/?onebox_render=1'),
 			"template" => wp_kses_post(get_option('onebox_template_html')),
 			"dark" => get_option('onebox_enable_dark_css'),
 			"selector" => get_option('onebox_selector'),
@@ -135,7 +138,7 @@ class OneboxPlugin {
 	// Enqueue Static CSS
 
 	function enqueueStyles() {
-       wp_register_style( 'oneboxStylesheet', plugins_url( '/style/onebox.css' , __FILE__ ) );
+       wp_register_style( 'oneboxStylesheet', plugins_url( '/style/onebox.min.css' , __FILE__ ) );
        if(get_option('onebox_enable_css')) wp_enqueue_style( 'oneboxStylesheet' );
    }
 
@@ -151,6 +154,21 @@ class OneboxPlugin {
 	   $link = '<a href="'.$url.'">'.esc_attr($title).'</a>';
 	   if(is_feed()) return $link;
 	   else return '<div class="onebox-container">'.$link.'</div>' ;
+	}
+
+	// register query vars
+	static function onebox_query_vars_filter($vars) {
+		$vars[] = "onebox_render";
+		$vars[] = "onebox_url";
+		return $vars;
+	}
+
+	// add template redirect
+	static function renderOnebox() {
+		if(get_query_var('onebox_render')) {
+			include(WP_PLUGIN_DIR.'/onebox/render.php');
+			exit;
+		}
 	}
 
 	// add admin options page
