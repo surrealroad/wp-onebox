@@ -25,10 +25,10 @@ function get_steam_data($onebox, $cc="") {
 	$data['sitename'] = "Steam";
 
 	preg_match('#/app/(\w+)/?\??#', $url, $regex);
-	$ID = $regex[1];
+	@$ID = $regex[1];
 	if(!$ID) {
 		preg_match('#/sub/(\w+)/?\??#', $url, $regex);
-		$ID = $regex[1];
+		@$ID = $regex[1];
 		$type = "package";
 	} else {
 		$type = "app";

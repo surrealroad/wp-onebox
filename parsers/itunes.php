@@ -31,11 +31,11 @@ function get_itunes_data($onebox, $cc="") {
 	}
 
 	preg_match('#/id(\d{4,12})#', $url, $regex);
-	$ID = $regex[1];
+	@$ID = $regex[1];
 
 	if($ID) {
 		preg_match('#apple.com/([a-zA-Z]{2})/#', $url, $regex);
-		$country = $regex[1];
+		@$country = $regex[1];
 		if($country && $cc) $data['displayurl'] = preg_replace('#apple.com/([a-zA-Z]{2})/#', 'apple.com/'.$cc.'/', $data['displayurl']);
 		elseif($country) $cc = $country;
 
