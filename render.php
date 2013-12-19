@@ -17,6 +17,7 @@ load_plugin_textdomain('onebox', false, basename(dirname(__FILE__)).'/languages'
 
 // set up list of parsers to include
 $parsers = array(
+	"greenmangaming",
 	"macgamestore",
 	"steam",
 	"github",
@@ -87,11 +88,13 @@ class Onebox {
 		return implode(" ", $this->classes);
 	}
 
-	public function getDoc() {
+	public function getDoc($forceencoding="") {
 		if(!isset($this->doc) && isset($this->data['url'])) {
 			$this->doc = new DomDocument();
+			$html = file_get_contents($this->data['url']);
+			if($forceencoding == "utf-8") $html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
 			libxml_use_internal_errors(true);
-			$this->doc->loadHTMLFile($this->data['url']);
+			$this->doc->loadHTML($html);
 			libxml_use_internal_errors(false);
 		}
 		return $this->doc;
@@ -208,15 +211,18 @@ class Onebox {
 	}
 }
 
-$onebox = new Onebox(urldecode(get_query_var("onebox_url")));
+if(get_query_var("onebox_url")) {
 
-if($onebox->readCache()) {
-	echo json_encode($onebox->readCache());
-} else {
-	// run parsers
-	foreach($parsers as $parser) {
-	include("parsers/".$parser.".php");
+	$onebox = new Onebox(urldecode(get_query_var("onebox_url")));
+
+	if($onebox->readCache()) {
+		echo json_encode($onebox->readCache());
+	} else {
+		// run parsers
+		foreach($parsers as $parser) {
+		include("parsers/".$parser.".php");
+		}
+
+		echo $onebox->outputjson();
 	}
-
-	echo $onebox->outputjson();
 }

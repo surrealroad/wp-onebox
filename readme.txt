@@ -1,5 +1,5 @@
 === Onebox ===
-Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store
+Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming
 Stable tag: 0.5.1
 Tested up to: 3.8
 
@@ -77,6 +77,22 @@ It *shouldn't*. WordPress will initially render the link as a boring hyperlink, 
 
 The best way is to [open a ticket at GitHub](https://github.com/surrealroad/wp-onebox/issues/new). Bonus points if the site in question has a well-documented API.
 
+= What tags can I use when customising the template? =
+
+You can use any or all of the following:
+* {url}
+* {class}
+* {favicon}
+* {sitename}
+* {image}
+* {title}
+* {description}
+* {additional}
+* {footer}
+* {title-button}
+* {footer-button}
+
+
 == Screenshots ==
 1. Example Onebox for itunes.com using default style
 2. Example Onebox for github.com using dark style
@@ -86,7 +102,7 @@ The best way is to [open a ticket at GitHub](https://github.com/surrealroad/wp-o
 == Changelog ==
 = 0.x =
 * Added optional "title" parameter to shortcode
-* Don't output divs when in RSS feeds
+* Just output plain links in RSS feeds
 * Added ability to choose jQuery selector in settings
 * Security improvements
 * Use minified JS/CSS
