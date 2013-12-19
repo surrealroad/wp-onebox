@@ -143,8 +143,14 @@ class OneboxPlugin {
 	// add [onebox] shortcode
 
 	static function renderOneboxShortcode($atts) {
-	   extract(shortcode_atts(array('url' => ""), $atts));
-	   if($url) return '<div class="onebox-container"><a href="'.$url.'">'.__( 'Link', 'onebox').'</a></div>' ;
+	   extract(shortcode_atts(array(
+	   		'url' => "",
+	   		'title' =>__( 'Link', 'onebox'),
+	   ), $atts));
+	   if(!$url) return;
+	   $link = '<a href="'.$url.'">'.esc_attr($title).'</a>';
+	   if(is_feed()) return $link;
+	   else return '<div class="onebox-container">'.$link.'</div>' ;
 	}
 
 	// add admin options page

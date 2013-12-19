@@ -5,7 +5,7 @@ Onebox: A Fancy Hyperlink Display Plugin for WordPress
 
 What does this plugin do?
 --
-This plugin lets you use a shortcode `[onebox url="http://example.com"]` in place of a link that will display a lovely Facebook/Twitter-style box with additional information about the link
+This plugin lets you use a shortcode `[onebox url="http://example.com" title="optional plain link text"]` in place of a link that will display a lovely Facebook/Twitter-style box with additional information about the link
 
 WordPress has [built-in support](http://en.support.wordpress.com/twitter/twitter-embeds/) for some links like Google+ or Twitter, where it will generate a nice-looking embed from a link or shortcode, but what about other sites? Onebox aims to let you turn any link into an embedded box, with extra features for some special sites, and with a fully customisable HTML template.
 
