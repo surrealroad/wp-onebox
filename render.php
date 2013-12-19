@@ -60,7 +60,7 @@ class Onebox {
 			$this->data[$property] = "";
 		}
 
-		$this->data['url'] = $url;
+		$this->data['url'] = esc_url_raw($url);
 		$this->data['countrycode'] = self::user_cc();
 	}
 
