@@ -65,6 +65,7 @@ class OneboxPlugin {
 </div>');
 		add_option("onebox_enable_css", true);
 		add_option("onebox_enable_dark_css", false);
+		add_option("onebox_selector", ".onebox-container");
 		add_option("onebox_enable_apc_cache", true);
 		add_option("onebox_github_apikey", '');
 	}
@@ -75,6 +76,7 @@ class OneboxPlugin {
 		delete_option('onebox_template_html');
 		delete_option('onebox_enable_css');
 		delete_option('onebox_enable_dark_css');
+		delete_option('onebox_selector');
 		delete_option('onebox_enable_apc_cache');
 		delete_option('onebox_github_apikey');
 	}
@@ -95,6 +97,7 @@ class OneboxPlugin {
 	    add_settings_field('onebox-template-html', __( 'Template HTML', 'onebox' ), array($this, 'templateHTMLInput'), 'onebox', 'onebox-template');
 	    add_settings_field('onebox-enable-css', __( 'Enable Styles', 'onebox' ), array($this, 'templateCSSInput'), 'onebox', 'onebox-template');
 	    add_settings_field('onebox-enable-dark-css', __( 'Use Dark Theme', 'onebox' ), array($this, 'templateDarkCSSInput'), 'onebox', 'onebox-template');
+	    add_settings_field('onebox-selector', __( 'jQuery Selector for Oneboxes', 'onebox' ), array($this, 'templateSelectorInput'), 'onebox', 'onebox-template');
 	    add_settings_section('onebox-features', __( 'Special Features', 'onebox' ), array($this, 'initFeatureSettings'), 'onebox');
 	    add_settings_field('onebox-apc-cache', __( 'Enable APC Caching', 'onebox' ), array($this, 'apcCacheInput'), 'onebox', 'onebox-features');
 	    add_settings_field('onebox-github-api', __( 'GitHub API Token', 'onebox' ), array($this, 'githubAPIInput'), 'onebox', 'onebox-features');
@@ -104,6 +107,7 @@ class OneboxPlugin {
 		register_setting('onebox', 'onebox_template_html');
 		register_setting('onebox', 'onebox_enable_css');
 		register_setting('onebox', 'onebox_enable_dark_css');
+		register_setting('onebox', 'onebox_selector');
 		register_setting('onebox', 'onebox_enable_apc_cache');
 		register_setting('onebox', 'onebox_github_apikey');
     }
@@ -122,7 +126,8 @@ class OneboxPlugin {
 		$params = array(
 			"renderURL" => plugins_url( '/render.php' , __FILE__ ),
 			"template" => wp_kses_post(get_option('onebox_template_html')),
-			"dark" => get_option('onebox_enable_dark_css')
+			"dark" => get_option('onebox_enable_dark_css'),
+			"selector" => get_option('onebox_selector'),
 		);
 		wp_localize_script( 'onebox', 'OneboxParams', $params );
 	}
@@ -139,7 +144,7 @@ class OneboxPlugin {
 
 	static function renderOneboxShortcode($atts) {
 	   extract(shortcode_atts(array('url' => ""), $atts));
-	   return '<div class="onebox-container"><a href="'.$url.'">'.__( 'Link', 'onebox').'</a></div>' ;
+	   if($url) return '<div class="onebox-container"><a href="'.$url.'">'.__( 'Link', 'onebox').'</a></div>' ;
 	}
 
 	// add admin options page
@@ -214,6 +219,11 @@ class OneboxPlugin {
     function templateDarkCSSInput(){
     	self::checkbox_input('onebox_enable_dark_css', __( 'Enable dark theme', 'onebox' ) );
     }
+
+    function templateSelectorInput(){
+    	self::text_input('onebox_selector', __( 'jQuery selector to use to locate Oneboxes, e.g. ".onebox-container"<br/>Use this if you want to constrain where Oneboxes may be rendered, e.g. ".post .onebox-container"', 'onebox' ) );
+    }
+
 
     function apcCacheInput(){
     	self::checkbox_input('onebox_enable_apc_cache', __( 'Enable APC caching<br/>This is highly recommended for end-user performance.', 'onebox' ), !self::isAPCCacheInstalled() );

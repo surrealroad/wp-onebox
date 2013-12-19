@@ -71,5 +71,5 @@
 })(jQuery);
 
 jQuery(document).ready(function() {
-	jQuery(".onebox-container").onebox();
+	if(OneboxParams.selector) jQuery(OneboxParams.selector).onebox();
 });
