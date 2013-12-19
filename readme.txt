@@ -1,6 +1,6 @@
 === Onebox ===
 Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin
-Stable tag: 0.6
+Stable tag: 0.6.1
 Tested up to: 3.8
 
 Onebox: A Fancy Hyperlink Display Plugin for WordPress
@@ -102,6 +102,9 @@ You can use any or all of the following:
 4. Example Onebox for gog.com
 
 == Changelog ==
+= 0.6.1 =
+* Made a submodule self-enclosed
+
 = 0.6 =
 * Added optional "title" parameter to shortcode
 * Just output plain links in RSS feeds
