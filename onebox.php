@@ -121,7 +121,7 @@ class OneboxPlugin {
 		// build settings to use in script http://ottopress.com/2010/passing-parameters-from-php-to-javascripts-in-plugins/
 		$params = array(
 			"renderURL" => plugins_url( '/render.php' , __FILE__ ),
-			"template" => get_option('onebox_template_html'),
+			"template" => wp_kses_post(get_option('onebox_template_html')),
 			"dark" => get_option('onebox_enable_dark_css')
 		);
 		wp_localize_script( 'onebox', 'OneboxParams', $params );
