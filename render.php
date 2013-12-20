@@ -26,6 +26,7 @@ $parsers = array(
 	"itunes",
 	"opengraph",
 	"twittercard",
+	"microdata",
 	"meta",
 	"favicon",
 );
