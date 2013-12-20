@@ -38,6 +38,7 @@ function get_favicon($onebox) {
 	return $data;
 }
 
+// http://hungred.com/how-to/php-check-remote-email-url-image-link-exist/
 function checkRemoteFile($url)
 {
     $ch = curl_init();
