@@ -18,8 +18,7 @@ function get_favicon($onebox) {
 	// http://stackoverflow.com/questions/5701593/how-to-get-a-websites-favicon-with-php
 	$data = array();
 	$touchicon = parse_url($onebox->data['url'], PHP_URL_SCHEME)."://".parse_url($onebox->data['url'], PHP_URL_HOST)."/apple-touch-icon.png";
-	$file_headers = @get_headers($touchicon);
-	if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
+	if(!checkRemoteFile($touchicon)) {
 		$doc = $onebox->getDoc();
 	    $xpath = new DOMXPath($doc);
 		$xml = simplexml_import_dom($doc);
@@ -37,4 +36,22 @@ function get_favicon($onebox) {
 	}
 
 	return $data;
+}
+
+function checkRemoteFile($url)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL,$url);
+    // don't download content
+    curl_setopt($ch, CURLOPT_NOBODY, 1);
+    curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    if(curl_exec($ch)!==FALSE)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
