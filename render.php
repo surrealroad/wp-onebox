@@ -50,6 +50,7 @@ class Onebox {
 
 	public $data = array();
 	private $classes = array();
+	private $HTML = NULL;
 	private $doc = NULL;
 	public $cached = false;
 	public $shouldCacheLocation = false;
@@ -70,7 +71,11 @@ class Onebox {
 			$output = $cache;
 		} else {
 			$this->data['favicon'] = self::sanitize_favicon($this->data['favicon'], $this->data['url']);
-			$this->data['description'] = \ForceUTF8\Encoding::toUTF8($this->data['description']);
+			if($this->data['description']) {
+				$this->data['description'] = \ForceUTF8\Encoding::toUTF8($this->data['description']);
+			} else {
+				$this->data['description'] = __('No description available for this site', "onebox");
+			}
 			$this->data['additional'] = \ForceUTF8\Encoding::toUTF8($this->data['additional']);
 			if(!$this->data['sitename']) $this->data['sitename']= str_ireplace('www.', '', parse_url($this->data['url'], PHP_URL_HOST));
 			if(!get_option('onebox_affiliate_links')) $this->data['displayurl']="";
@@ -89,14 +94,46 @@ class Onebox {
 		return implode(" ", $this->classes);
 	}
 
+	public function getHTML($forceencoding="") {
+
+		if(!$this->HTML && isset($this->data['url'])) {
+
+			if($forceencoding == "utf-8") {
+				$html = file_get_contents($this->data['url']);
+				$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
+				$this->HTML = $html;
+			} else {
+				// from opengraph helper
+				$curl = curl_init($this->data['url']);
+
+		        curl_setopt($curl, CURLOPT_FAILONERROR, true);
+		        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+		        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		        curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+		        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+		        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		        curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+
+		        $response = curl_exec($curl);
+
+		        curl_close($curl);
+
+		        if (!empty($response)) {
+		            $this->HTML = $response;
+		        } else {
+		            $this->HTML = false;
+		        }
+	        }
+        }
+        return $this->HTML;
+	}
+
 	public function getDoc($forceencoding="") {
 		if(!isset($this->doc) && isset($this->data['url'])) {
 			$this->doc = new DomDocument();
-			$html = file_get_contents($this->data['url']);
-			if($forceencoding == "utf-8") $html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
-			libxml_use_internal_errors(true);
-			$this->doc->loadHTML($html);
-			libxml_use_internal_errors(false);
+			$old_libxml_error = libxml_use_internal_errors(true);
+			$this->doc->loadHTML(self::getHTML($forceencoding));
+			libxml_use_internal_errors($old_libxml_error);
 		}
 		return $this->doc;
 	}
@@ -182,7 +219,7 @@ class Onebox {
 	public function update($newdata) {
 		if(isset($newdata)) {
 			foreach ($newdata as $key => $value) {
-				if(!isset($this->data[$key]) || !$this->data[$key]) $this->data[$key]=$value;
+				if((!isset($this->data[$key]) || !$this->data[$key]) && $value) $this->data[$key]=$value;
 			}
 		}
 	}
