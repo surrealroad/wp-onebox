@@ -48,12 +48,12 @@ class OneboxPlugin {
 		add_option("onebox_template_html", '<div class="onebox-result {class}">
 <div class="onebox-header-wrapper">
 <div class="onebox-header">
-<a href="{url}" target="_blank" rel="nofollow">{favicon}<span class="onebox-sitename">{sitename}</span></a> / <span class="onebox-title"><a href="{url}" target="_blank" rel="nofollow">{title}</a></span>
+<a href="{url}" target="_blank" rel="nofollow">{favicon}<span class="onebox-sitename">{sitename}</span></a> / <span class="onebox-title"><a href="{url}" target="_blank">{title}</a></span>
 <span class="onebox-title-button">{title-button}</span>
 </div>
 </div>
 <div class="onebox-body-wrapper">
-<a href="{url}" target="_blank" rel="nofollow">{image}</a>
+<a href="{url}" target="_blank">{image}</a>
 <div class="onebox-body">
 <p class="onebox-description">{description} — <a href="{url}">Read More</a></p><p class="onebox-additional">{additional}</p>
 </div>
