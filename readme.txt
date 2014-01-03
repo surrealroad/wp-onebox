@@ -1,6 +1,6 @@
 === Onebox ===
 Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda
-Stable tag: 0.6.2
+Stable tag: 0.6.3
 Tested up to: 3.8
 
 Onebox: A Fancy Hyperlink Display Plugin for WordPress
@@ -103,7 +103,7 @@ You can use any or all of the following:
 4. Example Onebox for gog.com
 
 == Changelog ==
-= 0.x =
+= 0.6.3 =
 * Added lynda.com parser
 * Security improvements
 * Improvements to iTunes localisation
