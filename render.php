@@ -17,6 +17,7 @@ load_plugin_textdomain('onebox', false, basename(dirname(__FILE__)).'/languages'
 
 // set up list of parsers to include
 $parsers = array(
+	"lynda",
 	"origin",
 	"greenmangaming",
 	"macgamestore",

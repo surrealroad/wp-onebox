@@ -41,6 +41,7 @@ Currently supported sites
 * Mac Game Store (macgamestore.com)
 * Green Man Gaming (greenmangaming.com)
 * Origin (origin.com)
+* Lynda (lynda.com)
 many more to follow
 
 Note

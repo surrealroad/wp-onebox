@@ -1,5 +1,5 @@
 === Onebox ===
-Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin
+Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda
 Stable tag: 0.6.2
 Tested up to: 3.8
 
@@ -38,6 +38,7 @@ Currently supported sites
 * Mac Game Store (macgamestore.com)
 * Green Man Gaming (greenmangaming.com)
 * Origin (origin.com)
+* Lynda (lynda.com)
 many more to follow
 
 Note
@@ -102,6 +103,9 @@ You can use any or all of the following:
 4. Example Onebox for gog.com
 
 == Changelog ==
+= 0.x =
+* Added lynda.com parser
+
 = 0.6.2 =
 * Better handling of sites with broken HTML or no useful data
 
