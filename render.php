@@ -152,8 +152,13 @@ class Onebox {
 
 	private function user_cc() {
 		if(function_exists("geoip_country_code_by_name")) {
-			// http://www.electrictoolbox.com/php-geoip-notice-ip-address-not-found/
-			return @geoip_country_code_by_name($_SERVER['HTTP_X_FORWARDED_FOR']/*$_SERVER['REMOTE_ADDR']*/);
+			// http://stackoverflow.com/questions/10004294/php-if-statment-based-on-geo-location
+			if (getenv('HTTP_X_FORWARDED_FOR')) {
+			    $ip_address = getenv('HTTP_X_FORWARDED_FOR');
+			} else {
+			    $ip_address = getenv('REMOTE_ADDR');
+			}
+			return @geoip_country_code_by_name($ip_address);
 		}
 		return "";
 	}

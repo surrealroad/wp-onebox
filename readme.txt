@@ -107,6 +107,7 @@ You can use any or all of the following:
 * Added lynda.com parser
 * Security improvements
 * Improvements to iTunes localisation
+* Improvements to country detection
 
 = 0.6.2 =
 * Better handling of sites with broken HTML or no useful data
