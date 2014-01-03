@@ -106,6 +106,7 @@ You can use any or all of the following:
 = 0.x =
 * Added lynda.com parser
 * Security improvements
+* Improvements to iTunes localisation
 
 = 0.6.2 =
 * Better handling of sites with broken HTML or no useful data
