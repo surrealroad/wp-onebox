@@ -163,6 +163,7 @@ class Onebox {
 	public function country_currency( $bc, $amount = 0 ) {
 	    $currency_before = '';
 	    $currency_after = '';
+	    $bc = strtoupper($bc);
 
 	    if( $bc == 'GB' || $bc == 'IE' || $bc == 'CY' ) $currency_before = '&pound;';
 	    if( $bc == 'AT' || $bc == 'BE' || $bc == 'FI' || $bc == 'FR' ||

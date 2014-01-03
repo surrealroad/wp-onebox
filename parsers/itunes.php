@@ -38,13 +38,22 @@ function get_itunes_data($onebox, $cc="") {
 		@$country = $regex[1];
 		if($country && $cc) $data['displayurl'] = preg_replace('#apple.com/([a-zA-Z]{2})/#', 'apple.com/'.$cc.'/', $data['displayurl']);
 		elseif($country) $cc = $country;
+		else $data['displayurl'] = 'http://target.georiot.com/Proxy.ashx?tsid=2822&GR_URL='.urlencode($url);
+
+		$tdcc = array("AT","BE","BE","BG","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","CH","GB","RA","BR","CL","CO","CR","SV", "HN","PA","PY","PE");
+		if(in_array(strtoupper($cc), $tdcc)) {
+			preg_match('#[a-zA-Z0-9_:/.-]+#', $data['displayurl'], $regex);
+			@$tdurl = $regex[0];
+			$data['displayurl'] = 'http://clkuk.tradedoubler.com/click?p=23708&amp;a=2204255&amp;url='.urlencode($tdurl.'?partnerId=2003');
+		}
 
 		$info = json_decode(file_get_contents("http://itunes.apple.com/lookup?id=".$ID."&country=".$cc), true);
 
 		// test for not available in user's region
-		if(isset($info['resultCount']) && $info['resultCount'] <1 && $cc != $country) {
+		if(isset($info['resultCount']) && $info['resultCount'] <1 && strtoupper($cc) != strtoupper($country)) {
 			$info = json_decode(file_get_contents("http://itunes.apple.com/lookup?id=".$ID."&country=".$country), true);
 			$available = false;
+			$data['displayurl'] = 'http://target.georiot.com/Proxy.ashx?tsid=2822&GR_URL='.urlencode($url);
 		} else {
 			$available = true;
 		}
@@ -79,7 +88,7 @@ function get_itunes_data($onebox, $cc="") {
 			if(isset($info['results'][0]['averageUserRating'])) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$info['results'][0]['averageUserRating'].'</span> ('.intval($info['results'][0]['userRatingCount']).')</div>';
 			if($available && isset($info['results'][0]['formattedPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$info['results'][0]['formattedPrice'].'</a>';
 			elseif($available && isset($info['results'][0]['collectionPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$onebox->country_currency($cc, $info['results'][0]['collectionPrice']).'</a>';
-			elseif(!$available) $data['footerbutton']=__('Not available in your region', "onebox");
+			elseif(!$available) $data['footerbutton']=__('May not be available in your region', "onebox");
 
 			$data['description'] = $desc;
 			if(count($additional)) {
