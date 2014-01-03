@@ -24,10 +24,10 @@ function get_origin_data($onebox) {
 
 	$finder = new DomXPath($onebox->getDoc());
 
-	@$title = $finder->query("//h1")->item(0)->nodeValue;
+	@$title = strip_tags($finder->query("//h1")->item(0)->nodeValue);
 	if($title) $data['title'] = $title;
 
-	@$price = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' actual-price ')]")->item(0)->nodeValue;
+	@$price = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' actual-price ')]")->item(0)->nodeValue);
 	if($price) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$price.'</a>';
 
 	$additional = array();
@@ -35,7 +35,7 @@ function get_origin_data($onebox) {
 	if(count($genrelist)) {
 		$genres = array();
 		foreach($genrelist as $genre) {
-			$genres[]=$genre->nodeValue;
+			$genres[]=strip_tags($genre->nodeValue);
 		}
 		$additional[]= __('Genre: ', "onebox").implode(", ", $genres);
 	}
@@ -43,7 +43,7 @@ function get_origin_data($onebox) {
 	if($contentRating) $additional[]= __('Content advisory rating: ', "onebox").trim($contentRating);
 
 	$footer = array();
-	@$releaseDate = $finder->query("//table[contains(concat(' ', normalize-space(@class), ' '), ' game-info ')]/tr[2]/td[contains(concat(' ', normalize-space(@class), ' '), ' detail ')]")->item(0)->nodeValue;
+	@$releaseDate = strip_tags($finder->query("//table[contains(concat(' ', normalize-space(@class), ' '), ' game-info ')]/tr[2]/td[contains(concat(' ', normalize-space(@class), ' '), ' detail ')]")->item(0)->nodeValue);
 	if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.trim($releaseDate).'</strong>';
 
 	if(count($additional)) {

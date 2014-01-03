@@ -43,7 +43,7 @@ function get_gog_data($url) {
 		if(count($genrelist)) {
 			$genres = array();
 			foreach($genrelist as $genre) {
-				$genres[]=$genre->nodeValue;
+				$genres[]=strip_tags($genre->nodeValue);
 			}
 			$additional[]= __('Genre: ', "onebox").implode(", ", $genres);
 		}
@@ -57,13 +57,13 @@ function get_gog_data($url) {
 		$data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$rating.'</span> ('.intval($ratingCount).')</div>';
 
 		$footer = array();
-		@$releaseDate = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/ul[contains(concat(' ', normalize-space(@class), ' '), ' details ')]/li")->item(3)->nodeValue;
+		@$releaseDate = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/ul[contains(concat(' ', normalize-space(@class), ' '), ' details ')]/li")->item(3)->nodeValue);
 		if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$releaseDate.'</strong>';
-		@$size = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' download_size ')]/b")->item(0)->nodeValue;
+		@$size = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' download_size ')]/b")->item(0)->nodeValue);
 		if($size) $footer[]= __('Download size: ', "onebox").'<strong>'.$size.'</strong>';
 
 
-		@$title = $finder->query('//title')->item(0)->nodeValue;
+		@$title = strip_tags($finder->query('//title')->item(0)->nodeValue);
 		$regs = array();
 		if (preg_match('/(?<=\$)\d+(\.\d+)?\b/', $title, $regs)) {
 	    	$data['footerbutton']= '<a href="'.$data['displayurl'].'">$'.$regs[0].'</a>';

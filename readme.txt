@@ -105,6 +105,7 @@ You can use any or all of the following:
 == Changelog ==
 = 0.x =
 * Added lynda.com parser
+* Security improvements
 
 = 0.6.2 =
 * Better handling of sites with broken HTML or no useful data

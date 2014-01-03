@@ -24,10 +24,10 @@ function get_greenmangaming_data($onebox) {
 
 	$finder = new DomXPath($onebox->getDoc("utf-8"));
 
-	@$title = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' prod_det ')]")->item(0)->nodeValue;
+	@$title = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' prod_det ')]")->item(0)->nodeValue);
 	if($title) $data['title'] = $title;
 
-	@$price = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' curPrice ')]")->item(0)->nodeValue;
+	@$price = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' curPrice ')]")->item(0)->nodeValue);
 	if($price) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$price.'</a>';
 
 	return $data;
