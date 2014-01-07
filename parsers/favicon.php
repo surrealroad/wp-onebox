@@ -18,21 +18,32 @@ function get_favicon($onebox) {
 	// http://stackoverflow.com/questions/5701593/how-to-get-a-websites-favicon-with-php
 	$data = array();
 	$touchicon = parse_url($onebox->data['url'], PHP_URL_SCHEME)."://".parse_url($onebox->data['url'], PHP_URL_HOST)."/apple-touch-icon.png";
-	if(!checkRemoteFile($touchicon)) {
-		$doc = $onebox->getDoc();
-	    $xpath = new DOMXPath($doc);
-		$xml = simplexml_import_dom($doc);
-		if($xml) {
-			$arr = $xml->xpath('//link[@rel="shortcut icon"]');
-			if(isset($arr[0]['href'])) $data['favicon'] = (string)$arr[0]['href'];
-			else {
-				$arr = $xml->xpath('//link[@rel="icon"]');
-				if(isset($arr[0]['href'])) $data['favicon'] = (string)$arr[0]['href'];
+	$favicon = parse_url($onebox->data['url'], PHP_URL_SCHEME)."://".parse_url($onebox->data['url'], PHP_URL_HOST)."/favicon.ico";
+
+	$doc = $onebox->getDoc();
+    $xpath = new DOMXPath($doc);
+	$xml = simplexml_import_dom($doc);
+	if($xml) {
+		$paths = array(
+			// try to find apple touch icons
+			'//link[@rel="apple-touch-icon"]',
+			'//link[@rel="apple-touch-icon-precomposed"]',
+			// try to find shortcut icons
+			'//link[@rel="shortcut icon"]',
+			'//link[@rel="icon"]',
+		);
+		foreach($paths as $path) {
+			$arr = $xml->xpath($path);
+			if(isset($arr[0]['href'])) {
+				$data['favicon'] = (string)$arr[0]['href'];
+				break;
 			}
 		}
 	}
-	else {
-	    $data['favicon'] = $touchicon;
+
+	if(!$data['favicon']) {
+		if(checkRemoteFile($touchicon)) $data['favicon'] = $touchicon;
+		elseif(checkRemoteFile($favicon)) $data['favicon'] = $favicon;
 	}
 
 	return $data;

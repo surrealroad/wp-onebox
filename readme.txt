@@ -106,6 +106,7 @@ You can use any or all of the following:
 = 0.x =
 * Providing a title in the shortcode forces it to be used by the onebox (not just the text link)
 * Added an optional "description" parameter to the shortcode
+* Improvements to favicon detection and display
 
 = 0.6.3 =
 * Added lynda.com parser

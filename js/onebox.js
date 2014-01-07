@@ -39,9 +39,11 @@
 
 						template = template.replace(/{url}/g, url);
 						template = template.replace(/{class}/g, data.classes);
-						template = template.replace(/{favicon}/g, '<img src="' + data.data.favicon + '" class="onebox-favicon"/>');
+						if(data.data.favicon) template = template.replace(/{favicon}/g, '<img src="' + data.data.favicon + '" class="onebox-favicon"/>');
+						else template = template.replace(/{favicon}/g, '');
 						template = template.replace(/{sitename}/g, data.data.sitename);
-						template = template.replace(/{image}/g, '<img src="' + data.data.image + '" class="onebox-thumbnail"/>');
+						if(data.data.image) template = template.replace(/{image}/g, '<img src="' + data.data.image + '" class="onebox-thumbnail"/>');
+						else template = template.replace(/{image}/g, '');
 						template = template.replace(/{title}/g, data.data.title);
 						template = template.replace(/{description}/g, data.data.description);
 						template = template.replace(/{additional}/g, data.data.additional);

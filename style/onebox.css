@@ -44,8 +44,8 @@
 
 .onebox-header-wrapper {
 	border-bottom: 1px solid #fff;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding-left: 10px;
+	padding-right: 10px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	background:#fcfcfc;
@@ -80,9 +80,9 @@
 }
 
 .onebox-header img.onebox-favicon {
-	margin-right: 8px;
-	max-height:23px;
-	max-width:23px;
+	margin-right: 5px;
+	height:23px;
+	width:23px;
 	float: left;
 	border: none;
 	background: none;
