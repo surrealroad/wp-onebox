@@ -93,6 +93,9 @@ class OneboxPlugin {
 
 		add_filter( 'query_vars', array($this, 'onebox_query_vars_filter') );
 		add_action( 'template_redirect', array($this, 'renderOnebox'), 1 );
+
+		$plugin = plugin_basename(__FILE__);
+		add_filter("plugin_action_links_$plugin", array($this, 'onebox_settings_link') );
 	}
 
 	public function admin_init() {
@@ -180,6 +183,13 @@ class OneboxPlugin {
 			include(WP_PLUGIN_DIR.'/onebox/render.php');
 			exit;
 		}
+	}
+
+	// add settings link
+	static function onebox_settings_link($links) {
+		$settings_link = '<a href="options-general.php?page=onebox">Settings</a>';
+		array_unshift($links, $settings_link);
+		return $links;
 	}
 
 	// add admin options page

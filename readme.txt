@@ -105,6 +105,7 @@ You can use any or all of the following:
 == Changelog ==
 = 0.x =
 * Invalidate cache when title or description is manually changed
+* Added link to settings from plugins page
 
 = 0.6.4 =
 * Providing a title in the shortcode forces it to be used by the onebox (not just the text link)
