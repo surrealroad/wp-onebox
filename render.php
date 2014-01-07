@@ -50,6 +50,7 @@ class Onebox {
 	);
 
 	public $data = array();
+	private $cacheid = "";
 	private $classes = array();
 	private $HTML = NULL;
 	private $doc = NULL;
@@ -66,6 +67,9 @@ class Onebox {
 		if(isset($title)) $this->data['title'] = strip_tags($title);
 		if(isset($description)) $this->data['description'] = strip_tags($description);
 		$this->data['countrycode'] = self::user_cc();
+
+		if($this->data['countrycode']) $this->cacheid =md5($this->data['url']."|".$this->data['title']."|".$this->data['description']."|".$this->data['countrycode']);
+		else $this->cacheid =md5($this->data['url']."|".$this->data['title']."|".$this->data['description']);
 	}
 
 	public function outputjson() {
@@ -239,20 +243,12 @@ class Onebox {
 
 	public function readCache() {
 		if(!get_option('onebox_enable_apc_cache') || !$this->isAPCCacheInstalled()) return false;
-
-		if($this->data['countrycode'] && apc_fetch(md5($this->data['url']."|".$this->data['countrycode']))) return apc_fetch(md5($this->data['url']."|".$this->data['countrycode']));
-		elseif($this->data['countrycode']) return false;
-		else return apc_fetch(md5($this->data['url']));
+		return apc_fetch($this->cacheid);
 	}
 
 	private function writeCache($output) {
 		if(!get_option('onebox_enable_apc_cache') || !$this->isAPCCacheInstalled()) return false;
-
-		if($this->data['countrycode']) {
-			$id = md5($this->data['url']."|".$this->data['countrycode']);
-		} else {
-			$id = md5($this->data['url']);
-		}
+		$id = $this->cacheid;
 		$ttl = 43200; //12 * 60 * 60;
 		$this->cached = apc_store($id, $output, $ttl);
 	}
@@ -270,6 +266,6 @@ if(get_query_var("onebox_url")) {
 		include("parsers/".$parser.".php");
 		}
 
-		echo $onebox->outputjson();
+		$onebox->outputjson();
 	}
 }

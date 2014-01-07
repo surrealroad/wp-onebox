@@ -103,6 +103,9 @@ You can use any or all of the following:
 4. Example Onebox for gog.com
 
 == Changelog ==
+= 0.x =
+* Invalidate cache when title or description is manually changed
+
 = 0.6.4 =
 * Providing a title in the shortcode forces it to be used by the onebox (not just the text link)
 * Added an optional "description" parameter to the shortcode
