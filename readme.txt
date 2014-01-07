@@ -1,5 +1,5 @@
 === Onebox ===
-Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda
+Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda.com
 Stable tag: 0.6.3
 Tested up to: 3.8
 
@@ -9,7 +9,7 @@ Onebox: A Fancy Hyperlink Display Plugin for WordPress
 
 What does this plugin do?
 --
-This plugin lets you use a shortcode `[onebox url="http://example.com" title="optional plain link text"]` in place of a link that will display a lovely Facebook/Twitter-style box with additional information about the link.
+This plugin lets you use a shortcode `[onebox url="http://example.com" title="optional title" description="optional description"]` in place of a link that will display a lovely Facebook/Twitter-style box with additional information about the link.
 
 WordPress has [built-in support](http://en.support.wordpress.com/twitter/twitter-embeds/) for some links like Google+ or Twitter, where it will generate a nice-looking embed from a link or shortcode, but what about other sites? Onebox aims to let you turn any link into an embedded box, with extra features for some special sites, and with a fully customisable HTML template.
 
@@ -63,7 +63,7 @@ Additional credits
 1. Install the plugin as you would any other WordPress plugin and enable it
 2. Go to Settings > Onebox
 3. Change settings as required
-4. Add a shortcode in the form `[onebox url="http://anything.com"]`. If you want to specify the text for link as displayed to crawlers (or wherever the Onebox can't be displayed, such as when Javascript is turned off), use `[onebox url="http://anything.com" title="anything"]`
+4. Add a shortcode in the form `[onebox url="http://anything.com"]`. If you want to specify the text for the link as displayed to crawlers (or wherever the Onebox can't be displayed, such as when Javascript is turned off) as well as override the Onebox title, use `[onebox url="http://anything.com" title="anything"]`. Similarly, you can override the description field in the Onebox with `[onebox url="http://anything.com" description="my description for this link"]`.
 
 == Frequently Asked Questions ==
 
@@ -103,6 +103,10 @@ You can use any or all of the following:
 4. Example Onebox for gog.com
 
 == Changelog ==
+= 0.x =
+* Providing a title in the shortcode forces it to be used by the onebox (not just the text link)
+* Added an optional "description" parameter to the shortcode
+
 = 0.6.3 =
 * Added lynda.com parser
 * Security improvements

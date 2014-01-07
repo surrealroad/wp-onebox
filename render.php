@@ -56,13 +56,15 @@ class Onebox {
 	public $cached = false;
 	public $shouldCacheLocation = false;
 
-	public function __construct($url) {
+	public function __construct($url, $title, $description) {
 
 		foreach($this->properties as $property) {
 			$this->data[$property] = "";
 		}
 
 		$this->data['url'] = esc_url_raw($url);
+		if(isset($title)) $this->data['title'] = strip_tags($title);
+		if(isset($description)) $this->data['description'] = strip_tags($description);
 		$this->data['countrycode'] = self::user_cc();
 	}
 
@@ -214,8 +216,8 @@ class Onebox {
 	}
 
 	private function sanitize_favicon($favicon, $url) {
-		// Prepend "http://" to any link missing the HTTP protocol text.
-		if ($favicon && preg_match('|^https*://|', $favicon) === 0) {
+		// Prepend "http://" to any link missing the HTTP protocol text, unless it's in the form "//".
+		if ($favicon && preg_match('|^https*://|', $favicon) === 0 && substr($favicon, 0, 2) !== '//') {
 			if (substr($favicon, 0, 1) !== '/') $favicon = "/".$favicon;
 			$favicon = parse_url($url, PHP_URL_SCHEME)."://".parse_url($url, PHP_URL_HOST) . $favicon;
 		}
@@ -258,7 +260,7 @@ class Onebox {
 
 if(get_query_var("onebox_url")) {
 
-	$onebox = new Onebox(urldecode(get_query_var("onebox_url")));
+	$onebox = new Onebox(urldecode(get_query_var("onebox_url")), urldecode(get_query_var("onebox_title")), urldecode(get_query_var("onebox_description")));
 
 	if($onebox->readCache()) {
 		echo json_encode($onebox->readCache());

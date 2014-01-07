@@ -148,18 +148,29 @@ class OneboxPlugin {
 	static function renderOneboxShortcode($atts) {
 	   extract(shortcode_atts(array(
 	   		'url' => "",
-	   		'title' =>__( 'Link', 'onebox'),
+	   		'title' => "",
+	   		'description' => "",
 	   ), $atts));
 	   if(!$url) return;
+	   if($title) {
+		   $data = ' data-title="'.esc_attr($title).'"';
+	   } else {
+		   $data = "";
+		   $title = __( 'Link', 'onebox');
+	   }
+	   if($description) $data .= ' data-description="'.esc_attr($description).'"';
+
 	   $link = '<a href="'.$url.'">'.esc_attr($title).'</a>';
 	   if(is_feed()) return $link;
-	   else return '<div class="onebox-container">'.$link.'</div>' ;
+	   else return '<div class="onebox-container"'.$data.'>'.$link.'</div>' ;
 	}
 
 	// register query vars
 	static function onebox_query_vars_filter($vars) {
 		$vars[] = "onebox_render";
 		$vars[] = "onebox_url";
+		$vars[] = "onebox_title";
+		$vars[] = "onebox_description";
 		return $vars;
 	}
 
