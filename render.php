@@ -262,10 +262,7 @@ if(get_query_var("onebox_url")) {
 		echo json_encode($onebox->readCache());
 	} else {
 		// run parsers
-		foreach($parsers as $parser) {
-		include("parsers/".$parser.".php");
-		}
-
-		$onebox->outputjson();
+		foreach($parsers as $parser) include("parsers/".$parser.".php");
+		echo $onebox->outputjson();
 	}
 }
