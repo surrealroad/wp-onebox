@@ -106,6 +106,7 @@ You can use any or all of the following:
 = 0.x =
 * Invalidate cache when title or description is manually changed
 * Added link to settings from plugins page
+* Fixed GitHub commit counts being capped at 30
 
 = 0.6.4 =
 * Providing a title in the shortcode forces it to be used by the onebox (not just the text link)

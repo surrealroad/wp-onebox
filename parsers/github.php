@@ -30,13 +30,24 @@ function get_github_data($url) {
 		$context  = stream_context_create($options);
 
 		$infoURL = "https://api.github.com/repos/".$repo;
-		$commitsURL = $infoURL."/commits";
+		$perpage = 100;
+		$commitsURL = $infoURL."/commits?per_page=".$perpage;
 		if(get_option('onebox_github_apikey')) {
 			$infoURL .= "?access_token=".get_option('onebox_github_apikey');
-			$commitsURL .= "?access_token=".get_option('onebox_github_apikey');
+			$commitsURL .= "&access_token=".get_option('onebox_github_apikey');
 		}
 		@$info = json_decode(file_get_contents($infoURL, false, $context), true);
-		@$commits = json_decode(file_get_contents($commitsURL, false, $context), true);
+		$commits = array();
+		$commitCount = -1;
+		$lastsha ="";
+
+		while ($commitCount<0 || (count($commits)-$commitCount)==$perpage) {
+			$commitCount = count($commits);
+			@$json = json_decode(file_get_contents($commitsURL."&last_sha=".$lastsha, false, $context), true);
+			if(!$json) break;
+			$commits = array_merge($commits, $json);
+			$lastsha = $commits[count($commits)-1]['sha'];
+		}
 
 		//print_r($commits[0]['commit']);
 
@@ -67,6 +78,5 @@ function get_github_data($url) {
 			$data['titlebutton'] = implode(" ", $titlebutton);
 		}
 	}
-
 	return $data;
 }
