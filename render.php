@@ -3,12 +3,12 @@
 Generate Onebox HTML
 */
 
-/*
+
 // debug
 error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors',1);
-*/
+
 
 require_once("lib/Encoding.php");
 
@@ -17,6 +17,7 @@ load_plugin_textdomain('onebox', false, basename(dirname(__FILE__)).'/languages'
 
 // set up list of parsers to include
 $parsers = array(
+	"googleplay",
 	"lynda",
 	"origin",
 	"greenmangaming",
