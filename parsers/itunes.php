@@ -40,13 +40,6 @@ function get_itunes_data($onebox, $cc="") {
 		elseif($country) $cc = $country;
 		else $data['displayurl'] = 'http://target.georiot.com/Proxy.ashx?tsid=2822&GR_URL='.urlencode($url);
 
-		$tdcc = array("AT","BE","BE","BG","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","CH","GB","RA","BR","CL","CO","CR","SV", "HN","PA","PY","PE");
-		if(in_array(strtoupper($cc), $tdcc)) {
-			preg_match('#[a-zA-Z0-9_:/.-]+#', $data['displayurl'], $regex);
-			@$tdurl = $regex[0];
-			$data['displayurl'] = 'http://clkuk.tradedoubler.com/click?p=23708&amp;a=2204255&amp;url='.urlencode($tdurl.'?partnerId=2003');
-		}
-
 		$info = json_decode(file_get_contents("http://itunes.apple.com/lookup?id=".$ID."&country=".$cc), true);
 
 		// test for not available in user's region
