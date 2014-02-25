@@ -51,7 +51,7 @@ TODO:
 * Add more parsers
 
 Additional credits
-* Inspired by the "Onebox" module from Discourse (http://www.discourse.org/)
+* Inspired by the "Onebox" ruby gem (https://github.com/dysania/onebox)
 * [Open Graph Protocol helper for PHP](https://github.com/scottmac/opengraph)
 * [Amazon ECS PHP Library](https://github.com/Exeu/Amazon-ECS-PHP-Library)
 * [forceutf8](https://github.com/neitanod/forceutf8)
