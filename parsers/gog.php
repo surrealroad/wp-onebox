@@ -34,39 +34,34 @@ function get_gog_data($onebox) {
 	if($ID) {
 		require_once(WP_PLUGIN_DIR.'/onebox/lib/html5lib/library/HTML5/Parser.php');
 
-		$file = file_get_contents($url);
-		$doc = HTML5_Parser::parse($file);
-		$finder = new DomXPath($doc);
-
-		//$img = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/img");
-		//$data['image']= $img->item(0)->getAttribute("src");
+		phpQuery::newDocument($onebox->getHTML());
 
 		$additional = array();
-		@$genrelist = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/ul[contains(concat(' ', normalize-space(@class), ' '), ' details ')]/li[1]/a");
+		$genrelist = pq(".game_top ul.details li:eq(0) a");
 		if(count($genrelist)) {
 			$genres = array();
 			foreach($genrelist as $genre) {
-				$genres[]=strip_tags($genre->nodeValue);
+				$genres[]=pq($genre)->text();
 			}
 			$additional[]= __('Genre: ', "onebox").implode(", ", $genres);
 		}
 
-		@$fullrating = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/ul/li/span[contains(concat(' ', normalize-space(@class), ' '), ' usr_rate ')]/span[contains(concat(' ', normalize-space(@class), ' '), ' usr_s_f ')]");
-		@$halfrating = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/ul/li/span[contains(concat(' ', normalize-space(@class), ' '), ' usr_rate ')]/span[contains(concat(' ', normalize-space(@class), ' '), ' usr_s_h ')]");
+		$fullrating = pq(".game_top ul.details li span.usr_rate span.usr_s_f");
+		$halfrating = pq(".game_top ul.details li span.usr_rate span.usr_s_h");
 		@$rating = $fullrating->length + 0.5 * $halfrating->length;
-		@$ratingCountText = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/ul/li/span[contains(concat(' ', normalize-space(@class), ' '), ' usr_rate ')]/../span")->item(1)->nodeValue;
+		$ratingCountText = pq(".game_top ul.details li span.usr_rate")->parent()->text();
 		preg_match_all('/\d+/', $ratingCountText, $matches); // http://stackoverflow.com/questions/11243447/get-numbers-from-string-with-php
 		@$ratingCount = $matches[0][0];
 		$data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$rating.'</span> ('.intval($ratingCount).')</div>';
 
 		$footer = array();
-		@$releaseDate = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' game_top ')]/ul[contains(concat(' ', normalize-space(@class), ' '), ' details ')]/li")->item(3)->nodeValue);
+		$releaseDate = pq(".game_top ul.details li:eq(3)")->text();
 		if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$releaseDate.'</strong>';
-		@$size = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' download_size ')]/b")->item(0)->nodeValue);
+		$size = pq(".download_size b")->text();
 		if($size) $footer[]= __('Download size: ', "onebox").'<strong>'.$size.'</strong>';
 
 
-		@$title = strip_tags($finder->query('//title')->item(0)->nodeValue);
+		$title = pq("title")->text();
 		$regs = array();
 		if (preg_match('/(?<=\$)\d+(\.\d+)?\b/', $title, $regs)) {
 	    	$data['footerbutton']= '<a href="'.$displayurl.'">$'.$regs[0].'</a>';

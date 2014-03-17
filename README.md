@@ -42,6 +42,7 @@ Currently supported sites
 * Green Man Gaming (greenmangaming.com)
 * Origin (origin.com)
 * Lynda (lynda.com)
+* Wikipedia (wikipedia.org)
 many more to follow
 
 Note
@@ -60,3 +61,4 @@ Additional credits
 * [forceutf8](https://github.com/neitanod/forceutf8)
 * [html5lib - php flavour](https://github.com/html5lib/html5lib-php)
 * Default template based on "Facebook Notify Widget" by Pixels Daily and [GitHub-jQuery-Repo-Widget](https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget)
+* [PHPQuery](https://code.google.com/p/phpquery/)

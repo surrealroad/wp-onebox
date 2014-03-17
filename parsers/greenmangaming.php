@@ -1,6 +1,6 @@
 <?php
 
-// Steam Parser for OneBox
+// Green Man Gaming Parser for OneBox
 
 if(isset($onebox)) {
 
@@ -24,12 +24,12 @@ function get_greenmangaming_data($onebox) {
 	if($onebox->affiliateLinks) $displayurl = $data['displayurl'];
 	else $displayurl = $onebox->data['url'];
 
-	$finder = new DomXPath($onebox->getDoc("utf-8"));
+	phpQuery::newDocument($onebox->getHTML());
 
-	@$title = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' prod_det ')]")->item(0)->nodeValue);
+	$title = pq(".prod_det")->text();
 	if($title) $data['title'] = $title;
 
-	@$price = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' curPrice ')]")->item(0)->nodeValue);
+	$price = pq(".curPrice")->text();
 	if($price) $data['footerbutton']= '<a href="'.$displayurl.'">'.$price.'</a>';
 
 	return $data;

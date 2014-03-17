@@ -29,7 +29,7 @@ class OneboxPlugin {
 	//Version
 	static $version ='0.6.4';
 	static $sampleLink = "https://github.com/surrealroad/wp-onebox";
-	static $enableAffiliate = true;
+	static $enableAffiliate = true; // if you change this, you may need to deactive/reactivate the plugin to see the changes
 
 	//Options and defaults
 

@@ -1,5 +1,5 @@
 === Onebox ===
-Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda.com
+Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda.com, wikipedia
 Stable tag: 0.6.4
 Tested up to: 3.8
 
@@ -39,6 +39,7 @@ Currently supported sites
 * Green Man Gaming (greenmangaming.com)
 * Origin (origin.com)
 * Lynda (lynda.com)
+* Wikipedia (wikipedia.org)
 many more to follow
 
 Note
@@ -57,6 +58,7 @@ Additional credits
 * [forceutf8](https://github.com/neitanod/forceutf8)
 * [html5lib - php flavour](https://github.com/html5lib/html5lib-php)
 * Default template based on "Facebook Notify Widget" by Pixels Daily and [GitHub-jQuery-Repo-Widget](https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget)
+* [PHPQuery](https://code.google.com/p/phpquery/)
 
 == Installation ==
 
@@ -108,6 +110,8 @@ You can use any or all of the following:
 * Added link to settings from plugins page
 * Fixed GitHub commit counts being capped at 30
 * Changed the way affiliate links are processed internally for those who want to disable them
+* Added Wikipedia parser
+* Changed several parser to make use of PHPQuery to make maintenance easier
 
 = 0.6.4 =
 * Providing a title in the shortcode forces it to be used by the onebox (not just the text link)

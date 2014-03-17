@@ -110,7 +110,7 @@ class Onebox {
 		if(!$this->HTML && isset($this->data['url'])) {
 
 			if($forceencoding == "utf-8") {
-				$html = gzdecode(file_get_contents($this->data['url']));
+				$html = file_get_contents($this->data['url']);
 				$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
 				$this->HTML = $html;
 			} else {
