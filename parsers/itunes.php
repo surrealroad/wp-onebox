@@ -51,6 +51,9 @@ function get_itunes_data($onebox, $cc="") {
 			$available = true;
 		}
 
+		if($onebox->affiliateLinks && $data['displayurl']) $displayurl = $data['displayurl'];
+		else $displayurl = $data['url'];
+
 		if(isset($info['results'][0])) {
 			if(isset($info['results'][0]['kind'])) $type = $info['results'][0]['kind'];
 			elseif(isset($info['results'][0]['collectionType'])) $type = $info['results'][0]['collectionType'];
@@ -79,8 +82,8 @@ function get_itunes_data($onebox, $cc="") {
 			if(isset($info['results'][0]['version'])) $footer[]= __('Current version: ', "onebox").'<strong>'.$info['results'][0]['version'].'</strong>';
 
 			if(isset($info['results'][0]['averageUserRating'])) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$info['results'][0]['averageUserRating'].'</span> ('.intval($info['results'][0]['userRatingCount']).')</div>';
-			if($available && isset($info['results'][0]['formattedPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$info['results'][0]['formattedPrice'].'</a>';
-			elseif($available && isset($info['results'][0]['collectionPrice'])) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$onebox->country_currency($cc, $info['results'][0]['collectionPrice']).'</a>';
+			if($available && isset($info['results'][0]['formattedPrice'])) $data['footerbutton']= '<a href="'.$displayurl.'">'.$info['results'][0]['formattedPrice'].'</a>';
+			elseif($available && isset($info['results'][0]['collectionPrice'])) $data['footerbutton']= '<a href="'.$displayurl.'">'.$onebox->country_currency($cc, $info['results'][0]['collectionPrice']).'</a>';
 			elseif(!$available) $data['footerbutton']=__('May not be available in your region', "onebox");
 
 			$data['description'] = $desc;

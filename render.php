@@ -54,6 +54,7 @@ class Onebox {
 	private $classes = array();
 	private $HTML = NULL;
 	private $doc = NULL;
+	public $affiliateLinks;
 	public $cached = false;
 	public $shouldCacheLocation = false;
 
@@ -70,6 +71,7 @@ class Onebox {
 
 		if($this->data['countrycode']) $this->cacheid =md5($this->data['url']."|".$this->data['title']."|".$this->data['description']."|".$this->data['countrycode']);
 		else $this->cacheid =md5($this->data['url']."|".$this->data['title']."|".$this->data['description']);
+		$this->affiliateLinks = get_option('onebox_affiliate_links');
 	}
 
 	public function outputjson() {
@@ -85,7 +87,7 @@ class Onebox {
 			}
 			$this->data['additional'] = \ForceUTF8\Encoding::toUTF8($this->data['additional']);
 			if(!$this->data['sitename']) $this->data['sitename']= str_ireplace('www.', '', parse_url($this->data['url'], PHP_URL_HOST));
-			if(!get_option('onebox_affiliate_links')) $this->data['displayurl']="";
+			if(!$this->affiliateLinks) $this->data['displayurl']="";
 			$output = array('data'=>$this->data, 'classes'=>self::writeClasses());
 			// cache result
 			$this->writeCache($output);

@@ -8,15 +8,16 @@ if(isset($onebox)) {
 
 	if($match) {
 		$onebox->addClass("onebox-gog");
-		$data = get_gog_data($onebox->data['url']);
+		$data = get_gog_data($onebox);
 		$onebox->update($data);
 	}
 }
 
 
-function get_gog_data($url) {
+function get_gog_data($onebox) {
 
 	$data=array();
+	$url = $onebox->data['url'];
 
 	$query = parse_url($url, PHP_URL_QUERY);
 	if($query) {
@@ -24,6 +25,8 @@ function get_gog_data($url) {
 	} else {
 	    $data['displayurl']=$url.'?pp=ec7f1f65067126f3b2bd1037de8a18d0db2ec84b';
 	}
+	if($onebox->affiliateLinks) $displayurl = $data['displayurl'];
+	else $displayurl = $onebox->data['url'];
 
 	preg_match('#/(game|gamecard)/(\w+)/?\??#', $url, $regex);
 	$ID = $regex[2];
@@ -66,7 +69,7 @@ function get_gog_data($url) {
 		@$title = strip_tags($finder->query('//title')->item(0)->nodeValue);
 		$regs = array();
 		if (preg_match('/(?<=\$)\d+(\.\d+)?\b/', $title, $regs)) {
-	    	$data['footerbutton']= '<a href="'.$data['displayurl'].'">$'.$regs[0].'</a>';
+	    	$data['footerbutton']= '<a href="'.$displayurl.'">$'.$regs[0].'</a>';
 		}
 
 		if(count($additional)) {

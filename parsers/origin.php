@@ -21,6 +21,8 @@ function get_origin_data($onebox) {
 	$data['favicon']='http://www.origin.com/favicon.ico';
 	$data['sitename'] = "Origin";
 	$data['displayurl']='http://clkuk.tradedoubler.com/click?p(123350)a(2204255)g(19995808)url('.$onebox->data['url'].')';
+	if($onebox->affiliateLinks) $displayurl = $data['displayurl'];
+	else $displayurl = $onebox->data['url'];
 
 	$finder = new DomXPath($onebox->getDoc());
 
@@ -28,7 +30,7 @@ function get_origin_data($onebox) {
 	if($title) $data['title'] = $title;
 
 	@$price = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' actual-price ')]")->item(0)->nodeValue);
-	if($price) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$price.'</a>';
+	if($price) $data['footerbutton']= '<a href="'.$displayurl.'">'.$price.'</a>';
 
 	$additional = array();
 	@$genrelist = $finder->query("//table[contains(concat(' ', normalize-space(@class), ' '), ' game-info ')]/tr[1]/td[contains(concat(' ', normalize-space(@class), ' '), ' detail ')]/a");

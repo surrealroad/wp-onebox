@@ -21,6 +21,8 @@ function get_greenmangaming_data($onebox) {
 	$data['favicon']='http://www.greenmangaming.com/static/favicon.ico';
 	$data['sitename'] = "Green Man Gaming";
 	$data['displayurl']='http://www.anrdoezrs.net/click-5748306-10913188?URL='.urlencode($onebox->data['url']);
+	if($onebox->affiliateLinks) $displayurl = $data['displayurl'];
+	else $displayurl = $onebox->data['url'];
 
 	$finder = new DomXPath($onebox->getDoc("utf-8"));
 
@@ -28,7 +30,7 @@ function get_greenmangaming_data($onebox) {
 	if($title) $data['title'] = $title;
 
 	@$price = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' curPrice ')]")->item(0)->nodeValue);
-	if($price) $data['footerbutton']= '<a href="'.$data['displayurl'].'">'.$price.'</a>';
+	if($price) $data['footerbutton']= '<a href="'.$displayurl.'">'.$price.'</a>';
 
 	return $data;
 }
