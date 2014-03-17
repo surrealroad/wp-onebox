@@ -20,21 +20,29 @@ function get_googleplay_data($onebox) {
 
 	$data=array();
 
+	$data['sitename'] = "Google Play";
 	$data['favicon']='http://ssl.gstatic.com/android/market_images/web/favicon.ico';
 
 	preg_match('#id=(\w+.\w+.\w+)#', $url, $regex);
 	@$ID = $regex[1];
 
-	if($ID) {
-		require_once(WP_PLUGIN_DIR.'/onebox/lib/google-play-store-api/playStoreApi.php'); // including class file
-        $class_init = new PlayStoreApi; // initiating class
+	phpQuery::newDocument($onebox->getHTML());
 
-        $itemInfo = $class_init->itemInfo($ID); // calling itemInfo
+	$title = pq(".document-title div")->text();
+	if($title) $data['title'] = $title;
 
-        if($itemInfo !== 0)
-        {
-            print_r($itemInfo); // it will show all data inside an array
-        }
-	}
+	$desc = pq(".text-body div p:first")->text();
+	if($desc) $data['description'] = $desc;
+
+	$img = pq(".cover-image")->attr("src");
+	if($img) $data['image']= $img;
+
+	$rating = pq(".score-container meta[itemprop=ratingValue]")->attr("content");
+	$ratingCount = pq(".score-container meta[itemprop=ratingCount]")->attr("content");
+	if($rating) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$rating.'</span> ('.intval($ratingCount).')</div>';
+
+	$price = pq(".price.buy meta[itemprop=price]")->attr("content");
+	if($price) $data['footerbutton']= '<a href="'.$displayurl.'">'.$price.'</a>';
+
 	return $data;
 }
