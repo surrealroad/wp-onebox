@@ -39,7 +39,11 @@ Currently supported sites
 * Green Man Gaming (greenmangaming.com)
 * Origin (origin.com)
 * Lynda (lynda.com)
+<<<<<<< HEAD
 * Wikipedia (wikipedia.org)
+=======
+* Google Play Store (play.google.com) note that results will be based on your server's location only
+>>>>>>> googleplay
 many more to follow
 
 Note
