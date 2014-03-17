@@ -27,32 +27,32 @@ function get_lynda_data($onebox) {
 	    $data['displayurl']=$onebox->data['url'].'?utm_medium=ldc-partner&utm_source=SSPRC&utm_content=524&utm_campaign=CD15086&bid=524&aid=CD15086';
 	}
 
-	$finder = new DomXPath($onebox->getDoc());
+	phpQuery::newDocument($onebox->getHTML());
 
-	@$title = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' course-title ')]")->item(0)->nodeValue);
+	$title = pq(".course-title")->text();
 	if($title) $data['title'] = $title;
 
-	@$desc = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' course-description ')]")->item(0)->nodeValue);
+	$desc = pq(".course-description")->text();
 	if($desc) {
 		//if(strlen($desc)>300) $desc=substr($desc,0,300);
 		$data['description'] = $desc;
 	}
 
 
-	@$image = $finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' banner-thumb ')]")->item(0)->getAttribute('style');
+	$image = pq(".banner-thumb")->attr("style");
 	if($image) {
 		preg_match('#url\(([a-zA-Z0-9_:/.-]+)\)#', $image, $regex);
 		$data['image'] = $regex[1];
 	}
 
 	$additional = array();
-	@$runningTime = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' course-meta ')]/span")->item(0)->nodeValue);
+	$runningTime = pq(".course-meta span:eq(0)")->text();
 	if($runningTime) $additional[]= __('Running time: ', "onebox").$runningTime;
-	@$level = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' course-meta ')]/span")->item(1)->nodeValue);
+	$level = pq(".course-meta span:eq(1)")->text();
 	if($level) $additional[]= __('Recommended level: ', "onebox").$level;
 
 	$footer = array();
-	@$releaseDate = strip_tags($finder->query("//*[contains(concat(' ', normalize-space(@class), ' '), ' course-meta ')]/span")->item(3)->nodeValue);
+	$releaseDate = pq(".course-meta span:eq(3)")->text();
 	if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$releaseDate.'</strong>';
 
 	if(count($additional)) {
