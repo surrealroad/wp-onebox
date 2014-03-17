@@ -112,6 +112,7 @@ You can use any or all of the following:
 * Changed the way affiliate links are processed internally for those who want to disable them
 * Added Wikipedia parser
 * Changed several parser to make use of PHPQuery to make maintenance easier
+* Added genres and release date to Green Man Gaming parser
 
 = 0.6.4 =
 * Providing a title in the shortcode forces it to be used by the onebox (not just the text link)

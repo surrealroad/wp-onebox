@@ -32,5 +32,26 @@ function get_greenmangaming_data($onebox) {
 	$price = pq(".curPrice")->text();
 	if($price) $data['footerbutton']= '<a href="'.$displayurl.'">'.$price.'</a>';
 
+	$additional = array();
+	$genrelist = pq(".game_details tr td:contains('Genres:')")->parent()->find("td:eq(1) a");
+	if(count($genrelist)) {
+		$genres = array();
+		foreach($genrelist as $genre) {
+			$genres[]=pq($genre)->text();
+		}
+		$additional[]= __('Genre: ', "onebox").implode(", ", $genres);
+	}
+
+	$footer = array();
+	$releaseDate = pq(".game_details tr td:contains('Released:')")->parent()->find("td:eq(1)")->text();
+	if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$releaseDate.'</strong>';
+
+	if(count($additional)) {
+		$data['additional'] = implode("<br/>", $additional);
+	}
+	if(count($footer)) {
+		$data['footer'] = implode(" &middot; ", $footer);
+	}
+
 	return $data;
 }
