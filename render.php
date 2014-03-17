@@ -11,6 +11,7 @@ ini_set('display_errors',1);
 */
 
 require_once("lib/Encoding.php");
+require_once("lib/phpQuery.php");
 
 //Allow translations
 load_plugin_textdomain('onebox', false, basename(dirname(__FILE__)).'/languages');

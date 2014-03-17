@@ -21,13 +21,22 @@ ini_set('display_errors',1);
 
 	$data=array();
 
-	$data['favicon']='http://www.lynda.com/apple-touch-icon.png';
 	$data['sitename'] = "Wikipedia";
+	$data['favicon'] = "http://bits.wikimedia.org/apple-touch/wikipedia.png";
 
-	$raw = new nokogiri($onebox->getHTML());
+	phpQuery::newDocument($onebox->getHTML());
 
-	$title = $raw->get("html body h1");
+	$title = pq("html body h1")->text();
 	if($title) $data['title'] = $title;
+
+	// remove sups
+	pq("sup")->remove();
+	$desc = pq("#mw-content-text p:first")->text();
+	if($desc) $data['description'] = $desc;
+
+	$img = pq(".infobox .image img")->attr("src");
+	if(!$img) $img = pq(".thumb.tright .image img")->attr("src");
+	if($img)$data['image']= $img;
 
 	return $data;
 }
