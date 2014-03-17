@@ -17,6 +17,7 @@ load_plugin_textdomain('onebox', false, basename(dirname(__FILE__)).'/languages'
 
 // set up list of parsers to include
 $parsers = array(
+	"wikipedia",
 	"lynda",
 	"origin",
 	"greenmangaming",
@@ -108,7 +109,7 @@ class Onebox {
 		if(!$this->HTML && isset($this->data['url'])) {
 
 			if($forceencoding == "utf-8") {
-				$html = file_get_contents($this->data['url']);
+				$html = gzdecode(file_get_contents($this->data['url']));
 				$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
 				$this->HTML = $html;
 			} else {
