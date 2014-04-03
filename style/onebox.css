@@ -276,6 +276,12 @@ i.onebox-icon {
 .onebox-trophy-icon {
 	background-image: url("icon-trophy.png");
 }
+.onebox-note-icon {
+	background-image: url("icon-note.png");
+}
+.onebox-comment-icon {
+	background-image: url("icon-comment.png");
+}
 
 /* http://nicolasgallagher.com/micro-clearfix-hack/ */
 .onebox-clearfix:before, .onebox-clearfix:after {

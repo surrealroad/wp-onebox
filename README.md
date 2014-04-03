@@ -43,6 +43,8 @@ Currently supported sites
 * Origin (origin.com)
 * Lynda (lynda.com)
 * Wikipedia (wikipedia.org)
+* Google Play Store (play.google.com)
+* Kickstarter (kickstarter.com)
 many more to follow
 
 Note
@@ -62,3 +64,4 @@ Additional credits
 * [html5lib - php flavour](https://github.com/html5lib/html5lib-php)
 * Default template based on "Facebook Notify Widget" by Pixels Daily and [GitHub-jQuery-Repo-Widget](https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget)
 * [PHPQuery](https://code.google.com/p/phpquery/)
+* Icons by [Symbly](http://symb.ly)

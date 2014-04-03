@@ -1,5 +1,5 @@
 === Onebox ===
-Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda.com, wikipedia
+Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda.com, wikipedia, google play, kickstarter
 Stable tag: 0.7
 Tested up to: 3.8
 
@@ -41,6 +41,7 @@ Currently supported sites
 * Lynda (lynda.com)
 * Wikipedia (wikipedia.org)
 * Google Play Store (play.google.com)
+* Kickstarter (kickstarter.com)
 many more to follow
 
 Note
@@ -60,6 +61,7 @@ Additional credits
 * [html5lib - php flavour](https://github.com/html5lib/html5lib-php)
 * Default template based on "Facebook Notify Widget" by Pixels Daily and [GitHub-jQuery-Repo-Widget](https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget)
 * [PHPQuery](https://code.google.com/p/phpquery/)
+* Icons by [Symbly](http://symb.ly)
 
 == Installation ==
 
@@ -106,6 +108,10 @@ You can use any or all of the following:
 4. Example Onebox for gog.com
 
 == Changelog ==
+= 0.x =
+* Added Kickstarter parser
+* Replaced some icons for uniformity
+
 = 0.7 =
 * Invalidate cache when title or description is manually changed
 * Added link to settings from plugins page
