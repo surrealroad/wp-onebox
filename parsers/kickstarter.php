@@ -20,7 +20,7 @@ function get_kickstarter_data($onebox) {
 
 	$data['sitename'] = "Kickstarter";
 	$url_parts = parse_url($onebox->data['url']);
-	$baseURL = $url_parts['scheme'] . '://' . $url_parts['host'] . (isset($url_parts['path'])?$url_parts['path']:'');
+	$baseURL = rtrim($url_parts['scheme'] . '://' . $url_parts['host'] . (isset($url_parts['path'])?$url_parts['path']:''), '/');
 
 	phpQuery::newDocument($onebox->getHTML());
 
