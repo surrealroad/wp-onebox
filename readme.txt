@@ -1,5 +1,5 @@
 === Onebox ===
-Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda.com, wikipedia, google play, kickstarter
+Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda.com, wikipedia, google play, kickstarter, xivdb, final fantasy xiv a realm reborn database
 Stable tag: 0.7.1
 Tested up to: 3.8
 
@@ -42,6 +42,7 @@ Currently supported sites
 * Wikipedia (wikipedia.org)
 * Google Play Store (play.google.com)
 * Kickstarter (kickstarter.com)
+* Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database (xivdb.com)
 many more to follow
 
 Note
@@ -108,6 +109,9 @@ You can use any or all of the following:
 4. Example Onebox for gog.com
 
 == Changelog ==
+= 0.x =
+* Added Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database parser
+
 = 0.7.1 =
 * Added Kickstarter parser
 * Replaced some icons for uniformity
