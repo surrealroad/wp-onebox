@@ -42,7 +42,7 @@ function get_googleplay_data($onebox) {
 	if($rating) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$rating.'</span> ('.intval($ratingCount).')</div>';
 
 	$price = pq(".price.buy meta[itemprop=price]")->attr("content");
-	if($price) $data['footerbutton']= '<a href="'.$displayurl.'">'.$price.'</a>';
+	if($price) $data['footerbutton']= '<a href="'.$url.'">'.$price.'</a>';
 
 	return $data;
 }

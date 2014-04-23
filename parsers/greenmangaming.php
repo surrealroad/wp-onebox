@@ -4,7 +4,7 @@
 
 if(isset($onebox)) {
 
-	$match = preg_match('/^https?:\\/\\/www\\.greenmangaming\\.com\\/.+$/', $onebox->data['url']);
+	$match = preg_match('/^https?:\/\/(?:www\.)?greenmangaming\.com/', $onebox->data['url']);
 
 	if($match) {
 		$onebox->addClass("onebox-greenmangaming");

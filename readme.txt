@@ -113,6 +113,8 @@ You can use any or all of the following:
 * Added Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database parser
 * Cosmetic tweaks for dark theme
 * Fix for "undefined index" error when retrieving favicons
+* Fix missing URL on Google Play price button
+* Improved URL detection for some parsers
 
 = 0.7.1 =
 * Added Kickstarter parser
