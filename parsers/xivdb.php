@@ -1,7 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors',1);
 // XIVDB Parser for OneBox
 
 if(isset($onebox)) {
