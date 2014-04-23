@@ -1,7 +1,7 @@
 === Onebox ===
 Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda.com, wikipedia, google play, kickstarter, xivdb, final fantasy xiv a realm reborn database
-Stable tag: 0.7.1
-Tested up to: 3.8
+Stable tag: 0.7.2
+Tested up to: 3.9
 
 Onebox: A Fancy Hyperlink Display Plugin for WordPress
 
@@ -109,7 +109,7 @@ You can use any or all of the following:
 4. Example Onebox for gog.com
 
 == Changelog ==
-= 0.x =
+= 0.7.2 =
 * Added Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database parser
 * Cosmetic tweaks for dark theme
 * Fix for "undefined index" error when retrieving favicons
