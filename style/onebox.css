@@ -131,6 +131,19 @@
 	overflow:hidden;
 }
 
+.onebox-body table, .onebox-body tr, .onebox-body td {
+	border: none;
+	background: none;
+}
+
+.dark .onebox-body {
+	color: #ddd;
+}
+
+.onebox-body td {
+	padding-right: 4px;
+}
+
 .onebox-footer-wrapper {
 	border-top:1px solid #ddd;
 	background:white;
@@ -143,7 +156,7 @@
 .dark .onebox-footer-wrapper {
 	border-top-color: #464646;
 	background: #3d5277;
-	color: #eee;
+	color: #ddd;
 }
 
 .onebox-footer-wrapper .onebox-footer-info {
@@ -173,7 +186,7 @@
 }
 
 .dark .onebox-footer-wrapper .onebox-footer-button a {
-	color:#eee;
+	color:#ddd;
 	background: #666;
 	border:1px solid #333;
 	border-top-color:#666;
@@ -213,7 +226,7 @@ img.onebox-thumbnail {
 }
 
 .dark .onebox-description {
-	color:#fff;
+	color:#ddd;
 }
 
 p.onebox-description, p.onebox-additional {
@@ -226,7 +239,7 @@ p.onebox-description, p.onebox-additional {
 }
 
 .dark .onebox-additional {
-	color: #eee;
+	color: #ccc;
 }
 
 .onebox-stars {

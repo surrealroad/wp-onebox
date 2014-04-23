@@ -111,6 +111,7 @@ You can use any or all of the following:
 == Changelog ==
 = 0.x =
 * Added Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database parser
+* Cosmetic tweaks for dark theme
 
 = 0.7.1 =
 * Added Kickstarter parser

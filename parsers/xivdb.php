@@ -1,10 +1,8 @@
 <?php
-
-// XIVDB Parser for OneBox
-
 error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors',1);
+// XIVDB Parser for OneBox
 
 if(isset($onebox)) {
 
@@ -47,7 +45,7 @@ function get_xivdb_data($onebox) {
 
 			$onebox->data['readmore'] = false;
 
-			$subtitle = pq(".xivdb-tooltip-content-header-data-subtitle")->text();
+			$subtitle = phpQuery::trim(pq(".xivdb-tooltip-content-header-data-subtitle")->text());
 			if($subtitle) $desc[] = "<em>".$subtitle."</em>";
 			$info = pq(".xivdb-tooltip-content-info")->text();
 			if($info) {
@@ -62,26 +60,26 @@ function get_xivdb_data($onebox) {
 			if($corestats) {
 				foreach ($corestats as $corestat) {
 					$statTable[] = array(
-						'<strong>'.pq(".xivdb-tooltip-content-corestats-block-title", $corestat)->text().'</strong>',
-						'<strong>'.pq(".xivdb-tooltip-content-corestats-block-number", $corestat)->text().'</strong>',
+						'<strong>'.phpQuery::trim(pq(".xivdb-tooltip-content-corestats-block-title", $corestat)->text()).'</strong>',
+						'<strong>'.phpQuery::trim(pq(".xivdb-tooltip-content-corestats-block-number", $corestat)->text()).'</strong>',
 						'',
 						'',
 					);
 				}
+				pq(".xivdb-tooltip-content-corestats-block")->remove();
 			}
-
 			$substats = pq(".xivdb-tooltip-content-substats-block");
 			if($substats) {
 				foreach ($substats as $substat) {
 					$statTable[] = array(
-						pq(".xivdb-tooltip-content-substats-block-title", $substat)->text(),
-						pq(".xivdb-tooltip-content-substats-block-number", $substat)->text(),
-						pq(".xivdb-tooltip-content-substats-block-number2", $substat)->text(),
-						pq(".xivdb-tooltip-content-substats-block-number3", $substat)->text(),
+						phpQuery::trim(pq(".xivdb-tooltip-content-substats-block-title", $substat)->text()),
+						phpQuery::trim(pq(".xivdb-tooltip-content-substats-block-number", $substat)->text()),
+						phpQuery::trim(pq(".xivdb-tooltip-content-substats-block-number2", $substat)->text()),
+						phpQuery::trim(pq(".xivdb-tooltip-content-substats-block-number3", $substat)->text()),
 					);
 				}
+				pq(".xivdb-tooltip-content-substats-block")->remove();
 			}
-
 			if(count($statTable)) {
 				$table = '<table>';
 				foreach ($statTable as $row) {
@@ -95,8 +93,19 @@ function get_xivdb_data($onebox) {
 				$desc[] = $table;
 			}
 
-			if(count($desc)) {
-				$data['description'] = implode("<br/>", $desc);
+			$recipeItemTitles = pq(".xivdb-tooltip-content-recipe-item-title");
+			if($recipeItemTitles) {
+				foreach($recipeItemTitles as $recipeItemTitle) {
+					$desc[] = "<strong>".phpQuery::trim(pq($recipeItemTitle)->text())."</strong>";
+					$recipeItem = pq($recipeItemTitle)->parent();
+					pq(".xivdb-tooltip-content-recipe-item-title", $recipeItem)->remove();
+					$recipeItemDesc = pq($recipeItem)->children(":not(:empty)");
+					if($recipeItemDesc) {
+						foreach($recipeItemDesc as $recipeItemDescLine) {
+							$desc[] = phpQuery::trim(pq($recipeItemDescLine)->text());
+						}
+					}
+				}
 			}
 
 			$stats = pq(".xivdb-tooltip-content-statsbox, .xivdb-tooltip-content-statsbox2");
@@ -106,20 +115,33 @@ function get_xivdb_data($onebox) {
 					foreach($labels as $label) {
 						$additional[] = pq($label)->text();
 					}
+					pq(".xivdb-tooltip-content-label", $stats)->parent()->remove();
 				}
-				pq(".xivdb-tooltip-content-label", $stats)->parent()->remove();
 				$titles = pq(".xivdb-tooltip-content-title:first", $stats)->parent()->parent()->children();
 				if($titles) {
 					foreach($titles as $title) {
 						$additional[] = pq($title)->text();
 					}
+					pq(".xivdb-tooltip-content-title:first", $stats)->parent()->parent()->children()->remove();
 				}
 				$icons = pq("img", $stats);
 				if($icons) {
 					foreach($icons as $icon) {
 						$additional[] = pq('<div>')->append(pq($icon)->clone())->html() . pq($icon)->parent()->text();
 					}
+					pq("img", $stats)->parent()->remove();
 				}
+				$remaining = pq("div:not(:has(>div))", $stats);
+				if($remaining) {
+					foreach($remaining as $remainingItem) {
+						if(phpQuery::trim(pq($remainingItem)->text())) $desc[] = phpQuery::trim(pq($remainingItem)->text());
+					}
+				}
+			}
+
+
+			if(count($desc)) {
+				$data['description'] = implode("<br/>", $desc);
 			}
 
 			if(count($additional)) {
@@ -127,53 +149,6 @@ function get_xivdb_data($onebox) {
 			}
 		}
 	}
-
-	/*phpQuery::newDocument($onebox->getHTML());
-
-	$data['favicon']=pq("link[rel=apple-touch-icon-precomposed]:first")->attr("href");
-	$data['image']=pq("meta[property=og:image]")->attr("content");
-
-	$title = pq("#title")->text();
-	if($title) $data['title'] = $title;
-
-	$desc = pq(".short_blurb")->text();
-	if($desc) {
-		//if(strlen($desc)>300) $desc=substr($desc,0,300);
-		$data['description'] = $desc;
-	}
-
-	$additional = array();
-	$target = pq("#stats .money:last")->text();
-	if($target) $additional[]= __('Target: ', "onebox").$target;
-	$current = pq("#pledged")->text();
-	if($current) $additional[]= __('Raised: ', "onebox").$current;
-	$time = pq("#stats .poll")->text();
-	if($current) $additional[]= $time;
-
-	$footer = array();
-	$statusEl = pq(".NS_projects__funding_bar p");
-	$status = $statusEl->find("b")->remove()->text();
-	$statusText = $statusEl->text();
-	if($status) $footer[]= '<strong>'.$status.'</strong>';
-	if($statusText) $footer[]= $statusText;
-
-	$titlebutton = array();
-	$updateCount = pq("#updates_nav span.count")->text();
-	if($updateCount) $titlebutton[]='<a href="'.$baseURL.'/posts" title="'.$updateCount.' '.__('updates', "onebox").'"><i class="onebox-icon onebox-note-icon"></i> '.$updateCount.'</a>';
-	$backerCount = pq("#backers_nav span.count")->text();
-	if($backerCount) $titlebutton[]='<a href="'.$baseURL.'/backers" title="'.$backerCount.' '.__('backers', "onebox").'"><i class="onebox-icon onebox-thumbsup-icon"></i> '.$backerCount.'</a>';
-	$commentsCount = pq("#comments_nav span.count")->text();
-	if($commentsCount) $titlebutton[]='<a href="'.$baseURL.'/comments" title="'.$commentsCount.' '.__('comments', "onebox").'"><i class="onebox-icon onebox-comment-icon"></i> '.$commentsCount.'</a>';
-
-	if(count($additional)) {
-		$data['additional'] = implode("<br/>", $additional);
-	}
-	if(count($footer)) {
-		$data['footer'] = implode(" &middot; ", $footer);
-	}
-	if(count($titlebutton)) {
-		$data['titlebutton'] = implode(" ", $titlebutton);
-	}*/
 
 	return $data;
 }
