@@ -16,7 +16,7 @@ if(isset($onebox)) {
 
 function get_favicon($onebox) {
 	// http://stackoverflow.com/questions/5701593/how-to-get-a-websites-favicon-with-php
-	$data = array();
+	$data = array('favicon' => "");
 	$touchicon = parse_url($onebox->data['url'], PHP_URL_SCHEME)."://".parse_url($onebox->data['url'], PHP_URL_HOST)."/apple-touch-icon.png";
 	$favicon = parse_url($onebox->data['url'], PHP_URL_SCHEME)."://".parse_url($onebox->data['url'], PHP_URL_HOST)."/favicon.ico";
 
