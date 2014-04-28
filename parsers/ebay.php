@@ -9,13 +9,13 @@ if(isset($onebox)) {
 	if($match) {
 		$onebox->addClass("onebox-ebay");
 		$onebox->shouldCacheLocation = false;  //for now
-		$data = get_ebay_data($onebox, $onebox->data['countrycode']);
+		$data = get_ebay_data($onebox);
 		$onebox->update($data);
 	}
 }
 
 
-function get_ebay_data($onebox, $cc="") {
+function get_ebay_data($onebox) {
 
 	$url = $onebox->data['url'];
 
@@ -62,11 +62,11 @@ function get_ebay_data($onebox, $cc="") {
 				}
 
 				if(isset($info['Item']['ListingStatus']) && $info['Item']['ListingStatus']!="Active") {
-					if(isset($info['Item']['EndTime'])) $footer[]= $info['Item']['ListingStatus'].': <strong>'.date('F jS Y', strtotime($info['Item']['EndTime'])).'</strong>';
+					if(isset($info['Item']['EndTime'])) $footer[]= $info['Item']['ListingStatus'].': <strong>'.$onebox->oneboxdate(strtotime($info['Item']['EndTime'])).'</strong>';
 					else $footer[] = '<strong>'.$info['Item']['ListingStatus'].'</strong>';
 				} else {
 					if(isset($info['Item']['ConvertedCurrentPrice'])) $data['footerbutton']= '<a href="'.$displayurl.'">'.$info['Item']['ConvertedCurrentPrice']['CurrencyID'].' '.number_format($info['Item']['ConvertedCurrentPrice']['Value'], 2).'</a>';
-					if(isset($info['Item']['EndTime'])) $footer[]= __('Ends: ', "onebox").'<strong>'.date('F jS Y', strtotime($info['Item']['EndTime'])).'</strong>';
+					if(isset($info['Item']['EndTime'])) $footer[]= __('Ends: ', "onebox").'<strong>'.$onebox->oneboxdate(strtotime($info['Item']['EndTime'])).'</strong>';
 				}
 
 			} elseif(isset($info['Errors'])) {

@@ -8,14 +8,15 @@ if(isset($onebox)) {
 
 	if($match) {
 		$onebox->addClass("onebox-github");
-		$data = get_github_data($onebox->data['url']);
+		$data = get_github_data($onebox);
 		$onebox->update($data);
 	}
 }
 
 
-function get_github_data($url) {
+function get_github_data($onebox) {
 
+	$url = $onebox->data['url'];
 	$data=array();
 
 	preg_match('#\/\/[-a-zA-Z0-9_.]+\/([-a-zA-Z0-9_]+)/([-a-zA-Z0-9_]+)#', $url, $regex);
@@ -59,7 +60,7 @@ function get_github_data($url) {
 
 		$footer = array();
 		if(count($commits)) $footer[]= '<strong>'.count($commits).'</strong> commits';
-		if(isset($commits[0]['commit']['committer']['date'])) $footer[]= __('Latest commit: ', "onebox").'<strong>'.date('F jS Y', strtotime($commits[0]['commit']['committer']['date'])).'</strong> ';
+		if(isset($commits[0]['commit']['committer']['date'])) $footer[]= __('Latest commit: ', "onebox").'<strong>'.$onebox->oneboxdate(strtotime($commits[0]['commit']['committer']['date'])).'</strong> ';
 
 		$titlebutton = array();
 		if(isset($info['watchers_count'])) $titlebutton[]='<a href="'.$repoURL.'/watchers" title="'.__('See watchers', "onebox").'"><i class="onebox-icon onebox-eye-icon"></i> '.$info['watchers_count'].'</a>';

@@ -45,8 +45,9 @@ function get_origin_data($onebox) {
 	if($contentRating) $additional[]= __('Content advisory rating: ', "onebox").trim($contentRating);
 
 	$footer = array();
-	$releaseDate = pq(".game-info tr:eq(1) td.detail")->text();
-	if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.trim($releaseDate).'</strong>';
+	$releaseDate = phpQuery::trim(pq(".game-info tr:eq(1) td.detail")->text());
+	if($releaseDate != 'Coming Soon!') $releaseDate = $onebox->oneboxdate(strtotime($releaseDate));
+	if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$releaseDate.'</strong>';
 
 	if(count($additional)) {
 		$data['additional'] = implode("<br/>", $additional);

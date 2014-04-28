@@ -9,15 +9,16 @@ if(isset($onebox)) {
 	if($match) {
 		$onebox->addClass("onebox-itunes");
 		$onebox->shouldCacheLocation = true;
-		$data = get_itunes_data($onebox, $onebox->data['countrycode']);
+		$data = get_itunes_data($onebox);
 		$onebox->update($data);
 	}
 }
 
 
-function get_itunes_data($onebox, $cc="") {
+function get_itunes_data($onebox) {
 
 	$url = $onebox->data['url'];
+	$cc = $onebox->data['countrycode'];
 
 	$data=array();
 
@@ -78,7 +79,7 @@ function get_itunes_data($onebox, $cc="") {
 			if(isset($info['results'][0]['trackTimeMillis'])) $additional[]= __('Running time: ', "onebox").gmdate("H:i:s", ($info['results'][0]['trackTimeMillis']/1000));
 
 			$footer = array();
-			if(isset($info['results'][0]['releaseDate'])) $footer[]= __('Released: ', "onebox").'<strong>'.date('F jS Y', strtotime($info['results'][0]['releaseDate'])).'</strong>';
+			if(isset($info['results'][0]['releaseDate'])) $footer[]= __('Released: ', "onebox").'<strong>'.$onebox->oneboxdate(strtotime($info['results'][0]['releaseDate'])).'</strong>';
 			if(isset($info['results'][0]['version'])) $footer[]= __('Current version: ', "onebox").'<strong>'.$info['results'][0]['version'].'</strong>';
 
 			if(isset($info['results'][0]['averageUserRating'])) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$info['results'][0]['averageUserRating'].'</span> ('.intval($info['results'][0]['userRatingCount']).')</div>';

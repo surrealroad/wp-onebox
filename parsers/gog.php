@@ -56,7 +56,7 @@ function get_gog_data($onebox) {
 
 		$footer = array();
 		$releaseDate = pq(".game_top ul.details li:eq(3)")->text();
-		if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$releaseDate.'</strong>';
+		if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$onebox->oneboxdate(strtotime($releaseDate)).'</strong>';
 		$size = pq(".download_size b")->text();
 		if($size) $footer[]= __('Download size: ', "onebox").'<strong>'.$size.'</strong>';
 

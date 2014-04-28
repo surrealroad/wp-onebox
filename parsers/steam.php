@@ -9,15 +9,16 @@ if(isset($onebox)) {
 	if($match) {
 		$onebox->addClass("onebox-steam");
 		$onebox->shouldCacheLocation = true;
-		$data = get_steam_data($onebox, $onebox->data['countrycode']);
+		$data = get_steam_data($onebox);
 		$onebox->update($data);
 	}
 }
 
 
-function get_steam_data($onebox, $cc="") {
+function get_steam_data($onebox) {
 
 	$url = $onebox->data['url'];
+	$cc = $onebox->data['countrycode'];
 
 	$data=array();
 
@@ -57,7 +58,7 @@ function get_steam_data($onebox, $cc="") {
 		if(isset($steamInfo[$ID]['data']['required_age'])) $additional[]= __('Required age: ', "onebox").$steamInfo[$ID]['data']['required_age'];
 
 		$footer = array();
-		if(isset($steamInfo[$ID]['data']['release_date']['date']) && $steamInfo[$ID]['data']['release_date']['date']) $footer[]= __('Released: ', "onebox").'<strong>'.date('F jS Y', strtotime($steamInfo[$ID]['data']['release_date']['date'])).'</strong>';
+		if(isset($steamInfo[$ID]['data']['release_date']['date']) && $steamInfo[$ID]['data']['release_date']['date']) $footer[]= __('Released: ', "onebox").'<strong>'.$onebox->oneboxdate(strtotime($steamInfo[$ID]['data']['release_date']['date'])).'</strong>';
 
 		$titlebutton = array();
 		if(isset($steamInfo[$ID]['data']['recommendations']['total'])) $titlebutton[]='<a href="http://steamcommunity.com/app/'.$ID.'/reviews/" title="'.__('Read reviews', "onebox").'"><i class="onebox-icon onebox-thumbsup-icon"></i> '.intval($steamInfo[$ID]['data']['recommendations']['total']).'</a>';

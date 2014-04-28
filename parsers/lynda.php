@@ -53,7 +53,7 @@ function get_lynda_data($onebox) {
 
 	$footer = array();
 	$releaseDate = pq(".course-meta span:eq(3)")->text();
-	if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$releaseDate.'</strong>';
+	if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$onebox->oneboxdate(strtotime($releaseDate)).'</strong>';
 
 	if(count($additional)) {
 		$data['additional'] = implode("<br/>", $additional);

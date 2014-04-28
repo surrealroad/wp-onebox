@@ -120,6 +120,11 @@ You can use any or all of the following:
 * Removed cURL dependency
 * Fix for title display in Twenty Fourteen theme
 * Cosmetic improvements
+* Green Man Gaming links now show format if available
+* Dates are displayed in accordance with Wordpress settings where possible
+* Improvements to the Kickstarter parser
+* Improvements to the Google Play parser
+* Improvements to the Wikipedia parser
 
 = 0.7.2 =
 * Added Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database parser

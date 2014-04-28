@@ -253,6 +253,11 @@ class Onebox {
 	        return false;
 	    }
 	}
+
+	public function oneboxDate ($date) {
+		if(get_option('date_format')) return date(get_option('date_format'), $date);
+		else return date('F jS Y', $date);
+	}
 }
 
 if(get_query_var("onebox_url")) {
