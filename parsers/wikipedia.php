@@ -31,6 +31,8 @@ ini_set('display_errors',1);
 
 	// remove sups
 	pq("sup")->remove();
+	// remove tables
+	pq("table")->remove();
 	$desc = pq("#mw-content-text p:first")->text();
 	if($desc) $data['description'] = $desc;
 
