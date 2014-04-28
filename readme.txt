@@ -112,7 +112,8 @@ You can use any or all of the following:
 
 == Changelog ==
 = 0.x =
-* Added ebay parser
+* Added eBay parser
+* Removed cURL dependency
 
 = 0.7.2 =
 * Added Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database parser
