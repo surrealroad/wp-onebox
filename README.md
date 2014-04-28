@@ -36,18 +36,20 @@ Currently supported sites
 * Any web page with Facebook (OpenGraph) metadata
 * GitHub (github.com)
 * Steam (store.steampowered.com)
-* iTunes (itunes.com)
-* GOG (gog.com)
-* Mac Game Store (macgamestore.com)
-* Green Man Gaming (greenmangaming.com)
-* Origin (origin.com)
-* Lynda (lynda.com)
+* iTunes (itunes.com)*
+* GOG (gog.com)*
+* Mac Game Store (macgamestore.com)*
+* Green Man Gaming (greenmangaming.com)*
+* Origin (origin.com)*
+* Lynda (lynda.com)*
 * Wikipedia (wikipedia.org)
 * Google Play Store (play.google.com)
 * Kickstarter (kickstarter.com)
 * Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database (xivdb.com)
-* Ebay (ebay.*)
+* Ebay (ebay.*)*
 many more to follow
+
+(* site uses affiliate links)
 
 Note
 --
