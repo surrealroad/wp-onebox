@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Onebox
-Plugin URI: https://github.com/surrealroad/wp-onebox
+Plugin URI: http://onebox.surrealroad.com
 Description: Replaces a boring hyperlink with a lovely Facebook/Twitter-style box with additional information about the destination page
 Version: 0.7.2
 Author: Surreal Road Limited
@@ -229,6 +229,7 @@ class OneboxPlugin {
         <pre>[onebox url="<?php echo self::$sampleLink; ?>"]</pre>
         <?php echo do_shortcode('[onebox url="'.self::$sampleLink.'"]'); ?>
         <small><?php _e( 'Actual hyperlink colours and fonts will be based on your theme, and are not represented here', 'onebox'); ?></small>
+        <p><?php _e( 'For many more live examples, visit the <a href="http://onebox.surrealroad.com">Onebox demo site</a>.', "onebox"); ?></p>
         <hr/>
         <p><?php _e( 'Onebox Plugin for Wordpress by', 'onebox' ) ?> <a href="http://www.surrealroad.com">Surreal Road</a>. <?php echo self::surrealTagline(); ?>.</p>
         <p><?php _e( 'Plugin version', 'onebox' ) ?> <?php echo self::$version; ?></p>

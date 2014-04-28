@@ -17,6 +17,10 @@ How does the plugin work?
 --
 Many webpages now have metadata in their header with a description and image to help sites like Twitter or Facebook generate embeds. Onebox can read this same data to generate similar embeds. In addition, the plugin makes use of a number of "parsers" to scan for specific sites and pull out even more data to use.
 
+Where can I see it in action?
+--
+A demo site is set up at http://onebox.surrealroad.com
+
 The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 
 Requirements
@@ -78,7 +82,7 @@ Additional credits
 = Can I see a preview of how links will be rendered? =
 
 Sure, you can see an example at the bottom of the settings page for the plugin once installed (although hyperlink colours will be based on your theme and not previewed).
-For a live preview, see http://blog.surrealroad.com/archives/2013/introducing-onebox-for-wordpress/
+For a live preview, see http://onebox.surrealroad.com
 
 = Will this slow down page loads? =
 
@@ -114,6 +118,7 @@ You can use any or all of the following:
 = 0.x =
 * Added eBay parser
 * Removed cURL dependency
+* Fix for title display in Twenty Fourteen theme
 
 = 0.7.2 =
 * Added Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database parser
