@@ -206,35 +206,29 @@ class OneboxPlugin {
     <div class="wrap">
     	<?php screen_icon(); ?>
     	<h2><?php _e( 'Onebox Options', 'onebox' ) ?></h2>
-    	<?php if(self::isCurlInstalled()) { ?>
-	        <?php if(!self::isGeoIPInstalled()) { ?>
-	    		<div id="message" class="error">
-	    		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://www.php.net/manual/en/book.geoip.php">GeoIP PHP Extension</a> is not installed.', 'onebox'); ?> <?php _e( 'Some functionality will be disabled.', 'onebox'); ?></p>
-	    		</div>
-	    	<?php } elseif(!self::isGeoIPWorking()) { ?>
-	    		<div id="message" class="error">
-	    		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://www.php.net/manual/en/book.geoip.php">GeoIP PHP Extension</a> database (GeoIPCity.dat) is not installed.', 'onebox'); ?> <?php _e( 'Some functionality will be disabled.', 'onebox'); ?></p>
-	    		</div>
-	    	<?php } ?>
-	    	<?php if(!self::isAPCCacheInstalled()) { ?>
-		    	<div id="message" class="error">
-	    		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://php.net/manual/en/book.apc.php">Alternative PHP Cache Extension</a> is not installed.', 'onebox'); ?> <?php _e( 'Caching will be disabled.', 'onebox'); ?></p>
-	    		</div>
-	    	<?php } ?>
-	        <form action="options.php" method="POST">
-	            <?php settings_fields( 'onebox' ); ?>
-	            <?php do_settings_sections('onebox'); ?>
-	            <?php submit_button(); ?>
-	        </form>
-	        <h2><?php _e( 'Onebox Example', 'onebox' ) ?></h2>
-	        <pre>[onebox url="<?php echo self::$sampleLink; ?>"]</pre>
-	        <?php echo do_shortcode('[onebox url="'.self::$sampleLink.'"]'); ?>
-	        <small><?php _e( 'Actual hyperlink colours and fonts will be based on your theme, and are not represented here', 'onebox'); ?></small>
-        <?php } else { ?>
-        	<div id="message" class="error">
-        	<p><strong><?php _e( 'Error:', 'onebox'); ?></strong> <?php _e( 'The cURL extension for PHP is required and not installed.', 'onebox'); ?></p>
-		    <p><?php _e( 'See <a href="http://www.php.net/manual/en/curl.installation.php">this page</a> for more information', 'onebox'); ?></p>
-        <?php } ?>
+        <?php if(!self::isGeoIPInstalled()) { ?>
+    		<div id="message" class="error">
+    		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://www.php.net/manual/en/book.geoip.php">GeoIP PHP Extension</a> is not installed.', 'onebox'); ?> <?php _e( 'Some functionality will be disabled.', 'onebox'); ?></p>
+    		</div>
+    	<?php } elseif(!self::isGeoIPWorking()) { ?>
+    		<div id="message" class="error">
+    		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://www.php.net/manual/en/book.geoip.php">GeoIP PHP Extension</a> database (GeoIPCity.dat) is not installed.', 'onebox'); ?> <?php _e( 'Some functionality will be disabled.', 'onebox'); ?></p>
+    		</div>
+    	<?php } ?>
+    	<?php if(!self::isAPCCacheInstalled()) { ?>
+	    	<div id="message" class="error">
+    		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://php.net/manual/en/book.apc.php">Alternative PHP Cache Extension</a> is not installed.', 'onebox'); ?> <?php _e( 'Caching will be disabled.', 'onebox'); ?></p>
+    		</div>
+    	<?php } ?>
+        <form action="options.php" method="POST">
+            <?php settings_fields( 'onebox' ); ?>
+            <?php do_settings_sections('onebox'); ?>
+            <?php submit_button(); ?>
+        </form>
+        <h2><?php _e( 'Onebox Example', 'onebox' ) ?></h2>
+        <pre>[onebox url="<?php echo self::$sampleLink; ?>"]</pre>
+        <?php echo do_shortcode('[onebox url="'.self::$sampleLink.'"]'); ?>
+        <small><?php _e( 'Actual hyperlink colours and fonts will be based on your theme, and are not represented here', 'onebox'); ?></small>
         <hr/>
         <p><?php _e( 'Onebox Plugin for Wordpress by', 'onebox' ) ?> <a href="http://www.surrealroad.com">Surreal Road</a>. <?php echo self::surrealTagline(); ?>.</p>
         <p><?php _e( 'Plugin version', 'onebox' ) ?> <?php echo self::$version; ?></p>
@@ -320,16 +314,6 @@ class OneboxPlugin {
 	function surrealTagline() {
 		$lines = file(plugins_url("/surreal.strings", __FILE__ ) , FILE_IGNORE_NEW_LINES);
 		return "Hyperlink " . $lines[array_rand($lines)];
-	}
-
-	// ### Checks for presence of the cURL extension. http://cleverwp.com/function-curl-php-extension-loaded/
-	function isCurlInstalled() {
-	    if  (in_array  ('curl', get_loaded_extensions())) {
-	        return true;
-	    }
-	    else{
-	        return false;
-	    }
 	}
 
 	function isGeoIPInstalled() {

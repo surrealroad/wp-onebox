@@ -118,27 +118,10 @@ class Onebox {
 				$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
 				$this->HTML = $html;
 			} else {
-				// from opengraph helper
-				$curl = curl_init($this->data['url']);
-
-		        curl_setopt($curl, CURLOPT_FAILONERROR, true);
-		        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-		        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		        curl_setopt($curl, CURLOPT_TIMEOUT, 15);
-		        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-		        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		        curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-
-		        $response = curl_exec($curl);
-
-		        curl_close($curl);
-
-		        if (!empty($response)) {
-		            $this->HTML = $response;
-		        } else {
-		            $this->HTML = false;
-		        }
-	        }
+				$html = file_get_contents($this->data['url']);
+				$html = mb_convert_encoding($html, 'HTML-ENTITIES');
+				$this->HTML = $html;
+			}
         }
         return $this->HTML;
 	}
@@ -259,6 +242,16 @@ class Onebox {
 		$id = $this->cacheid;
 		$ttl = 43200; //12 * 60 * 60;
 		$this->cached = apc_store($id, $output, $ttl);
+	}
+
+	// ### Checks for presence of the cURL extension. http://cleverwp.com/function-curl-php-extension-loaded/
+	public function isCurlInstalled() {
+	    if  (in_array  ('curl', get_loaded_extensions())) {
+	        return true;
+	    }
+	    else{
+	        return false;
+	    }
 	}
 }
 
