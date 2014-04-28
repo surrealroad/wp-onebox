@@ -64,6 +64,7 @@ class OneboxPlugin {
 <div class="onebox-clearfix"></div>
 </div>');
 		add_option("onebox_enable_css", true);
+		add_option("onebox_enable_flat_css", true);
 		add_option("onebox_enable_dark_css", false);
 		add_option("onebox_selector", ".onebox-container");
 		add_option("onebox_enable_apc_cache", true);
@@ -75,6 +76,7 @@ class OneboxPlugin {
 		delete_option('onebox_affiliate_links');
 		delete_option('onebox_template_html');
 		delete_option('onebox_enable_css');
+		delete_option('onebox_enable_flat_css');
 		delete_option('onebox_enable_dark_css');
 		delete_option('onebox_selector');
 		delete_option('onebox_enable_apc_cache');
@@ -102,6 +104,7 @@ class OneboxPlugin {
 	    add_settings_section('onebox-template', __( 'Template Configuration', 'onebox' ), array($this, 'initTemplateSettings'), 'onebox');
 	    add_settings_field('onebox-template-html', __( 'Template HTML', 'onebox' ), array($this, 'templateHTMLInput'), 'onebox', 'onebox-template');
 	    add_settings_field('onebox-enable-css', __( 'Enable Styles', 'onebox' ), array($this, 'templateCSSInput'), 'onebox', 'onebox-template');
+	    add_settings_field('onebox-enable-flat-css', __( 'Use Flat Theme', 'onebox' ), array($this, 'templateFlatCSSInput'), 'onebox', 'onebox-template');
 	    add_settings_field('onebox-enable-dark-css', __( 'Use Dark Theme', 'onebox' ), array($this, 'templateDarkCSSInput'), 'onebox', 'onebox-template');
 	    add_settings_field('onebox-selector', __( 'jQuery Selector for Oneboxes', 'onebox' ), array($this, 'templateSelectorInput'), 'onebox', 'onebox-template');
 	    add_settings_section('onebox-features', __( 'Special Features', 'onebox' ), array($this, 'initFeatureSettings'), 'onebox');
@@ -112,6 +115,7 @@ class OneboxPlugin {
     function registerSettings() {
 		register_setting('onebox', 'onebox_template_html');
 		register_setting('onebox', 'onebox_enable_css');
+		register_setting('onebox', 'onebox_enable_flat_css');
 		register_setting('onebox', 'onebox_enable_dark_css');
 		register_setting('onebox', 'onebox_selector');
 		register_setting('onebox', 'onebox_enable_apc_cache');
@@ -132,6 +136,7 @@ class OneboxPlugin {
 		$params = array(
 			"renderURL" => site_url('/?onebox_render=1'),
 			"template" => wp_kses_post(get_option('onebox_template_html')),
+			"flat" => get_option('onebox_enable_flat_css'),
 			"dark" => get_option('onebox_enable_dark_css'),
 			"selector" => get_option('onebox_selector'),
 		);
@@ -254,6 +259,10 @@ class OneboxPlugin {
 
     function templateCSSInput(){
     	self::checkbox_input('onebox_enable_css', __( 'Enable built-in styles', 'onebox' ) );
+    }
+
+    function templateFlatCSSInput(){
+    	self::checkbox_input('onebox_enable_flat_css', __( 'Enable flat theme', 'onebox' ) );
     }
 
     function templateDarkCSSInput(){

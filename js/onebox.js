@@ -35,6 +35,7 @@
 
 						var template = OneboxParams.template;
 
+						if(OneboxParams.flat) data.classes +=' flat';
 						if(OneboxParams.dark) data.classes +=' dark';
 
 						template = template.replace(/{url}/g, url);
