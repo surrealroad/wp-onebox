@@ -18,6 +18,11 @@
 	-ms-box-sizing: border-box !important;
 }
 
+.onebox-sitename:after{
+	display: inline-block;
+	clear: none;
+}
+
 .onebox-result {
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;

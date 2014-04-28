@@ -15,7 +15,7 @@ WordPress has [built-in support](http://en.support.wordpress.com/twitter/twitter
 
 How does the plugin work?
 --
-Many webpages now have metadata in their header with a desciption and image to help sites like Twitter or Facebook generate embeds. Onebox can read this same data to generate similar embeds. In addition, the plugin makes use of a number of "parsers" to scan for specific sites and pull out even more data to use.
+Many webpages now have metadata in their header with a description and image to help sites like Twitter or Facebook generate embeds. Onebox can read this same data to generate similar embeds. In addition, the plugin makes use of a number of "parsers" to scan for specific sites and pull out even more data to use.
 
 The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 
