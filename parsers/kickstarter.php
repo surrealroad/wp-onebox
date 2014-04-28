@@ -41,15 +41,20 @@ function get_kickstarter_data($onebox) {
 	if($target) $additional[]= __('Target: ', "onebox").$target;
 	$current = pq("#pledged")->text();
 	if($current) $additional[]= __('Raised: ', "onebox").$current;
-	$time = pq("#stats .poll")->text();
-	if($current) $additional[]= $time;
+	//$time = pq("#stats .poll")->text();
+	//if($time) $additional[]= $time;
 
 	$footer = array();
 	$statusEl = pq(".NS_projects__funding_bar p");
-	$status = $statusEl->find("b")->remove()->text();
-	$statusText = $statusEl->text();
-	if($status) $footer[]= '<strong>'.$status.'</strong>';
-	if($statusText) $footer[]= $statusText;
+	if($statusEl->text()) {
+		$status = $statusEl->find("b")->remove()->text();
+		$statusText = $statusEl->text();
+		if($status) $footer[]= '<strong>'.$status.'</strong>';
+		if($statusText) $footer[]= $statusText;
+	} else {
+		$status = pq("#banner")->text();
+		if($status) $footer[]= $status;
+	}
 
 	$titlebutton = array();
 	$updateCount = pq("#updates_nav span.count")->text();
