@@ -78,6 +78,10 @@
 	width: 100%;
 }
 
+.onebox-header a {
+	text-decoration: none;
+}
+
 .onebox-title {
 	font-weight: bold;
 	text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
@@ -188,6 +192,7 @@
 	background:#f5f5f5;
 	background:-moz-linear-gradient(#f5f5f5,#e5e5e5);
 	background:-webkit-linear-gradient(#f5f5f5,#e5e5e5);
+	text-decoration: none;
 }
 
 .dark .onebox-footer-wrapper .onebox-footer-button a {
