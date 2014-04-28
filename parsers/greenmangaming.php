@@ -41,10 +41,12 @@ function get_greenmangaming_data($onebox) {
 		}
 		$additional[]= __('Genre: ', "onebox").implode(", ", $genres);
 	}
+	$format = phpQuery::trim(pq(".format-main > h3:first")->text());
+	if($format) $additional[] = __('Format: ', "onebox").$format;
 
 	$footer = array();
 	$releaseDate = pq(".game_details tr td:contains('Released:')")->parent()->find("td:eq(1)")->text();
-	if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$releaseDate.'</strong>';
+	if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$onebox->oneboxdate(strtotime($releaseDate)).'</strong>';
 
 	if(count($additional)) {
 		$data['additional'] = implode("<br/>", $additional);
