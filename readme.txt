@@ -43,8 +43,9 @@ Currently supported sites
 * Google Play Store (play.google.com)
 * Kickstarter (kickstarter.com)
 * Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database (xivdb.com)
-* Ebay (ebay.*)*
-many more to follow
+* Ebay (ebay.com)*
+
+others to follow
 
 (* site uses affiliate links)
 
