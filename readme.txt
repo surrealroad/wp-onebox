@@ -119,6 +119,7 @@ You can use any or all of the following:
 * Added eBay parser
 * Removed cURL dependency
 * Fix for title display in Twenty Fourteen theme
+* Cosmetic improvements
 
 = 0.7.2 =
 * Added Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database parser
