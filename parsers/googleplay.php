@@ -32,7 +32,20 @@ function get_googleplay_data($onebox) {
 	if($title) $data['title'] = $title;
 
 	$desc = pq(".text-body div p:first")->text();
-	if($desc) $data['description'] = $desc;
+	if(!$desc) $desc = pq(".description meta[itemprop=description]")->attr("content");
+	if($desc) $data['description'] = substr($desc,0,300);
+
+	$additional = array();
+	$metas = pq(".meta-info");
+	if($metas) {
+		foreach ($metas as $meta) {
+			$additional[] = pq(".title", $meta)->text().": ".pq(".content", $meta)->text();
+		}
+	}
+
+	if(count($additional)) {
+		$data['additional'] = implode("<br/>", $additional);
+	}
 
 	$img = pq(".cover-image")->attr("src");
 	if($img) $data['image']= $img;
@@ -42,6 +55,7 @@ function get_googleplay_data($onebox) {
 	if($rating) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$rating.'</span> ('.intval($ratingCount).')</div>';
 
 	$price = pq(".price.buy meta[itemprop=price]")->attr("content");
+	if(!$price) $price = pq(".price.buy:first")->text();
 	if($price) $data['footerbutton']= '<a href="'.$url.'">'.$price.'</a>';
 
 	return $data;
