@@ -113,6 +113,12 @@
 	box-shadow: none;
 }
 
+.flat .onebox-header img.onebox-favicon {
+	-webkit-border-radius: 500px;
+	-moz-border-radius: 500px;
+	border-radius: 500px;
+}
+
 .onebox-header .onebox-title-button {
 	float: right;
 	font-size: 0.75em;
@@ -137,12 +143,17 @@
 }
 
 .flat .onebox-header .onebox-title-button a {
-	background: #eee;
+	background: #fff;
 	border:none;
+	color: #45a6cc;
 }
 
 .flat .onebox-header .onebox-title-button a:hover {
-	background: #c7c6c5;
+	background: #eee;
+}
+
+.flat .onebox-header .onebox-rating {
+	color: #26a97c;
 }
 
 .onebox-body-wrapper {
@@ -322,6 +333,10 @@ span.onebox-stars, span.onebox-stars span {
     height: 16px;
 }
 
+.flat span.onebox-stars, .flat span.onebox-stars span {
+	background-image: url(stars-flat.png);
+}
+
 span.onebox-stars span {
     background-position: 0 0;
 }
@@ -342,26 +357,51 @@ i.onebox-icon {
 	opacity: 1;
 }
 
+.flat i.onebox-icon {
+	opacity: 1;
+}
+
 .onebox-eye-icon {
 	background-image: url("icon-eye.png");
+}
+.flat .onebox-eye-icon {
+	background-image: url("icon-eye-flat.png");
 }
 .onebox-star-icon {
 	background-image: url("icon-star.png");
 }
+.flat .onebox-star-icon {
+	background-image: url("icon-star-flat.png");
+}
 .onebox-fork-icon {
 	background-image: url("icon-fork.png");
+}
+.flat .onebox-fork-icon {
+	background-image: url("icon-fork-flat.png");
 }
 .onebox-thumbsup-icon {
 	background-image: url("icon-thumbsup.png");
 }
+.flat .onebox-thumbsup-icon {
+	background-image: url("icon-thumbsup-flat.png");
+}
 .onebox-trophy-icon {
 	background-image: url("icon-trophy.png");
+}
+.flat .onebox-trophy-icon {
+	background-image: url("icon-trophy-flat.png");
 }
 .onebox-note-icon {
 	background-image: url("icon-note.png");
 }
+.flat .onebox-note-icon {
+	background-image: url("icon-note-flat.png");
+}
 .onebox-comment-icon {
 	background-image: url("icon-comment.png");
+}
+.flat .onebox-comment-icon {
+	background-image: url("icon-comment-flat.png");
 }
 
 /* http://nicolasgallagher.com/micro-clearfix-hack/ */

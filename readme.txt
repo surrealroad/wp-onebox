@@ -126,7 +126,7 @@ You can use any or all of the following:
 * Improvements to the Kickstarter parser
 * Improvements to the Google Play parser
 * Improvements to the Wikipedia parser
-* Added a new flat theme, which is now the default
+* Added a new flat theme to better fit with new Wordpress installs, and which is now the default
 
 = 0.7.2 =
 * Added Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database parser
