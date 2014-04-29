@@ -1,11 +1,13 @@
 === Onebox ===
 Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda.com, wikipedia, google play, kickstarter, xivdb, final fantasy xiv a realm reborn database, ebay
-Stable tag: 0.7.2
+Stable tag: 0.8
 Tested up to: 3.9
 
 Onebox: A Fancy Hyperlink Display Plugin for WordPress
 
 == Description ==
+
+[Plugin home page](http://onebox.surrealroad.com)
 
 What does this plugin do?
 --
@@ -83,7 +85,7 @@ Additional credits
 = Can I see a preview of how links will be rendered? =
 
 Sure, you can see an example at the bottom of the settings page for the plugin once installed (although hyperlink colours will be based on your theme and not previewed).
-For a live preview, see http://onebox.surrealroad.com
+For live previews, see http://onebox.surrealroad.com
 
 = Will this slow down page loads? =
 
@@ -117,7 +119,7 @@ You can use any or all of the following:
 5. Plugin admin options screen
 
 == Changelog ==
-= 0.x =
+= 0.8 =
 * Added eBay parser
 * Removed cURL dependency
 * Fix for title display in Twenty Fourteen theme

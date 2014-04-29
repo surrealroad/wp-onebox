@@ -3,7 +3,7 @@
 Plugin Name: Onebox
 Plugin URI: http://onebox.surrealroad.com
 Description: Replaces a boring hyperlink with a lovely Facebook/Twitter-style box with additional information about the destination page
-Version: 0.7.2
+Version: 0.8
 Author: Surreal Road Limited
 Author URI: http://www.surrealroad.com
 Text Domain: onebox
@@ -27,7 +27,7 @@ if ( !function_exists( 'add_action' ) ) {
 class OneboxPlugin {
 
 	//Version
-	static $version ='0.7.2';
+	static $version ='0.8';
 	static $sampleLink = "https://github.com/surrealroad/wp-onebox";
 	static $enableAffiliate = true; // if you change this, you may need to deactive/reactivate the plugin to see the changes
 
