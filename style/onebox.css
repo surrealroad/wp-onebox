@@ -32,8 +32,18 @@
 	overflow: hidden;
 }
 
-.dark .onebox-result {
+.dark.onebox-result {
 	border: 1px solid black;
+}
+
+.flat.onebox-result {
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.dark.flat.onebox-result {
+	border-color: #222222;
 }
 
 .onebox-header-wrapper, .onebox-body-wrapper, .onebox-footer-wrapper {
@@ -80,6 +90,11 @@
 .flat .onebox-header-wrapper {
 	background: #fff;
 	border-bottom:1px solid #ddd;
+}
+
+.dark.flat .onebox-header-wrapper {
+	background: #2e3133;
+	border-bottom-color: #222222;
 }
 
 .onebox-header {
@@ -148,8 +163,18 @@
 	color: #45a6cc;
 }
 
+.dark.flat .onebox-header .onebox-title-button a {
+	background: #2e3133;
+	border:none;
+	color: #26a97c;
+}
+
 .flat .onebox-header .onebox-title-button a:hover {
 	background: #eee;
+}
+
+.dark.flat .onebox-header .onebox-title-button a:hover {
+	background: #202020;
 }
 
 .flat .onebox-header .onebox-rating {
@@ -173,6 +198,11 @@
 .flat .onebox-body-wrapper {
 	background-color: #fff;
 }
+
+.dark.flat .onebox-body-wrapper {
+	background-color: #2e3133;
+}
+
 
 .onebox-body {
 	display:block;
@@ -208,7 +238,12 @@
 }
 
 .flat .onebox-footer-wrapper {
-	color: #c7c6c5;
+	color: #b8b8b8;
+}
+
+.dark.flat .onebox-footer-wrapper {
+	border-top-color: #222222;
+	background: #2e3133;
 }
 
 .onebox-footer-wrapper .onebox-footer-info {
@@ -254,6 +289,13 @@
 	text-shadow: none;
 }
 
+.dark.flat .onebox-footer-wrapper .onebox-footer-button a {
+	color: #f7f5f2;
+	background: #26a97c;
+	border: none;
+}
+
+
 .onebox-footer-wrapper .onebox-footer-button a:hover {
 	color:#527894;
 	border-color:#cfe3ed;
@@ -273,6 +315,13 @@
 .flat .onebox-footer-wrapper .onebox-footer-button a:hover {
 	color: #fff;
 	background: #2e3133;
+	border: none;
+}
+
+.dark.flat .onebox-footer-wrapper .onebox-footer-button a:hover {
+	color: #fff;
+	background: #278a68;
+	border: none;
 }
 
 img.onebox-thumbnail {
@@ -290,6 +339,10 @@ img.onebox-thumbnail {
 	box-shadow: 0 0 0 4px #eee;
 }
 
+.dark.flat img.onebox-thumbnail {
+	box-shadow: 0 0 0 4px #222222;
+}
+
 .onebox-description {
 	color:#666;
 }
@@ -302,6 +355,10 @@ img.onebox-thumbnail {
 	border-left: 7px solid #eee;
 	margin-left: 3px;
 	padding-left: 8px;
+}
+
+.dark.flat .onebox-description {
+	border-color: #565859;
 }
 
 p.onebox-description, p.onebox-additional {
@@ -318,7 +375,7 @@ p.onebox-description, p.onebox-additional {
 }
 
 .flat .onebox-additional {
-	color: #c7c6c5;
+	color: #b8b8b8;
 }
 
 .onebox-stars {
@@ -367,11 +424,17 @@ i.onebox-icon {
 .flat .onebox-eye-icon {
 	background-image: url("icon-eye-flat.png");
 }
+.dark.flat .onebox-eye-icon {
+	background-image: url("icon-eye-dark-flat.png");
+}
 .onebox-star-icon {
 	background-image: url("icon-star.png");
 }
 .flat .onebox-star-icon {
 	background-image: url("icon-star-flat.png");
+}
+.dark.flat .onebox-star-icon {
+	background-image: url("icon-star-dark-flat.png");
 }
 .onebox-fork-icon {
 	background-image: url("icon-fork.png");
@@ -379,11 +442,17 @@ i.onebox-icon {
 .flat .onebox-fork-icon {
 	background-image: url("icon-fork-flat.png");
 }
+.dark.flat .onebox-fork-icon {
+	background-image: url("icon-fork-dark-flat.png");
+}
 .onebox-thumbsup-icon {
 	background-image: url("icon-thumbsup.png");
 }
 .flat .onebox-thumbsup-icon {
 	background-image: url("icon-thumbsup-flat.png");
+}
+.dark.flat .onebox-thumbsup-icon {
+	background-image: url("icon-thumbsup-dark-flat.png");
 }
 .onebox-trophy-icon {
 	background-image: url("icon-trophy.png");
@@ -391,17 +460,26 @@ i.onebox-icon {
 .flat .onebox-trophy-icon {
 	background-image: url("icon-trophy-flat.png");
 }
+.dark.flat .onebox-trophy-icon {
+	background-image: url("icon-trophy-dark-flat.png");
+}
 .onebox-note-icon {
 	background-image: url("icon-note.png");
 }
 .flat .onebox-note-icon {
 	background-image: url("icon-note-flat.png");
 }
+.dark.flat .onebox-note-icon {
+	background-image: url("icon-note-dark-flat.png");
+}
 .onebox-comment-icon {
 	background-image: url("icon-comment.png");
 }
 .flat .onebox-comment-icon {
 	background-image: url("icon-comment-flat.png");
+}
+.dark.flat .onebox-comment-icon {
+	background-image: url("icon-comment-dark-flat.png");
 }
 
 /* http://nicolasgallagher.com/micro-clearfix-hack/ */

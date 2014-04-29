@@ -15,10 +15,10 @@ Many webpages now have metadata in their header with a desciption and image to h
 
 The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 
-![Example Onebox for itunes.com using default style](screenshot-1.png)
-![Example Onebox for github.com using dark style](screenshot-2.png)
-![Plugin admin options screen](screenshot-3.png)
-![Example Onebox for gog.com](screenshot-4.png)
+![Example Onebox for github.com using (default) flat style](screenshot-1.png)
+![Example Onebox for github.com using classic style](screenshot-2.png)
+![Example Onebox for github.com using dark style](screenshot-3.png)
+![Example Onebox for github.com using dark-flat style](screenshot-4.png)
 
 [Live demo](http://onebox.surrealroad.com)
 

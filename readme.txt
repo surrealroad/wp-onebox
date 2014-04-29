@@ -110,10 +110,11 @@ You can use any or all of the following:
 
 
 == Screenshots ==
-1. Example Onebox for itunes.com using default style
-2. Example Onebox for github.com using dark style
-3. Plugin admin options screen
-4. Example Onebox for gog.com
+1. Example Onebox for github.com using (default) flat style
+2. Example Onebox for github.com using classic style
+3. Example Onebox for github.com using dark style
+4. Example Onebox for github.com using dark-flat style
+5. Plugin admin options screen
 
 == Changelog ==
 = 0.x =
@@ -127,6 +128,7 @@ You can use any or all of the following:
 * Improvements to the Google Play parser
 * Improvements to the Wikipedia parser
 * Added a new flat theme to better fit with new Wordpress installs, and which is now the default
+* Added a dark version of the flat theme
 
 = 0.7.2 =
 * Added Final Fantasy XIV: A Realm Reborn (FFXIV ARR) Database parser
