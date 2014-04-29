@@ -246,7 +246,7 @@ class OneboxPlugin {
 	}
 
     function initTemplateSettings() {
-
+		echo '<small>'.__('To experiement with styling options, visit <a href="http://codepen.io/surrealroad/pen/gnzdF">this CodePen</a>.', "safari-push").'</small>';
     }
 
     function initFeatureSettings() {
