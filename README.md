@@ -19,6 +19,7 @@ The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 ![Example Onebox for github.com using classic style](screenshot-2.png)
 ![Example Onebox for github.com using dark style](screenshot-3.png)
 ![Example Onebox for github.com using dark-flat style](screenshot-4.png)
+![Plugin admin options screen](screenshot-5.png)
 
 [Live demo](http://onebox.surrealroad.com)
 
