@@ -70,3 +70,4 @@ Additional credits
 * Flat template based on "FlatPad" by [Repix Design](http://store.repixdesign.com/)
 * [PHPQuery](https://code.google.com/p/phpquery/)
 * Icons by [Symbly](http://symb.ly)
+* Italian translation by [Mte90](http://www.mte90.net/)

@@ -72,6 +72,7 @@ Additional credits
 * Flat template based on "FlatPad" by [Repix Design](http://store.repixdesign.com/)
 * [PHPQuery](https://code.google.com/p/phpquery/)
 * Icons by [Symbly](http://symb.ly)
+* Italian translation by [Mte90](http://www.mte90.net/)
 
 == Installation ==
 
@@ -119,6 +120,9 @@ You can use any or all of the following:
 5. Plugin admin options screen
 
 == Changelog ==
+= 0.x =
+* Added Italian localisation (thanks Mte90!)
+
 = 0.8 =
 * Added eBay parser
 * Removed cURL dependency
