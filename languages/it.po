@@ -1,0 +1,345 @@
+# Copyright (C) 2014 Onebox
+# This file is distributed under the same license as the Onebox package.
+# , 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: Onebox 0.8\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/onebox\n"
+"POT-Creation-Date: 2014-06-25 10:41:30+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-07-02 15:29-0000\n"
+"Last-Translator: Mte90 <mte90net@gmail.com>\n"
+"Language-Team: it <mte90net@gmail.com>\n"
+"X-Generator: Poedit 1.6.5\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: onebox.php:104
+msgid "Template Configuration"
+msgstr "Configurazione Template"
+
+#: onebox.php:105
+msgid "Template HTML"
+msgstr ""
+
+#: onebox.php:106
+msgid "Enable Styles"
+msgstr "Abilita gli stili"
+
+#: onebox.php:107
+msgid "Use Flat Theme"
+msgstr "Usa il Tema Flat"
+
+#: onebox.php:108
+msgid "Use Dark Theme"
+msgstr ""
+
+#: onebox.php:109
+msgid "jQuery Selector for Oneboxes"
+msgstr "Selettore jQuery per OneBox"
+
+#: onebox.php:110
+msgid "Special Features"
+msgstr "Feature Speciali"
+
+#: onebox.php:111
+msgid "Enable APC Caching"
+msgstr "Enable APC Caching"
+
+#: onebox.php:112
+msgid "GitHub API Token"
+msgstr ""
+
+#: onebox.php:167
+msgid "Link"
+msgstr ""
+
+#: onebox.php:208
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Non hai permessi sufficienti per accedere a questa pagina."
+
+#: onebox.php:213
+msgid "Onebox Options"
+msgstr "Opzioni OneBox"
+
+#: onebox.php:216 onebox.php:220 onebox.php:225
+msgid "Notice: "
+msgstr "Avviso:"
+
+#: onebox.php:216
+msgid ""
+"The <a href=\"http://www.php.net/manual/en/book.geoip.php\">GeoIP PHP "
+"Extension</a> is not installed."
+msgstr ""
+"L'estensione <a href=\"http://www.php.net/manual/en/book.geoip.php\">GeoIP "
+"PHP</a> non è installata."
+
+#: onebox.php:216 onebox.php:220
+msgid "Some functionality will be disabled."
+msgstr "Alcune funzionalità saranno disattivate."
+
+#: onebox.php:220
+msgid ""
+"The <a href=\"http://www.php.net/manual/en/book.geoip.php\">GeoIP PHP "
+"Extension</a> database (GeoIPCity.dat) is not installed."
+msgstr ""
+"L'estensione <a href=\"http://www.php.net/manual/en/book.geoip.php\">GeoIP "
+"PHP</a> (GeoIPCity.dat) non è installata."
+
+#: onebox.php:225
+msgid ""
+"The <a href=\"http://php.net/manual/en/book.apc.php\">Alternative PHP Cache "
+"Extension</a> is not installed."
+msgstr ""
+"L'estensione <a href=\"http://www.php.net/manual/en/book.apc.php\">PHP "
+"Cache</a> non è installata."
+
+#: onebox.php:225
+msgid "Caching will be disabled."
+msgstr "La cache sarà disabilitata."
+
+#: onebox.php:233
+msgid "Onebox Example"
+msgstr "Esempio di OneBox"
+
+#: onebox.php:236
+msgid ""
+"Actual hyperlink colours and fonts will be based on your theme, and are not "
+"represented here"
+msgstr ""
+"I colori dei link e dei caratteri saranno basati su quelli del tuo e non "
+"sono visibili qui"
+
+#: onebox.php:237
+msgid ""
+"For many more live examples, visit the <a href=\"http://onebox.surrealroad."
+"com\">Onebox demo site</a>."
+msgstr ""
+"Per altri esempi live visita il <a href=\"http://onebox.surrealroad.com"
+"\">sito demo Onebox</a>."
+
+#: onebox.php:239
+msgid "Onebox Plugin for Wordpress by"
+msgstr "Il plugin OneBox per Wordpress di"
+
+#: onebox.php:240
+msgid "Plugin version"
+msgstr "Versione Plugin"
+
+#: onebox.php:242
+msgid ""
+"This plugin generates affiliate links in some cases in order to support its "
+"development (it does this through Javascript, so the original links are "
+"stored/indexed by bots). Modify the source, or do not use it if that makes "
+"you uncomfortable."
+msgstr ""
+"Il plugin genera i link affiliati in alcuni casi per supportare il suo "
+"sviluppo (lo fà tramite Javascript così i bot non indicizzeranno questo "
+"materiale). Modifica il sorgente o la fonte anche se è una brutta cosa."
+
+#: onebox.php:249
+msgid ""
+"To experiement with styling options, visit <a href=\"http://codepen.io/"
+"surrealroad/pen/gnzdF\">this CodePen</a>."
+msgstr ""
+"Per sperimentare con le opzione di stile visita <a href=\"http://codepen.io/"
+"surrealroad/pen/gnzdF\">questo CodePen</a>."
+
+#: onebox.php:257
+msgid "HTML template to use for Oneboxes"
+msgstr "Template HTML da usare per OneBox"
+
+#: onebox.php:261
+msgid "Enable built-in styles"
+msgstr "Abilita gli stili integrati"
+
+#: onebox.php:265
+msgid "Enable flat theme"
+msgstr "Abilita tema flat"
+
+#: onebox.php:269
+msgid "Enable dark theme"
+msgstr "Abilita tema scuro"
+
+#: onebox.php:273
+msgid ""
+"jQuery selector to use to locate Oneboxes, e.g. \".onebox-container\"<br/"
+">Use this if you want to constrain where Oneboxes may be rendered, e.g. \"."
+"post .onebox-container\""
+msgstr ""
+"jQuery selector usato per trovate gli OneBox, es \".onebox-container\"<br> "
+"Usa questo se vuoi trovare dove vengono rendereizzati gli OneBox, es  \"."
+"post .onebox-container\""
+
+#: onebox.php:278
+msgid ""
+"Enable APC caching<br/>This is highly recommended for end-user performance."
+msgstr ""
+"Abilita la cache APC <br/> Questa funzionalità è raccomandata per migliorare "
+"le performance."
+
+#: onebox.php:282
+msgid ""
+"GitHub API token (<a href=\"https://github.com/settings/tokens/new"
+"\">generate one</a>)<br/>This is required if you plan to use GitHub links on "
+"a busy site."
+msgstr ""
+"GitHub API token (<a href=\"https://github.com/settings/tokens/new"
+"\">generane una</a>)<br/>Richiesto se vuoi usare i link di github su un sito "
+"con molti accessi."
+
+#: parsers/ebay.php:49
+msgid "Category: "
+msgstr "Categoria:"
+
+#: parsers/ebay.php:50
+msgid "Location: "
+msgstr "Luogo:"
+
+#: parsers/ebay.php:58
+msgid "bids"
+msgstr ""
+
+#: parsers/ebay.php:60
+msgid "Limited quantity available"
+msgstr "Limita la quantità disponibile"
+
+#: parsers/ebay.php:61
+msgid "More than 10 available"
+msgstr "Più di 10 disponibili"
+
+#: parsers/ebay.php:69
+msgid "Ends: "
+msgstr "Fine:"
+
+#: parsers/github.php:59 parsers/github.php:63
+msgid "Latest commit: "
+msgstr "Ultimo commit:"
+
+#: parsers/github.php:66
+msgid "See watchers"
+msgstr "Vedi i watchers"
+
+#: parsers/github.php:67
+msgid "See stargazers"
+msgstr "Vedi i stargazers"
+
+#: parsers/github.php:68
+msgid "See forkers"
+msgstr "Vedi i forkers"
+
+#: parsers/github.php:70
+msgid "Get an archive of this repository"
+msgstr "Scarica un'archivio del repository"
+
+#: parsers/github.php:70
+msgid "Download as zip"
+msgstr "Scarica come zip"
+
+#: parsers/gog.php:46 parsers/greenmangaming.php:42 parsers/itunes.php:77
+#: parsers/origin.php:42 parsers/steam.php:56
+msgid "Genre: "
+msgstr "Genere:"
+
+#: parsers/gog.php:59 parsers/greenmangaming.php:49 parsers/itunes.php:82
+#: parsers/lynda.php:56 parsers/origin.php:50 parsers/steam.php:61
+msgid "Released: "
+msgstr "Rilasciato:"
+
+#: parsers/gog.php:61
+msgid "Download size: "
+msgstr "Dimensioni Download:"
+
+#: parsers/greenmangaming.php:45
+msgid "Format: "
+msgstr "Formato:"
+
+#: parsers/itunes.php:73
+msgid "episodes"
+msgstr "episodi"
+
+#: parsers/itunes.php:74
+msgid "tracks"
+msgstr "tracce"
+
+#: parsers/itunes.php:78 parsers/origin.php:45
+msgid "Content advisory rating: "
+msgstr "Valutazione contenuto:"
+
+#: parsers/itunes.php:79 parsers/lynda.php:50
+msgid "Running time: "
+msgstr "Tempo in esecuzione:"
+
+#: parsers/itunes.php:83
+msgid "Current version: "
+msgstr "Versione attuale:"
+
+#: parsers/itunes.php:88
+msgid "May not be available in your region"
+msgstr "Potrebbe non essere disponibile nelal tua regione"
+
+#: parsers/kickstarter.php:41
+msgid "Target: "
+msgstr "Target:"
+
+#: parsers/kickstarter.php:43
+msgid "Raised: "
+msgstr "Sospeso:"
+
+#: parsers/kickstarter.php:61
+msgid "updates"
+msgstr "aggiornamenti"
+
+#: parsers/kickstarter.php:63
+msgid "backers"
+msgstr "backers"
+
+#: parsers/kickstarter.php:65
+msgid "comments"
+msgstr "commenti"
+
+#: parsers/lynda.php:52
+msgid "Recommended level: "
+msgstr "Livello raccomandato:"
+
+#: parsers/steam.php:58
+msgid "Required age: "
+msgstr "Età richiesta:"
+
+#: parsers/steam.php:64
+msgid "Read reviews"
+msgstr "Leggi le recensioni"
+
+#: parsers/steam.php:65
+msgid "View achievements"
+msgstr "Vedi i risultati"
+
+#: render.php:92
+msgid "No description available for this site"
+msgstr "Nessuna descrizione disponibile per questo sito"
+
+#. Plugin Name of the plugin/theme
+msgid "Onebox"
+msgstr "Onebox"
+
+#. Plugin URI of the plugin/theme
+msgid "http://onebox.surrealroad.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Replaces a boring hyperlink with a lovely Facebook/Twitter-style box with "
+"additional information about the destination page"
+msgstr ""
+"Sostituisci un link noioso con uno stile Facebook/Twitter con informazioni "
+"aggiuntive riguardo la pagina di destinazione"
+
+#. Author of the plugin/theme
+msgid "Surreal Road Limited"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.surrealroad.com"
+msgstr ""
