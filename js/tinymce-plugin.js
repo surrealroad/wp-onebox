@@ -31,12 +31,12 @@ tinymce.PluginManager.add( 'onebox', function( editor ) {
 		);
 	}
 	editor.wpSetOnebox = function( content ) {
-		return ( content );
+		return parseOnebox( content );
 	};
 	//replace shortcode before editor content set
 	editor.on('BeforeSetContent', function(event) {
 		if ( event.format !== 'raw' ) {
-			event.content = editor.wpSetImgCaption( event.content );
+			event.content = editor.wpSetOnebox( event.content );
 		}
 	});
 });
