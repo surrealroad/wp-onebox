@@ -24,14 +24,15 @@ tinymce.PluginManager.add( 'onebox', function( editor ) {
 	});
 
 	// render live previews
-	function parseOnebox( content ) {
-		return content.replace(/\[onebox\ .*url="(.*)".*\]/g, function(url){
-			return '<a href="'+url+'">Link</a>';
-		}
-		);
+	function renderOnebox( content ) {
+		// http://regexr.com/395l4
+		// http://stackoverflow.com/questions/24769465/how-can-i-use-regex-to-match-a-string-without-double-characters
+		return content.replace(/\[(?!\[)onebox\ .*url="(.*)"\](?!\])/g, function(a, url){
+			return '<div class="onebox-container"><a href="'+url+'">Link</a></div>';
+		});
 	}
 	editor.wpSetOnebox = function( content ) {
-		return parseOnebox( content );
+		return renderOnebox( content );
 	};
 	//replace shortcode before editor content set
 	editor.on('BeforeSetContent', function(event) {
