@@ -98,6 +98,9 @@ class OneboxPlugin {
 
 		$plugin = plugin_basename(__FILE__);
 		add_filter("plugin_action_links_$plugin", array($this, 'onebox_settings_link') );
+
+		add_filter( 'mce_buttons', array($this, 'registerTinyMCEButton') );
+		add_filter( "mce_external_plugins", array($this, 'registerTinyMCEJS') );
 	}
 
 	public function admin_init() {
@@ -195,6 +198,16 @@ class OneboxPlugin {
 		$settings_link = '<a href="options-general.php?page=onebox">Settings</a>';
 		array_unshift($links, $settings_link);
 		return $links;
+	}
+
+	// add tinyMCE button
+	static function registerTinyMCEButton($buttons){
+		array_push( $buttons, 'onebox' );
+		return $buttons;
+	}
+	static function registerTinyMCEJS($plugin_array){
+		$plugin_array['onebox'] = plugins_url('/js/tinymce-plugin.js',__FILE__);
+		return $plugin_array;
 	}
 
 	// add admin options page
