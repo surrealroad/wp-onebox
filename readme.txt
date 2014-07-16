@@ -85,8 +85,9 @@ Additional credits
 
 = Can I see a preview of how links will be rendered? =
 
-Sure, you can see an example at the bottom of the settings page for the plugin once installed (although hyperlink colours will be based on your theme and not previewed).
-For live previews, see http://onebox.surrealroad.com
+Sure, you can see an example at the bottom of the settings page for the plugin once installed (although hyperlink colours will be based on your theme and not previewed), and a preview will also be shown in the visual WordPress editor.
+
+For live examples, see http://onebox.surrealroad.com
 
 = Will this slow down page loads? =
 
@@ -122,6 +123,7 @@ You can use any or all of the following:
 == Changelog ==
 = 0.x =
 * Added Italian localisation (thanks Mte90!)
+* Live previews are now shown in the visual WordPress editor
 
 = 0.8 =
 * Added eBay parser
