@@ -13,7 +13,7 @@
 (function($) {
 	jQuery.fn.onebox = function() {
 		if ($(this).exists()) {
-			$(this).each(function () {
+			return this.each(function () {
 				var $this = $(this),
 					url = $(this).children().eq(0).attr("href"),
 					title ="",
@@ -59,7 +59,6 @@
 				});
 			});
 		}
-		return this;
 	};
 })(jQuery);
 
@@ -68,7 +67,7 @@
 (function($) {
 	jQuery.fn.oneboxstars = function() {
 		if ($(this).exists()) {
-			return $(this).each(function() {
+			return this.each(function() {
 				// Get the value
 				var val = parseFloat($(this).html());
 				// Make sure that the value is in 0 - 5 range, multiply to get width
@@ -79,7 +78,6 @@
 				$(this).html($span);
 			});
 		}
-		return this;
 	};
 })(jQuery);
 
