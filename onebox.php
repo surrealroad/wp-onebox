@@ -90,6 +90,7 @@ class OneboxPlugin {
 
 		add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
 		add_action('wp_enqueue_scripts', array($this, 'enqueueStyles'));
+		add_filter('mce_css', array($this, 'enqueueTinyMCEStyles'));
 
 		add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
 
@@ -149,9 +150,17 @@ class OneboxPlugin {
 	// Enqueue Static CSS
 
 	function enqueueStyles() {
-       wp_register_style( 'oneboxStylesheet', plugins_url( '/style/onebox.min.css' , __FILE__ ) );
-       if(get_option('onebox_enable_css')) wp_enqueue_style( 'oneboxStylesheet' );
-   }
+		wp_register_style( 'oneboxStylesheet', plugins_url( '/style/onebox.min.css' , __FILE__ ) );
+		if(get_option('onebox_enable_css')) wp_enqueue_style( 'oneboxStylesheet' );
+	}
+
+	function enqueueTinyMCEStyles($mce_css) {
+		if(get_option('onebox_enable_css')) {
+			if(!empty($mce_css)) $mce_css .= ',';
+			$mce_css .= plugins_url( '/style/onebox.min.css' , __FILE__ );
+		}
+		return $mce_css;
+	}
 
 
 	// add [onebox] shortcode
@@ -206,7 +215,7 @@ class OneboxPlugin {
 		return $buttons;
 	}
 	static function registerTinyMCEJS($plugin_array){
-		$plugin_array['onebox'] = plugins_url('/js/tinymce-plugin.js',__FILE__);
+		$plugin_array['oneboxPreview'] = plugins_url('/js/tinymce-plugin-preview.js',__FILE__);
 		return $plugin_array;
 	}
 
