@@ -59,6 +59,7 @@
 				});
 			});
 		}
+		else return this;
 	};
 })(jQuery);
 
@@ -78,6 +79,7 @@
 				$(this).html($span);
 			});
 		}
+		else return this;
 	};
 })(jQuery);
 
