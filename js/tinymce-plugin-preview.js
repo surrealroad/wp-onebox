@@ -11,7 +11,7 @@ tinymce.PluginManager.add( 'oneboxPreview', function( editor ) {
 		// http://regexr.com/395l4
 		// http://stackoverflow.com/questions/24769465/how-can-i-use-regex-to-match-a-string-without-double-characters
 		return content.replace(/\[(?!\[)onebox\ .*url="(.*)"\](?!\])/g, function(a, url) {
-			return '<div class="onebox-container render" data-url="'+url+'"><a href="'+url+'">Link</a><!--onebox-container-end--></div>';
+			return '<div class="onebox-container render mceNonEditable" data-url="'+url+'" contenteditable="false"><a href="'+url+'">Link</a><!--onebox-container-end--></div>';
 		});
 	}
 
