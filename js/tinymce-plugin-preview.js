@@ -1,4 +1,4 @@
-/* onebox tinymce plugin to render live previews */
+/* onebox tinymce plugin to render live previews (can be switched off) */
 
 // instantiate plugin
 tinymce.PluginManager.add( 'oneboxPreview', function( editor ) {
@@ -37,7 +37,9 @@ tinymce.PluginManager.add( 'oneboxPreview', function( editor ) {
 		// get jQuery from parent window
 		$ = editor.getWin().parent.jQuery;
 		// apply onebox plugin to tinyMCE content, make sure it only renders once
-		$(".onebox-container.render", editor.getDoc()).removeClass("render").onebox();
+		$(".onebox-container.render", editor.getDoc()).removeClass("render").onebox().on("click", function(event){
+			event.preventDefault();
+		});
 
 		// convert back to shortcode
 		if(event.get) event.content = toShortcode( event.content );
