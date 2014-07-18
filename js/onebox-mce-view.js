@@ -4,7 +4,10 @@
 	wp.mce.views.register( 'onebox', {
 		type: "onebox",
 
+		overlay: true,
+
 		View: {
+
 			initialize: function(options) {
 				this.shortcode = options.shortcode;
 				this.url = options.shortcode.attrs.named.url;
