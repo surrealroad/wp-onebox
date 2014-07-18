@@ -18,6 +18,7 @@
 					url = $(this).children().eq(0).attr("href"),
 					title ="",
 					description ="";
+				this.state="pending";
 				if($(this).data("title")) title = $(this).data("title");
 				if($(this).data("description")) description = $(this).data("description");
 
@@ -38,25 +39,27 @@
 						if(OneboxParams.flat) data.classes +=' flat';
 						if(OneboxParams.dark) data.classes +=' dark';
 
-						template = template.replace(/{url}/g, url);
-						template = template.replace(/{class}/g, data.classes);
-						if(data.data.favicon) template = template.replace(/{favicon}/g, '<img src="' + data.data.favicon + '" class="onebox-favicon"/>');
-						else template = template.replace(/{favicon}/g, '');
-						template = template.replace(/{sitename}/g, data.data.sitename);
-						if(data.data.image) template = template.replace(/{image}/g, '<img src="' + data.data.image + '" class="onebox-thumbnail"/>');
-						else template = template.replace(/{image}/g, '');
-						template = template.replace(/{title}/g, data.data.title);
-						template = template.replace(/{description}/g, data.data.description);
-						template = template.replace(/{additional}/g, data.data.additional);
-						template = template.replace(/{footer}/g, data.data.footer);
-						template = template.replace(/{title-button}/g, data.data.titlebutton);
-						template = template.replace(/{footer-button}/g, data.data.footerbutton);
+						template = template.replace(/\{url\}/g, url);
+						template = template.replace(/\{class\}/g, data.classes);
+						if(data.data.favicon) template = template.replace(/\{favicon\}/g, '<img src="' + data.data.favicon + '" class="onebox-favicon"/>');
+						else template = template.replace(/\{favicon\}/g, '');
+						template = template.replace(/\{sitename\}/g, data.data.sitename);
+						if(data.data.image) template = template.replace(/\{image\}/g, '<img src="' + data.data.image + '" class="onebox-thumbnail"/>');
+						else template = template.replace(/\{image\}/g, '');
+						template = template.replace(/\{title\}/g, data.data.title);
+						template = template.replace(/\{description\}/g, data.data.description);
+						template = template.replace(/\{additional\}/g, data.data.additional);
+						template = template.replace(/\{footer\}/g, data.data.footer);
+						template = template.replace(/\{title-button\}/g, data.data.titlebutton);
+						template = template.replace(/\{footer-button\}/g, data.data.footerbutton);
 
 						$this.html(template);
 						// convert ratings
 						$this.find('.onebox-stars').oneboxstars();
 					}
-				});
+				}).done(
+					function(){this.state="done";}
+				);
 			});
 		}
 		else return this;
