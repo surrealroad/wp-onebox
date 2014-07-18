@@ -14,13 +14,17 @@
 	jQuery.fn.onebox = function() {
 		if ($(this).exists()) {
 			return this.each(function () {
-				var $this = $(this),
+				var t = this,
+					$this = $(this),
 					url = $(this).children().eq(0).attr("href"),
 					title ="",
 					description ="";
+
 				this.state="pending";
-				if($(this).data("title")) title = $(this).data("title");
-				if($(this).data("description")) description = $(this).data("description");
+				this.dfd = $.Deferred();
+
+				if($this.data("title")) title = $this.data("title");
+				if($this.data("description")) description = $this.data("description");
 
 				var	requesturl = OneboxParams.renderURL
 						+ (OneboxParams.renderURL.indexOf('?') != -1 ? "&onebox_url=" : "?onebox_url=") + encodeURIComponent(url)
@@ -58,7 +62,11 @@
 						$this.find('.onebox-stars').oneboxstars();
 					}
 				}).done(
-					function(){this.state="done";}
+					function(){
+						t.state="done";
+						t.dfd.resolve();
+						console.log(t);
+					}
 				);
 			});
 		}
