@@ -92,7 +92,7 @@ class OneboxPlugin {
 		add_action('wp_enqueue_scripts', array($this, 'enqueueStyles'));
 		add_filter('mce_css', array($this, 'enqueueTinyMCEStyles'));
 
-		add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
+		add_action('admin_enqueue_scripts', array($this, 'enqueueAdminScripts'));
 
 		add_filter( 'query_vars', array($this, 'onebox_query_vars_filter') );
 		add_action( 'template_redirect', array($this, 'renderOnebox'), 1 );
@@ -100,8 +100,8 @@ class OneboxPlugin {
 		$plugin = plugin_basename(__FILE__);
 		add_filter("plugin_action_links_$plugin", array($this, 'onebox_settings_link') );
 
-		add_filter( 'mce_buttons', array($this, 'registerTinyMCEButton') );
-		add_filter( "mce_external_plugins", array($this, 'registerTinyMCEJS') );
+		//add_filter( 'mce_buttons', array($this, 'registerTinyMCEButton') );
+		//add_filter( "mce_external_plugins", array($this, 'registerTinyMCEJS') );
 	}
 
 	public function admin_init() {
@@ -145,6 +145,17 @@ class OneboxPlugin {
 			"selector" => get_option('onebox_selector'),
 		);
 		wp_localize_script( 'onebox', 'OneboxParams', $params );
+	}
+
+	function enqueueAdminScripts(){
+		$this->enqueueScripts();
+		wp_enqueue_script(
+			'onebox-mce-view',
+			plugins_url( '/js/onebox-mce-view.js' , __FILE__ ),
+			array( 'mce-view' ),
+			"1.0",
+			false
+		);
 	}
 
 	// Enqueue Static CSS
