@@ -1,3 +1,4 @@
+// deprecated
 /* onebox tinymce plugin to render live previews (can be switched off) */
 
 // instantiate plugin
