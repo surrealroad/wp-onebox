@@ -12,7 +12,7 @@
 
             function oneboxForm(editor, ui, options) {
 				editor.windowManager.open( {
-					title: 'Insert/edit Onebox',
+					title: options.label,
 					body: [
 						{
 							type: 'textbox',
@@ -50,10 +50,11 @@
             }
 
             editor.addCommand('oneboxAdd', function(ui) {
-				return oneboxForm(editor, ui, {url: "", title: "", description: ""});
+				return oneboxForm(editor, ui, {url: "", title: "", description: "", label: 'Insert Onebox'});
             });
 
             editor.addCommand('oneboxEditLink', function(ui, options) {
+				options.label = 'Edit Onebox';
 				return oneboxForm(editor, ui, options);
             });
         }
