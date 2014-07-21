@@ -11,24 +11,27 @@
 			initialize: function(options) {
 				this.shortcode = options.shortcode;
 				this.url = options.shortcode.attrs.named.url;
+				this.title = options.shortcode.attrs.named.title;
+				this.description = options.shortcode.attrs.named.description;
 				this.fetch();
-				console.log("initialised");
 			},
 
 			loadingPlaceholder: function(){
-				console.log("loadingPlaceholder");
 				return '<a href="'+this.url+'">Link</a>';
 			},
 
 			fetch: function() {
-				console.log("fetch");
-				this.onebox = $('<div class="onebox-container"><a href="'+this.url+'">Link</a></div>').onebox();
+				var data = '';
+				if(this.title) data +=' data-title="'+this.title+'"';
+				if(this.description) data +=' data-description="'+this.description+'"';
+
+				this.onebox = $('<div class="onebox-container"'+data+'><a href="'+this.url+'">Link</a></div>').onebox();
 				var t = this;
 				this.onebox[0].dfd.done(function(){t.render();});
 			},
 
 			getHtml: function() {
-				console.log("getHTML");
+
 				//console.log(this.onebox[0].state);
 				if(this.onebox[0].state != "done") return '';
 				return this.onebox.html();
@@ -46,7 +49,18 @@
 		* @param {HTMLElement} node
 		*/
 		edit: function( node ) {
-			console.log("edit");
+			var options = {},
+				data = window.decodeURIComponent( $( node ).attr('data-wpview-text') ),
+				type = $( node ).attr('data-wpview-type');
+			var match = wp.shortcode.next( type, data );
+
+			if ( match ) options = {
+				url: match.shortcode.attrs.named.url,
+				title: match.shortcode.attrs.named.title,
+				description: match.shortcode.attrs.named.description
+			};
+
+			tinyMCE.activeEditor.execCommand('oneboxEditLink', true, options);
 		}
 
 	});
