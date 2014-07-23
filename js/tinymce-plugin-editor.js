@@ -44,7 +44,10 @@
 
 						if(e.data.title) title = ' title="' + e.data.title + '"';
 						if(e.data.description) description = ' description="' + e.data.description + '"';
-						editor.insertContent( '[onebox' + url + title + description + ']');
+						var shortcodeString = '[onebox' + url + title + description + ']';
+
+						if(options.callback) options.callback(shortcodeString);
+						else editor.insertContent(shortcodeString);
 					}
 				});
             }

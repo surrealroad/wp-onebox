@@ -49,7 +49,8 @@
 		* @param {HTMLElement} node
 		*/
 		edit: function( node ) {
-			var options = {},
+			var self = this,
+				options = {},
 				data = window.decodeURIComponent( $( node ).attr('data-wpview-text') ),
 				type = $( node ).attr('data-wpview-type');
 			var match = wp.shortcode.next( type, data );
@@ -58,6 +59,11 @@
 				url: match.shortcode.attrs.named.url,
 				title: match.shortcode.attrs.named.title,
 				description: match.shortcode.attrs.named.description
+			};
+
+			options.callback = function(shortcode){
+				$( node ).attr( 'data-wpview-text', window.encodeURIComponent( shortcode ));
+				wp.mce.views.refreshView( self, shortcode );
 			};
 
 			tinyMCE.activeEditor.execCommand('oneboxEditLink', true, options);
