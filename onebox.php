@@ -150,7 +150,8 @@ class OneboxPlugin {
 
 	function enqueueAdminScripts(){
 		$this->enqueueScripts();
-		wp_enqueue_script(
+		// for WordPress 4.0+, enable wp.mce api plugin
+		if(version_compare(get_bloginfo( "version" ), "4.0-beta", ">=")) wp_enqueue_script(
 			'onebox-mce-view',
 			plugins_url( '/js/onebox-mce-view.js' , __FILE__ ),
 			array( 'mce-view' ),
