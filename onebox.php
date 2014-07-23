@@ -153,7 +153,7 @@ class OneboxPlugin {
 		// for WordPress 4.0+, enable wp.mce api plugin
 		if(version_compare(get_bloginfo( "version" ), "4.0-beta", ">=")) wp_enqueue_script(
 			'onebox-mce-view',
-			plugins_url( '/js/onebox-mce-view.js' , __FILE__ ),
+			plugins_url( '/js/onebox-mce-view.min.js' , __FILE__ ),
 			array( 'mce-view' ),
 			"1.0",
 			false
@@ -228,7 +228,7 @@ class OneboxPlugin {
 		return $buttons;
 	}
 	static function registerTinyMCEButtonJS($plugin_array){
-		$plugin_array['oneboxEditor'] = plugins_url('/js/tinymce-plugin-editor.js',__FILE__);
+		$plugin_array['oneboxEditor'] = plugins_url('/js/tinymce-plugin-editor.min.js',__FILE__);
 		return $plugin_array;
 	}
 	static function registerTinyMCEJS($plugin_array){ // deprecated
