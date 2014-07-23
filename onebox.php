@@ -102,7 +102,6 @@ class OneboxPlugin {
 
 		add_filter( 'mce_buttons', array($this, 'registerTinyMCEButton') );
 		add_filter( "mce_external_plugins", array($this, 'registerTinyMCEButtonJS') );
-		//add_filter( "mce_external_plugins", array($this, 'registerTinyMCEJS') );
 	}
 
 	public function admin_init() {
@@ -229,10 +228,6 @@ class OneboxPlugin {
 	}
 	static function registerTinyMCEButtonJS($plugin_array){
 		$plugin_array['oneboxEditor'] = plugins_url('/js/tinymce-plugin-editor.min.js',__FILE__);
-		return $plugin_array;
-	}
-	static function registerTinyMCEJS($plugin_array){ // deprecated
-		$plugin_array['oneboxPreview'] = plugins_url('/js/tinymce-plugin-preview.js',__FILE__);
 		return $plugin_array;
 	}
 
