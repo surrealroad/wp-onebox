@@ -85,7 +85,7 @@ Additional credits
 
 = Can I see a preview of how links will be rendered? =
 
-Sure, you can see an example at the bottom of the settings page for the plugin once installed (although hyperlink colours will be based on your theme and not previewed), and a preview will also be shown in the visual WordPress editor.
+Sure, you can see an example at the bottom of the settings page for the plugin once installed (although hyperlink colours will be based on your theme and not previewed), and a preview will also be shown in the visual WordPress editor (requires WordPress 4.0+).
 
 For live examples, see http://onebox.surrealroad.com
 
@@ -123,7 +123,9 @@ You can use any or all of the following:
 == Changelog ==
 = 0.x =
 * Added Italian localisation (thanks Mte90!)
-* Live previews are now shown in the visual WordPress editor
+* Live previews are now shown in the visual WordPress editor (requires WordPress 4.0+)
+* Oneboxes can be added via a button in the visual WordPress editor
+* Fixed an issue where Oneboxes might get cropped in some themes with the default CSS
 
 = 0.8 =
 * Added eBay parser
