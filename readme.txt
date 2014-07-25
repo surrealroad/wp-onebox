@@ -127,6 +127,7 @@ You can use any or all of the following:
 * Oneboxes can be added via a button in the visual WordPress editor
 * Fixed an issue where Oneboxes might get cropped in some themes with the default CSS
 * Updated Gog.com parser
+* Updated Origin favicon
 
 = 0.8 =
 * Added eBay parser

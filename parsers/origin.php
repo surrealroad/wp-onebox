@@ -18,7 +18,7 @@ function get_origin_data($onebox) {
 
 	$data=array();
 
-	$data['favicon']='http://www.origin.com/favicon.ico';
+	$data['favicon']='https://eaassets-a.akamaihd.net/origin-com-store-webassets/5620_ea58a31ae43f3324465d091158fc130cd4ef45bfcd1ce0bac2fca2a59420b251/images/5537634.ico';
 	$data['sitename'] = "Origin";
 	$data['displayurl']='http://clkuk.tradedoubler.com/click?p(123350)a(2204255)g(19995808)url('.$onebox->data['url'].')';
 	if($onebox->affiliateLinks) $displayurl = $data['displayurl'];
