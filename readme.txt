@@ -126,6 +126,7 @@ You can use any or all of the following:
 * Live previews are now shown in the visual WordPress editor (requires WordPress 4.0+)
 * Oneboxes can be added via a button in the visual WordPress editor
 * Fixed an issue where Oneboxes might get cropped in some themes with the default CSS
+* Updated Gog.com parser
 
 = 0.8 =
 * Added eBay parser

@@ -37,7 +37,7 @@ function get_gog_data($onebox) {
 		phpQuery::newDocument($onebox->getHTML());
 
 		$additional = array();
-		$genrelist = pq(".game_top ul.details li:eq(0) a");
+		$genrelist = pq(".game_top ul.game-specification li:eq(0) a");
 		if(count($genrelist)) {
 			$genres = array();
 			foreach($genrelist as $genre) {
@@ -46,16 +46,16 @@ function get_gog_data($onebox) {
 			$additional[]= __('Genre: ', "onebox").implode(", ", $genres);
 		}
 
-		$fullrating = pq(".game_top ul.details li span.usr_rate span.usr_s_f");
-		$halfrating = pq(".game_top ul.details li span.usr_rate span.usr_s_h");
+		$fullrating = pq(".game_top ul.game-specification li span.usr_rate span.usr_s_f");
+		$halfrating = pq(".game_top ul.game-specification li span.usr_rate span.usr_s_h");
 		@$rating = $fullrating->length + 0.5 * $halfrating->length;
-		$ratingCountText = pq(".game_top ul.details li span.usr_rate")->parent()->text();
+		$ratingCountText = pq(".game_top ul.game-specification li span.usr_rate")->parent()->text();
 		preg_match_all('/\d+/', $ratingCountText, $matches); // http://stackoverflow.com/questions/11243447/get-numbers-from-string-with-php
 		@$ratingCount = $matches[0][0];
 		$data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$rating.'</span> ('.intval($ratingCount).')</div>';
 
 		$footer = array();
-		$releaseDate = pq(".game_top ul.details li:eq(3)")->text();
+		$releaseDate = pq(".game_top ul.game-specification li:eq(3) .data")->text();
 		if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$onebox->oneboxdate(strtotime($releaseDate)).'</strong>';
 		$size = pq(".download_size b")->text();
 		if($size) $footer[]= __('Download size: ', "onebox").'<strong>'.$size.'</strong>';
