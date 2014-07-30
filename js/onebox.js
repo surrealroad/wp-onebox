@@ -65,7 +65,7 @@
 					function(){
 						t.state="done";
 						t.dfd.resolve();
-						console.log(t);
+						//console.log(t);
 					}
 				);
 			});
