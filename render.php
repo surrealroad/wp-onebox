@@ -2,13 +2,12 @@
 /*
 Generate Onebox HTML
 */
-
-/*
+if($_REQUEST['debug']==1) {
 // debug
-error_reporting(E_ALL);
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors',1);
-*/
+	error_reporting(E_ALL);
+	ini_set('error_reporting', E_ALL);
+	ini_set('display_errors',1);
+}
 
 require_once("lib/Encoding.php");
 require_once("lib/phpQuery.php");
@@ -264,11 +263,15 @@ if(get_query_var("onebox_url")) {
 
 	$onebox = new Onebox(urldecode(get_query_var("onebox_url")), urldecode(get_query_var("onebox_title")), urldecode(get_query_var("onebox_description")));
 
+	if($_REQUEST['debug']==1) var_dump($onebox);
+
 	if($onebox->readCache()) {
+		if($_REQUEST['debug']==1) echo "<strong>CACHED</strong><br/>";
 		echo json_encode($onebox->readCache());
 	} else {
 		// run parsers
 		foreach($parsers as $parser) include("parsers/".$parser.".php");
 		echo $onebox->outputjson();
 	}
+	if($_REQUEST['debug']==1) var_dump($onebox);
 }
