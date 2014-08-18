@@ -111,15 +111,36 @@ class Onebox {
 	public function getHTML($forceencoding="") {
 
 		if(!$this->HTML && isset($this->data['url'])) {
+			if(self::isFileGetContentsAllowed()) {
+				if($forceencoding == "utf-8") {
+					$html = file_get_contents($this->data['url']);
+					$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
+					$this->HTML = $html;
+				} else {
+					$html = file_get_contents($this->data['url']);
+					$html = mb_convert_encoding($html, 'HTML-ENTITIES');
+					$this->HTML = $html;
+				}
+			} else { // fall back to cURL
+				// from opengraph helper
+ 				$curl = curl_init($this->data['url']);
+		        curl_setopt($curl, CURLOPT_FAILONERROR, true);
+		        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+		        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		        curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+		        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+		        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		        curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
 
-			if($forceencoding == "utf-8") {
-				$html = file_get_contents($this->data['url']);
-				$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
-				$this->HTML = $html;
-			} else {
-				$html = file_get_contents($this->data['url']);
-				$html = mb_convert_encoding($html, 'HTML-ENTITIES');
-				$this->HTML = $html;
+		        $response = curl_exec($curl);
+
+		        curl_close($curl);
+
+		        if (!empty($response)) {
+		            $this->HTML = $response;
+		        } else {
+		            $this->HTML = false;
+		        }
 			}
         }
         return $this->HTML;
@@ -241,6 +262,10 @@ class Onebox {
 		$id = $this->cacheid;
 		$ttl = 43200; //12 * 60 * 60;
 		$this->cached = apc_store($id, $output, $ttl);
+	}
+
+	public function isFileGetContentsAllowed() {
+		return ini_get('allow_url_fopen');
 	}
 
 	// ### Checks for presence of the cURL extension. http://cleverwp.com/function-curl-php-extension-loaded/

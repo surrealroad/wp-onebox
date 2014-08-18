@@ -27,6 +27,10 @@ The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 
 Requirements
 --
+One of the following PHP modules are required:
+* [file_get_contents](http://www.php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen)
+* [cURL](http://www.php.net/manual/en/book.curl.php)
+
 The following modules are optional, but highly recommended:
 * APC extension for PHP
 * GeoIP extension for PHP
@@ -128,6 +132,8 @@ You can use any or all of the following:
 * Fixed an issue where Oneboxes might get cropped in some themes with the default CSS
 * Updated Gog.com parser
 * Updated Origin favicon
+* Fallback to using cURL if file_get_contents is disabled (and generate a warning if so)
+* Display an error is no suitable extensions can be found for fetching remote data
 
 = 0.8 =
 * Added eBay parser

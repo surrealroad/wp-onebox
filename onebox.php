@@ -245,17 +245,30 @@ class OneboxPlugin {
     <div class="wrap">
     	<?php screen_icon(); ?>
     	<h2><?php _e( 'Onebox Options', 'onebox' ) ?></h2>
+        <?php
+		if(!self::isFileGetContentsAllowed()) {
+	    	if(!self::isCurlInstalled()) {
+        ?>
+		    	<div class="error">
+	    		<p><strong><?php _e( 'Error: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://www.php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen">allow_url_fopen</a> property (for retrieving data from external websites) is disabled in your PHP configuration, and the <a href="http://www.php.net/manual/en/book.curl.php">cURL extension</a> is not installed.', 'onebox'); ?> <?php _e( 'Onebox requires either of these to function properly.', 'onebox'); ?></p>
+	    		</div>
+	    	<?php } else { ?>
+		    	<div class="updated">
+	    		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://www.php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen">allow_url_fopen</a> property (for retrieving data from external websites) is disabled in your PHP configuration.', 'onebox'); ?> <?php _e( 'Onebox will attempt to use an alternative method (in most cases this should not cause any problems).', 'onebox'); ?></p>
+	    		</div>
+    	<?php 	}
+    		} ?>
         <?php if(!self::isGeoIPInstalled()) { ?>
-    		<div id="message" class="error">
+    		<div class="updated">
     		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://www.php.net/manual/en/book.geoip.php">GeoIP PHP Extension</a> is not installed.', 'onebox'); ?> <?php _e( 'Some functionality will be disabled.', 'onebox'); ?></p>
     		</div>
     	<?php } elseif(!self::isGeoIPWorking()) { ?>
-    		<div id="message" class="error">
+    		<div class="error">
     		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://www.php.net/manual/en/book.geoip.php">GeoIP PHP Extension</a> database (GeoIPCity.dat) is not installed.', 'onebox'); ?> <?php _e( 'Some functionality will be disabled.', 'onebox'); ?></p>
     		</div>
     	<?php } ?>
     	<?php if(!self::isAPCCacheInstalled()) { ?>
-	    	<div id="message" class="error">
+	    	<div class="updated">
     		<p><strong><?php _e( 'Notice: ', 'onebox'); ?></strong> <?php _e( 'The <a href="http://php.net/manual/en/book.apc.php">Alternative PHP Cache Extension</a> is not installed.', 'onebox'); ?> <?php _e( 'Caching will be disabled.', 'onebox'); ?></p>
     		</div>
     	<?php } ?>
@@ -371,6 +384,19 @@ class OneboxPlugin {
 
 	function isAPCCacheInstalled() {
 		return extension_loaded('apc');
+	}
+
+	function isFileGetContentsAllowed() {
+		return ini_get('allow_url_fopen');
+	}
+
+	function isCurlInstalled() {
+	    if  (in_array  ('curl', get_loaded_extensions())) {
+	        return true;
+	    }
+	    else{
+	        return false;
+	    }
 	}
 
 }

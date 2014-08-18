@@ -25,6 +25,10 @@ The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 
 Requirements
 --
+One of the following PHP modules are required:
+* [file_get_contents](http://www.php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen)
+* [cURL](http://www.php.net/manual/en/book.curl.php)
+
 The following modules are optional, but highly recommended:
 * APC extension for PHP
 * GeoIP extension for PHP
