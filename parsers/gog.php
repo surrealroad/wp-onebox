@@ -32,7 +32,7 @@ function get_gog_data($onebox) {
 	$ID = $regex[2];
 
 	if($ID) {
-		require_once(WP_PLUGIN_DIR.'/onebox/lib/html5lib/library/HTML5/Parser.php');
+		//require_once(WP_PLUGIN_DIR.'/onebox/lib/html5lib/library/HTML5/Parser.php');
 
 		phpQuery::newDocument($onebox->getHTML());
 

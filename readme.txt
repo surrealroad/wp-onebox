@@ -71,7 +71,6 @@ Additional credits
 * [Open Graph Protocol helper for PHP](https://github.com/scottmac/opengraph)
 * [Amazon ECS PHP Library](https://github.com/Exeu/Amazon-ECS-PHP-Library)
 * [forceutf8](https://github.com/neitanod/forceutf8)
-* [html5lib - php flavour](https://github.com/html5lib/html5lib-php)
 * Vanilla template based on "Facebook Notify Widget" by Pixels Daily and [GitHub-jQuery-Repo-Widget](https://github.com/JoelSutherland/GitHub-jQuery-Repo-Widget)
 * Flat template based on "FlatPad" by [Repix Design](http://store.repixdesign.com/)
 * [PHPQuery](https://code.google.com/p/phpquery/)
@@ -134,6 +133,7 @@ You can use any or all of the following:
 * Updated Origin favicon
 * Fallback to using cURL if file_get_contents is disabled (and generate a warning if so)
 * Display an error is no suitable extensions can be found for fetching remote data
+* Removed need for HTML5-lib
 
 = 0.8 =
 * Added eBay parser

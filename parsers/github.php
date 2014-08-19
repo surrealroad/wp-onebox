@@ -27,8 +27,7 @@ function get_github_data($onebox) {
 		$repo = $vendor."/".$repoName;
 		$repoURL = "https://github.com/".$repo;
 
-		$options  = array('http' => array('user_agent' => 'Surreal Road Onebox'));
-		$context  = stream_context_create($options);
+		$header =  array('user_agent' => 'Surreal Road Onebox');
 
 		$infoURL = "https://api.github.com/repos/".$repo;
 		$perpage = 100;
@@ -37,14 +36,14 @@ function get_github_data($onebox) {
 			$infoURL .= "?access_token=".get_option('onebox_github_apikey');
 			$commitsURL .= "&access_token=".get_option('onebox_github_apikey');
 		}
-		@$info = json_decode($onebox->getSource($infoURL), true);
+		@$info = json_decode($onebox->getSource($infoURL, $header), true);
 		$commits = array();
 		$commitCount = -1;
 		$lastsha ="";
 
 		while ($commitCount<0 || (count($commits)-$commitCount)==$perpage) {
 			$commitCount = count($commits);
-			@$json = json_decode($onebox->getSource($commitsURL."&last_sha=".$lastsha), true);
+			@$json = json_decode($onebox->getSource($commitsURL."&last_sha=".$lastsha, $header), true);
 			if(!$json) break;
 			$commits = array_merge($commits, $json);
 			$lastsha = $commits[count($commits)-1]['sha'];

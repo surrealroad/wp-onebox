@@ -147,12 +147,26 @@ class Onebox {
 	}
 
 	// get source text for a URL, using appropriate method
-	public function getSource($url) {
+	public function getSource($url, $header=NULL) {
 		if(self::isFileGetContentsAllowed()) {
-			$source = file_get_contents($url);
+			if($header) {
+				$options  = array('http' => $header);
+				$context  = stream_context_create($options);
+				$source = file_get_contents($url, false, $context);
+			} else {
+				$source = file_get_contents($url);
+			}
+
 		} else { // fall back to cURL
 			// from opengraph helper
 			$curl = curl_init($url);
+			if($header) {
+				$curlHeader  = array();
+				foreach($curlHeader as $key => $value) {
+					$curlHeader[] = $key.": ".$value;
+				}
+				curl_setopt($curl, CURLOPT_HTTPHEADER, $curlHeader);
+			}
 	        curl_setopt($curl, CURLOPT_FAILONERROR, true);
 	        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 	        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
