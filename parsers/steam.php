@@ -36,7 +36,7 @@ function get_steam_data($onebox) {
 	}
 
 	if($ID) {
-		$steamInfo = json_decode(file_get_contents("http://store.steampowered.com/api/".$type."details/?".$type."ids=".$ID."&cc=".$cc), true);
+		$steamInfo = json_decode($onebox->getSource("http://store.steampowered.com/api/".$type."details/?".$type."ids=".$ID."&cc=".$cc), true);
 
 		if(isset($steamInfo[$ID]['data']['name'])) $data['title']= $steamInfo[$ID]['data']['name'];
 

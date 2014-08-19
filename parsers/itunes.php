@@ -41,11 +41,11 @@ function get_itunes_data($onebox) {
 		elseif($country) $cc = $country;
 		else $data['displayurl'] = 'http://target.georiot.com/Proxy.ashx?tsid=2822&GR_URL='.urlencode($url);
 
-		$info = json_decode(file_get_contents("http://itunes.apple.com/lookup?id=".$ID."&country=".$cc), true);
+		$info = json_decode($onebox->getSource("http://itunes.apple.com/lookup?id=".$ID."&country=".$cc), true);
 
 		// test for not available in user's region
 		if(isset($info['resultCount']) && $info['resultCount'] <1 && strtoupper($cc) != strtoupper($country)) {
-			$info = json_decode(file_get_contents("http://itunes.apple.com/lookup?id=".$ID."&country=".$country), true);
+			$info = json_decode($onebox->getSource("http://itunes.apple.com/lookup?id=".$ID."&country=".$country), true);
 			$available = false;
 			$data['displayurl'] = 'http://target.georiot.com/Proxy.ashx?tsid=2822&GR_URL='.urlencode($url);
 		} else {

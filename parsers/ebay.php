@@ -34,7 +34,7 @@ function get_ebay_data($onebox) {
 		if($onebox->affiliateLinks && $data['displayurl']) $displayurl = $data['displayurl'];
 		else $displayurl = $url;
 
-		$info = json_decode(file_get_contents('http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=SurrealR-b1bf-47ab-973c-1768082ac2c8&siteid=0&version=515&ItemID='.$ID.'&IncludeSelector=Description,ItemSpecifics'), true);
+		$info = json_decode($onebox->getSource('http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=SurrealR-b1bf-47ab-973c-1768082ac2c8&siteid=0&version=515&ItemID='.$ID.'&IncludeSelector=Description,ItemSpecifics'), true);
 
 		$additional = array();
 		$footer = array();

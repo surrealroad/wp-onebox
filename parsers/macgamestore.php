@@ -28,7 +28,7 @@ function get_macgamestore_data($onebox) {
 	$ID = $regex[1];
 
 	if($ID) {
-		$mgsInfo = json_decode(file_get_contents("https://www.macgamestore.com/api/price-rating/".$ID."/"), true);
+		$mgsInfo = json_decode($onebox->getSource("https://www.macgamestore.com/api/price-rating/".$ID."/"), true);
 
 		$titlebutton = array();
 		if(isset($mgsInfo['Rating'])) $data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.intval($mgsInfo['Rating']).'</span> ('.intval($mgsInfo['NumRatings']).')</div>';

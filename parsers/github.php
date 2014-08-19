@@ -37,14 +37,14 @@ function get_github_data($onebox) {
 			$infoURL .= "?access_token=".get_option('onebox_github_apikey');
 			$commitsURL .= "&access_token=".get_option('onebox_github_apikey');
 		}
-		@$info = json_decode(file_get_contents($infoURL, false, $context), true);
+		@$info = json_decode($onebox->getSource($infoURL), true);
 		$commits = array();
 		$commitCount = -1;
 		$lastsha ="";
 
 		while ($commitCount<0 || (count($commits)-$commitCount)==$perpage) {
 			$commitCount = count($commits);
-			@$json = json_decode(file_get_contents($commitsURL."&last_sha=".$lastsha, false, $context), true);
+			@$json = json_decode($onebox->getSource($commitsURL."&last_sha=".$lastsha), true);
 			if(!$json) break;
 			$commits = array_merge($commits, $json);
 			$lastsha = $commits[count($commits)-1]['sha'];

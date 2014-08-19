@@ -146,6 +146,28 @@ class Onebox {
         return $this->HTML;
 	}
 
+	// get source text for a URL, using appropriate method
+	public function getSource($url) {
+		if(self::isFileGetContentsAllowed()) {
+			$source = file_get_contents($url);
+		} else { // fall back to cURL
+			// from opengraph helper
+			$curl = curl_init($url);
+	        curl_setopt($curl, CURLOPT_FAILONERROR, true);
+	        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+	        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	        curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+	        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+	        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+	        curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+
+	        $source = curl_exec($curl);
+
+	        curl_close($curl);
+		}
+		return $source;
+	}
+
 	public function getDoc($forceencoding="") {
 		if(!isset($this->doc) && isset($this->data['url'])) {
 			$this->doc = new DomDocument();

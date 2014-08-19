@@ -31,7 +31,7 @@ function get_xivdb_data($onebox) {
 
 	if($version && $lang && $type && $ID) {
 		// get api result
-		$info = json_decode(file_get_contents("http://xivdb.com/modules/fpop/fpop.php?id=".$ID."&lang=".$lang."&type=".$type."&version=".$version), true);
+		$info = json_decode($onebox->getSource("http://xivdb.com/modules/fpop/fpop.php?id=".$ID."&lang=".$lang."&type=".$type."&version=".$version), true);
 
 		if(isset($info['name'])) $data['title']= $info['name'];
 		if(isset($info['icon'])) $data['image']= $info['icon'];
