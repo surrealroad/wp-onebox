@@ -32,12 +32,17 @@ function get_gog_data($onebox) {
 	$ID = $regex[2];
 
 	if($ID) {
-		//require_once(WP_PLUGIN_DIR.'/onebox/lib/html5lib/library/HTML5/Parser.php');
 
 		phpQuery::newDocument($onebox->getHTML());
 
+		$description = pq("read-more .description__text:eq(0)");
+		if($description) {
+			$description->find("b, .description__more")->remove();
+			$data['description'] = $description->text();
+		}
+
 		$additional = array();
-		$genrelist = pq(".game_top ul.game-specification li:eq(0) a");
+		$genrelist = pq(".product-details .product-details__data:eq(0) a");
 		if(count($genrelist)) {
 			$genres = array();
 			foreach($genrelist as $genre) {
@@ -45,27 +50,26 @@ function get_gog_data($onebox) {
 			}
 			$additional[]= __('Genre: ', "onebox").implode(", ", $genres);
 		}
+		$contentRating = pq(".product-details .product-details__data:eq(7)")->text();
+		if($contentRating) $additional[]= trim($contentRating);
 
-		$fullrating = pq(".game_top ul.game-specification li span.usr_rate span.usr_s_f");
-		$halfrating = pq(".game_top ul.game-specification li span.usr_rate span.usr_s_h");
+		$fullrating = pq(".header__rating i.icon-star-full");
+		$halfrating = pq(".header__rating i.icon-star-half");
 		@$rating = $fullrating->length + 0.5 * $halfrating->length;
-		$ratingCountText = pq(".game_top ul.game-specification li span.usr_rate")->parent()->text();
-		preg_match_all('/\d+/', $ratingCountText, $matches); // http://stackoverflow.com/questions/11243447/get-numbers-from-string-with-php
-		@$ratingCount = $matches[0][0];
-		$data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$rating.'</span> ('.intval($ratingCount).')</div>';
+		$ratingCountText = pq(".header__info .header__votes")->text();
+		$data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$rating.'</span> ('.intval($ratingCountText).')</div>';
 
 		$footer = array();
-		$releaseDate = pq(".game_top ul.game-specification li:eq(3) .data")->text();
+		$releaseDate = pq(".product-details .product-details__data:eq(4)")->text();
 		if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$onebox->oneboxdate(strtotime($releaseDate)).'</strong>';
-		$size = pq(".download_size b")->text();
+		$size = pq(".product-details .product-details__data:eq(5)")->text();
 		if($size) $footer[]= __('Download size: ', "onebox").'<strong>'.$size.'</strong>';
 
 
-		$title = pq("title")->text();
-		$regs = array();
-		if (preg_match('/(?<=\$)\d+(\.\d+)?\b/', $title, $regs)) {
-	    	$data['footerbutton']= '<a href="'.$displayurl.'">$'.$regs[0].'</a>';
-		}
+		$salePrice = pq(".module--buy .buy-price--discount:eq(0) .buy-price__new")->text();
+		$buyPrice = pq(".module--buy .buy-price:eq(0)")->text();
+		if($salePrice) $data['footerbutton']= '<a href="'.$displayurl.'">'.$salePrice.'</a>';
+		elseif($buyPrice) $data['footerbutton']= '<a href="'.$displayurl.'">'.$buyPrice.'</a>';
 
 		if(count($additional)) {
 			$data['additional'] = implode("<br/>", $additional);
