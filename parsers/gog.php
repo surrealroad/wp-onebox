@@ -28,7 +28,8 @@ function get_gog_data($onebox) {
 	if($onebox->affiliateLinks) $displayurl = $data['displayurl'];
 	else $displayurl = $onebox->data['url'];
 
-	preg_match('#/(game|gamecard)/(\w+)/?\??#', $url, $regex);
+	preg_match('#/(game|gamecard|movie)/(\w+)/?\??#', $url, $regex);
+	$type = $regex[1];
 	$ID = $regex[2];
 
 	if($ID) {
@@ -38,20 +39,27 @@ function get_gog_data($onebox) {
 		$description = pq("read-more .description__text:eq(0)");
 		if($description) {
 			$description->find("b, .description__more")->remove();
-			$data['description'] = $description->text();
+			if($type == "game" || $type == "gamecard") $data['description'] = $description->text();
+			else {
+				$description->find("br:eq(0)")->remove();
+				$data['description'] = $description->html();
+			}
 		}
 
 		$additional = array();
-		$genrelist = pq(".product-details .product-details__data:eq(0) a");
-		if(count($genrelist)) {
-			$genres = array();
-			foreach($genrelist as $genre) {
-				$genres[]=pq($genre)->text();
+		if($type == "game" || $type == "gamecard") {
+			$genrelist = pq(".product-details .product-details__data:eq(0) a");
+			if(count($genrelist)) {
+				$genres = array();
+				foreach($genrelist as $genre) {
+					$genres[]=pq($genre)->text();
+				}
+				$additional[]= __('Genre: ', "onebox").implode(", ", $genres);
 			}
-			$additional[]= __('Genre: ', "onebox").implode(", ", $genres);
+			$contentRating = pq(".product-details .product-details__data:eq(7)")->text();
+			if($contentRating) $additional[]= trim($contentRating);
 		}
-		$contentRating = pq(".product-details .product-details__data:eq(7)")->text();
-		if($contentRating) $additional[]= trim($contentRating);
+
 
 		$fullrating = pq(".header__rating i.icon-star-full");
 		$halfrating = pq(".header__rating i.icon-star-half");
@@ -60,9 +68,11 @@ function get_gog_data($onebox) {
 		$data['titlebutton']= '<div class="onebox-rating"><span class="onebox-stars">'.$rating.'</span> ('.intval($ratingCountText).')</div>';
 
 		$footer = array();
-		$releaseDate = pq(".product-details .product-details__data:eq(4)")->text();
+		if($type == "game" || $type == "gamecard") $releaseDate = pq(".product-details .product-details__data:eq(4)")->text();
+		else $releaseDate = pq(".product-details .product-details__data:eq(1)")->text();
 		if($releaseDate) $footer[]= __('Released: ', "onebox").'<strong>'.$onebox->oneboxdate(strtotime($releaseDate)).'</strong>';
-		$size = pq(".product-details .product-details__data:eq(5)")->text();
+		if($type == "game" || $type == "gamecard") $size = pq(".product-details .product-details__data:eq(5)")->text();
+		else $size = pq(".product-details .product-details__data:eq(2)")->text();
 		if($size) $footer[]= __('Download size: ', "onebox").'<strong>'.$size.'</strong>';
 
 

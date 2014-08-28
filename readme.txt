@@ -129,7 +129,7 @@ You can use any or all of the following:
 * Live previews are now shown in the visual WordPress editor (requires WordPress 4.0+)
 * Oneboxes can be added via a button in the visual WordPress editor
 * Fixed an issue where Oneboxes might get cropped in some themes with the default CSS
-* Updated Gog.com parser
+* Updated Gog.com parser (and added support for Gog.com movies)
 * Updated Origin favicon
 * Improved OpenGraph parsing
 * Fallback to using cURL if file_get_contents is disabled (and generate a warning if so)
