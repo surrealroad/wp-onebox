@@ -24,9 +24,6 @@ function get_kickstarter_data($onebox) {
 
 	phpQuery::newDocument($onebox->getHTML());
 
-	$data['favicon']=pq("link[rel=apple-touch-icon-precomposed]:first")->attr("href");
-	$data['image']=pq("meta[property=og:image]")->attr("content");
-
 	$title = pq("#title")->text();
 	if($title) $data['title'] = $title;
 
