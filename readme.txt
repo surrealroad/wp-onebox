@@ -1,7 +1,7 @@
 === Onebox ===
 Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda.com, wikipedia, google play, kickstarter, xivdb, final fantasy xiv a realm reborn database, ebay
 Stable tag: 0.8
-Tested up to: 3.9
+Tested up to: 4.0
 
 Onebox: A Fancy Hyperlink Display Plugin for WordPress
 

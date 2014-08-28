@@ -27,7 +27,7 @@
 
 				this.onebox = $('<div class="onebox-container"'+data+'><a href="'+this.url+'">Link</a></div>').onebox();
 				var t = this;
-				this.onebox[0].dfd.done(function(){t.render();});
+				this.onebox[0].dfd.done(function(){t.render(true);});
 			},
 
 			getHtml: function() {
