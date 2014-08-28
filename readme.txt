@@ -131,6 +131,7 @@ You can use any or all of the following:
 * Fixed an issue where Oneboxes might get cropped in some themes with the default CSS
 * Updated Gog.com parser
 * Updated Origin favicon
+* Improved OpenGraph parsing
 * Fallback to using cURL if file_get_contents is disabled (and generate a warning if so)
 * Display an error is no suitable extensions can be found for fetching remote data
 * Removed need for HTML5-lib
