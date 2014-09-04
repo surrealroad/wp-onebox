@@ -7,7 +7,7 @@ What does this plugin do?
 --
 This plugin lets you use a shortcode `[onebox url="http://example.com" title="optional title" description="optional description"]` in place of a link that will display a lovely Facebook/Twitter-style box with additional information about the link.
 
-WordPress has [built-in support](http://en.support.wordpress.com/twitter/twitter-embeds/) for some links like Google+ or Twitter, where it will generate a nice-looking embed from a link or shortcode, but what about other sites? Onebox aims to let you turn any link into an embedded box, with extra features for some special sites, and with a fully customisable HTML template.
+WordPress has [built-in support](http://en.support.wordpress.com/twitter/twitter-embeds/) for some links like Google+ or Twitter, where it will generate a nice-looking embed from a link or shortcode, but what about other sites? Onebox aims to extend this by letting you turn any link into an embedded box, with extra features for some special sites, and with a fully customisable HTML template.
 
 How does the plugin work?
 --
@@ -20,6 +20,7 @@ The source is maintained on GitHub: https://github.com/surrealroad/wp-onebox
 ![Example Onebox for github.com using dark style](screenshot-3.png)
 ![Example Onebox for github.com using dark-flat style](screenshot-4.png)
 ![Plugin admin options screen](screenshot-5.png)
+![Example Onebox in visual editor](screenshot-6.png)
 
 [Live demo](http://onebox.surrealroad.com)
 
@@ -61,7 +62,6 @@ This plugin renders affiliate links for some websites in order to support its de
 
 
 TODO:
-* Comply with WordPress security guidelines
 * Add more parsers
 
 Additional credits

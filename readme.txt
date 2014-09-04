@@ -1,6 +1,6 @@
 === Onebox ===
 Tags: links, prettify, hyperlinks, itunes, steam, gog.com, github, opengraph, twittercard, embed, mac game store, green man gaming, origin, lynda.com, wikipedia, google play, kickstarter, xivdb, final fantasy xiv a realm reborn database, ebay
-Stable tag: 0.8
+Stable tag: 1.0
 Tested up to: 4.0
 
 Onebox: A Fancy Hyperlink Display Plugin for WordPress
@@ -13,7 +13,7 @@ What does this plugin do?
 --
 This plugin lets you use a shortcode `[onebox url="http://example.com" title="optional title" description="optional description"]` in place of a link that will display a lovely Facebook/Twitter-style box with additional information about the link.
 
-WordPress has [built-in support](http://en.support.wordpress.com/twitter/twitter-embeds/) for some links like Google+ or Twitter, where it will generate a nice-looking embed from a link or shortcode, but what about other sites? Onebox aims to let you turn any link into an embedded box, with extra features for some special sites, and with a fully customisable HTML template.
+WordPress has [built-in support](http://en.support.wordpress.com/twitter/twitter-embeds/) for some links like Google+ or Twitter, where it will generate a nice-looking embed from a link or shortcode, but what about other sites? Onebox aims to extend this by letting you turn any link into an embedded box, with extra features for some special sites, and with a fully customisable HTML template.
 
 How does the plugin work?
 --
@@ -63,7 +63,6 @@ This plugin renders affiliate links for some websites in order to support its de
 
 
 TODO:
-* Comply with WordPress security guidelines
 * Add more parsers
 
 Additional credits
@@ -82,7 +81,7 @@ Additional credits
 1. Install the plugin as you would any other WordPress plugin and enable it
 2. Go to Settings > Onebox
 3. Change settings as required
-4. Add a shortcode in the form `[onebox url="http://anything.com"]`. If you want to specify the text for the link as displayed to crawlers (or wherever the Onebox can't be displayed, such as when Javascript is turned off) as well as override the Onebox title, use `[onebox url="http://anything.com" title="anything"]`. Similarly, you can override the description field in the Onebox with `[onebox url="http://anything.com" description="my description for this link"]`.
+4. Click the Onebox button in the WordPress editor toolbar
 
 == Frequently Asked Questions ==
 
@@ -122,12 +121,13 @@ You can use any or all of the following:
 3. Example Onebox for github.com using dark style
 4. Example Onebox for github.com using dark-flat style
 5. Plugin admin options screen
+6. Example Onebox in visual editor
 
 == Changelog ==
-= 0.x =
-* Added Italian localisation (thanks Mte90!)
-* Live previews are now shown in the visual WordPress editor (requires WordPress 4.0+)
+= 1.0 =
+* Live, editable previews are now shown in the visual WordPress editor (requires WordPress 4.0+)
 * Oneboxes can be added via a button in the visual WordPress editor
+* Added Italian localisation (thanks Mte90!)
 * Fixed an issue where Oneboxes might get cropped in some themes with the default CSS
 * Updated Gog.com parser (and added support for Gog.com movies)
 * Updated Origin favicon
